@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_payroll_other_inputs_inherit_tree" model="ir.ui.view">
+            <field name="name">view.employee.payroll.other.inputs.tree</field>
+            <field name="model">hr.payroll.other.input.line</field>
+            <field name="inherit_id" ref="hr_payroll_other_inputs.view_employee_payroll_other_inputs_tree"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="description"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

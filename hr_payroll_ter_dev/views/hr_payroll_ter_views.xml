@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="hr_payroll_ter_tree">
+        <field name="name">TER Line</field>
+        <field name="model">hr.payroll.ter</field>
+        <field name="arch" type="xml">
+            <tree string="TER" editable="bottom">
+                <field name="name"/>
+                <field name="limit_gross"/>
+                <field name="rate" widget="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_ter" model="ir.actions.act_window">
+        <field name="name">TER</field>
+        <field name="res_model">hr.payroll.ter</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_action_hr_payroll_ter"
+              action="action_hr_payroll_ter"
+              parent="hr_payroll_community.menu_hr_payroll_community_configuration"
+              groups="hr_payroll_community.group_hr_payroll_community_manager"
+              name="TER"
+              sequence="51"/>
+</odoo>

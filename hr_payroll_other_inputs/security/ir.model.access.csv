@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payroll_other_input_line_payroll_user,hr.payroll.other.input.line,model_hr_payroll_other_input_line,hr_payroll_community.group_hr_payroll_community_user,1,1,1,1
+access_payroll_other_input_employee_payroll_user,payroll.other.input.employee,model_payroll_other_input_employee,hr_payroll_community.group_hr_payroll_community_user,1,1,1,1
+access_payroll_other_input_employee_line_payroll_user,payroll.other.input.employee.line,model_payroll_other_input_employee_line,hr_payroll_community.group_hr_payroll_community_user,1,1,1,1

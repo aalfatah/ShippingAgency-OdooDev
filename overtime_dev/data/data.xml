@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <!--<record id="hr_salary_rule_overtime_transport" model="hr.salary.rule">
+            <field name="name">Overtime Transport</field>
+            <field name="code">TRNOT</field>
+            <field name="sequence" eval="100"/>
+            <field name="category_id" ref="hr_payroll_community.ALW"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.TRNOT</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">if inputs.TRNOT : result = inputs.TRNOT.amount</field>
+        </record>
+
+        <record id="hr_salary_rule_overtime_meal" model="hr.salary.rule">
+            <field name="name">Overtime Meal</field>
+            <field name="code">MEALOT</field>
+            <field name="sequence" eval="100"/>
+            <field name="category_id" ref="hr_payroll_community.ALW"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.MEALOT</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">if inputs.MEALOT : result = inputs.MEALOT.amount</field>
+        </record>-->
+    </data>
+</odoo>

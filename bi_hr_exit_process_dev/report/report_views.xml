@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_exit" model="report.paperformat">
+        <field name="name">Termination Format</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">25</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">20</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">80</field>
+    </record>
+
+    <record id="bi_hr_exit_process.report_employee_exit_print" model="ir.actions.report">
+        <field name="name">Pengalaman Kerja</field>
+        <field name="model">exit.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_hr_exit_process_dev.report_experience_id</field>
+        <field name="report_file">bi_hr_exit_process_dev.report_experience_id</field>
+        <field name="print_report_name">'%s %s %s' % ('Pengalaman kerja',object.employee_id.name, object.employee_id.nrp)</field>
+        <field name="paperformat_id" ref="bi_hr_exit_process_dev.paperformat_exit"/>
+        <field name="binding_model_id" ref="model_exit_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

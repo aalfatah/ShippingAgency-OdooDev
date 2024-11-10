@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.cron" id="request_exit_process">
+            <field name="name">HR Request Exit Process</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_exit_request"/>
+            <field name="state">code</field>
+            <field name="code">model.sch_req_process()</field>
+        </record>
+    </data>
+</odoo>

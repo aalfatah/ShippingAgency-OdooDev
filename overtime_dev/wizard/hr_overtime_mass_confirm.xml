@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_payslip_mass_confirm" model="ir.ui.view">
+        <field name="name">Submit to Finance</field>
+        <field name="model">hr.overtime.confirm</field>
+        <field name="arch" type="xml">
+        <form string="Confirm Overtime">
+            <p class="oe_grey">
+                    Do you want to Submit to Finance these Overtime ?.
+            </p>
+            <footer>
+                <button name="confirm_overtime" string="Submit to Finance" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="act_confirm_overtime" model="ir.actions.act_window">
+        <field name="name">Submit to Finance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime.confirm</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_overtime" />
+        <field name="binding_view_types">list</field>
+    </record>
+
+
+    <record id="view_payslip_mass_approve" model="ir.ui.view">
+        <field name="name">Approve Overtime</field>
+        <field name="model">hr.overtime.approve</field>
+        <field name="arch" type="xml">
+        <form string="approve Overtime">
+            <p class="oe_grey">
+                    Do you want to Approve these Overtime ?.
+            </p>
+            <footer>
+                <button name="approve_overtime" string="Approve Overtime" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="act_approve_overtime" model="ir.actions.act_window">
+        <field name="name">Approve</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime.approve</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_overtime" />
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <record id="view_payslip_mass_cancel" model="ir.ui.view">
+        <field name="name">Cancel Overtime</field>
+        <field name="model">hr.overtime.cancel</field>
+        <field name="arch" type="xml">
+        <form string="cancel Overtime">
+            <p class="oe_grey">
+                    Do you want to Cancel these Overtime ?.
+            </p>
+            <footer>
+                <button name="cancel_overtime" string="Cancel Overtime" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="act_cancel_overtime" model="ir.actions.act_window">
+        <field name="name">Cancel</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime.cancel</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_overtime" />
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

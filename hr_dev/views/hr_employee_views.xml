@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_employee_dev_tree">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="nrp" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_employee_dev_kanban">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="nrp" />
+            </field>
+        </field>
+    </record>
+
+    <!--<record model="ir.ui.view" id="view_employee_dev_filter">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            &lt;!&ndash; <field name="name" position="after">
+                <field name="nrp" />
+            </field> &ndash;&gt;
+            <xpath expr="//search" position="replace">
+                <search string="Employees">
+                    <field name="name" string="Employee" filter_domain="['|', ('work_email', 'ilike', self), ('name', 'ilike', self)]"/>
+                    <field name="nrp" />
+                    <field name="category_ids" groups="hr.group_hr_user"/>
+                    <field name="job_id"/>
+                    <separator/>
+                    <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction', '=', True)]"/>
+                    <separator/>
+                    <filter invisible="1" string="Late Activities" name="activities_overdue"
+                        domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter invisible="1" string="Today Activities" name="activities_today"
+                        domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                        domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_manager" string="Manager" domain="[]" context="{'group_by': 'parent_id'}"/>
+                        <filter name="group_department" string="Department" domain="[]" context="{'group_by': 'department_id'}"/>
+                        <filter name="group_job" string="Job" domain="[]" context="{'group_by': 'job_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                        <field name="department_id" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+
+            </xpath>
+        </field>
+    </record>-->
+
+    <record model="ir.ui.view" id="view_employee_dev_form">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="name" position="after">
+                <field name="nrp" style="margin-left:20px;" placeholder="NRP"/>
+            </field>
+            <field name="work_location_id" position="after">
+                <field name="area_id"/>
+                <field name="customer_id" options="{'no_create': True}"/>
+            </field>
+            <field name="identification_id" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+            <field name="identification_id" position="after">
+                <field name="npwp" readonly="0"/>
+            </field>
+            <field name="gender" position="after">
+                <field name="religion"/>
+            </field>
+            <field name="certificate" position="after">
+                <field name="study_degree_id" options="{'no_create': True}"/>
+            </field>
+            <group name="identification_group" position="inside">
+                <field name="nrp_external"/>
+            </group>
+        </field>
+    </record>
+
+    <!--<record model="ir.ui.view" id="view_employee_form">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_employee_updation.hr_employee_inherit_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='personal_information']/group[@name='fam_ids']" position="replace">
+            </xpath>
+            <field name="joining_date" position="after">
+                <field name="status_karyawan"/>
+                <field name="kartap_date"/>
+                <field name="lama_kerja"/>
+            </field>
+        </field>
+    </record>-->
+
+    <!--<menuitem
+        id="menu_hr_operations_dev"
+        name="Operations"
+        parent="hr.menu_hr_root"
+        sequence="10"/>-->
+
+    <record model="ir.ui.view" id="hr_graph_view_employees">
+        <field name="name">Employee Graph View</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+              <graph string="Employee By Department" type="pie">
+                <field name="department_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+        <field name="view_mode">kanban,tree,form,graph,activity</field>
+    </record>
+</odoo>

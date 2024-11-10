@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.api</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Travel" string="Travel" data-key="bi_employee_travel" groups="bi_employee_travel.hr_travel_manager_id">
+                    <h2>Travel Setting</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <div class="content-group">
+                                    <field name="disallow_multi_travel" nolabel="1"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="disallow_multi_travel"/>
+                                <div class="text-muted">
+                                    Disallow multiple un-settled travel
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Approval</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="pemberi_tugas_id"/>
+                                <div class="content-group">
+                                    <field name="pemberi_tugas_id" nolabel="1" widget="many2many_tags"/>
+                                </div>
+                                <div class="text-muted">
+                                    Employee Pemberi Tugas
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="mengetahui_id"/>
+                                <div class="content-group">
+                                    <field name="mengetahui_id" nolabel="1" widget="many2many_tags"/>
+                                </div>
+                                <div class="text-muted">
+                                    Employee Mengetahui
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+
+                    <h2>Declaration Reminder</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-4 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="declaration_reminder_1"/>
+                                <div class="content-group">
+                                    <field name="declaration_reminder_1" nolabel="1"/>
+                                </div>
+                                <div class="text-muted">
+                                    First Reminder
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="declaration_reminder_2"/>
+                                <div class="content-group">
+                                    <field name="declaration_reminder_2" nolabel="1"/>
+                                </div>
+                                <div class="text-muted">
+                                    Second Reminder
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="declaration_reminder_3"/>
+                                <div class="content-group">
+                                    <field name="declaration_reminder_3" nolabel="1"/>
+                                </div>
+                                <div class="text-muted">
+                                    Third Reminder
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="declaration_reminder_user_id"/>
+                                <div class="content-group">
+                                    <field name="declaration_reminder_user_id" nolabel="1" widget="many2many_tags"/>
+                                </div>
+                                <div class="text-muted">
+                                    Cc Email Reminder
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="travel_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'bi_employee_travel'}</field>
+    </record>
+
+    <menuitem id="travel_menu_configuration"
+        name="Settings"
+        parent="config_menu"
+        sequence="0"
+        action="travel_config_settings_action"
+        groups="bi_employee_travel.hr_travel_manager_id"/>
+
+</odoo>

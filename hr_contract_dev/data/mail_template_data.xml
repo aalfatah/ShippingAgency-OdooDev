@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_template_contract_monitoring" model="mail.template">
+            <field name="name">Contract Monitoring</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_from">admin@domain.com</field>
+            <field name="email_to"></field>
+            <field name="partner_to"></field>
+            <field name="subject">Employee Contract Monitoring</field>
+            
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <strong>Contract Monitoring Report</strong>
+                        <br/><br/>
+                    </p>
+                </div>
+            </field>
+            <field name="lang"></field>
+            <field name="mail_server_id"></field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

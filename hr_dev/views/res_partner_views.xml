@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_hr" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_dev.view_partner_form_dev"/>
+            <field name="arch" type="xml">
+                <page name="employee" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </page>
+                <group name="employee" position="inside">
+                    <field name="employee"/>
+                    <field name="identification_id" attrs="{'invisible': [('employee','=',False)]}"/>
+                </group>
+            </field>
+        </record>
+
+        <record id="res_partner_view_form_private_hr" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_dev.res_partner_view_form_private_dev"/>
+            <field name="arch" type="xml">
+                <group name="employee" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </group>
+                <field name="vat" position="before">
+                    <field name="employee"/>
+                    <field name="identification_id" attrs="{'invisible': [('employee','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

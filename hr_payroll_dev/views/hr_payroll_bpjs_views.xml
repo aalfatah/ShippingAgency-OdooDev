@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="hr_payroll_bpjs_tree">
+        <field name="name">BPJS List</field>
+        <field name="model">hr.payroll.bpjs</field>
+        <field name="arch" type="xml">
+            <tree string="BPJS" editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="bpjs_type"/>
+                <field name="unit_kerja"/>
+                <field name="rate_company"/>
+                <field name="rate_employee"/>
+                <field name="min_upah"/>
+                <field name="max_upah"/>
+                <!--<field name="validity_start"/>
+                <field name="validity_end"/>-->
+                <!--<field name="active"  invisible="1"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_payroll_bpjs_form">
+        <field name="name">BPJS Form</field>
+        <field name="model">hr.payroll.bpjs</field>
+        <field name="arch" type="xml">
+            <form string="BPJS">
+                <sheet>
+                    <!--<widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>-->
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="bpjs_type"/>
+                            <field name="unit_kerja"/>
+                            <!--<field name="validity_start"/>
+                            <field name="validity_end"/>-->
+                            <!--<field name="active"  invisible="1"/>-->
+                        </group>
+                        <group>
+                            <field name="rate_company"/>
+                            <field name="rate_employee"/>
+                            <field name="min_upah"/>
+                            <field name="max_upah"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_payroll_bpjs_search">
+        <field name="name">BPJS</field>
+        <field name="model">hr.payroll.bpjs</field>
+        <field name="arch" type="xml">
+            <search string="BPJS Search">
+                <field name="name"/>
+                <!--<filter string="Archived" name="archived" domain="[('active', '=', False)]"/>-->
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_bpjs" model="ir.actions.act_window">
+        <field name="name">BPJS</field>
+        <field name="res_model">hr.payroll.bpjs</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_payroll_bpjs"
+            action="action_hr_payroll_bpjs"
+            parent="hr_payroll_community.menu_hr_payroll_community_configuration"
+            name="BPJS"
+            sequence="53"/>
+</odoo>

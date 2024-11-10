@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="resource_calendar_leaves_action_from_calendar" model="ir.actions.act_window">
+        <field name="name">Resource Time Off</field>
+        <field name="res_model">resource.calendar.leaves</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="context">{}</field>
+        <field name="domain">[('resource_id','=',False),('calendar_id','=',False)]</field>
+        <field name="search_view_id" ref="resource.view_resource_calendar_leaves_search"/>
+    </record>
+
+    <record id="hr_overtime_form_view_dev" model="ir.ui.view">
+        <field name="name">HR Overtime</field>
+        <field name="model">hr.overtime</field>
+        <field name="inherit_id" ref="ohrms_overtime.hr_overtime_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="%(resource_calendar_leaves_action_from_calendar)d" type="action"
+                                string="Public Holiday" icon="fa-plane"
+                                class="oe_stat_button"/>
+                </div>
+            </xpath>
+            <field name="payslip_paid" position="replace">
+                <label for="payslip_paid" attrs="{'invisible': [('type','!=', 'cash')]}"/>
+                <div class="o_row" attrs="{'invisible': [('type','!=', 'cash')]}">
+                    <field name="payslip_paid" class="oe_inline" readonly="1" widget="toggle_button"/>
+                    <field name="payslip_period" class="oe_inline"/>
+                </div>
+            </field>
+            <field name="contract_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+                <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+            </field>
+            <field name="type" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="attendance_ids" position="attributes">
+                <attribute name="force_save">True</attribute>
+            </field>
+             <field name="duration_type" position="attributes">
+                <!--<attribute name="invisible">True</attribute>-->
+                <attribute name="widget">radio</attribute>
+                <attribute name="options">{'horizontal': true}</attribute>
+            </field>
+            <button name="approve" position="attributes">
+                <attribute name="groups">overtime_dev.group_overtime_manager</attribute>
+            </button>
+            <xpath expr="//header" position="inside">
+                <button name="cancel" string="Cancel" type="object" class="btn-secondary"
+                        attrs="{'invisible': [('state', '!=', ('f_approve'))]}"/>
+                <button name="cancel" string="Cancel" type="object" class="btn-secondary"
+                        attrs="{'invisible': ['|', ('state', 'not in', ('approved','refused')), ('payslip_period', '!=', False)]}"
+                        groups='overtime_dev.group_overtime_manager'/>
+            </xpath>
+            <!--<field name="overtime_type_id" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </field>
+
+            <field name="overtime_type_id" position="after">
+                <field name="rate_hours"  groups="hr.group_hr_user"  attrs="{'readonly': [('state', '!=', 'f_approve')],
+                                 'invisible': [('state', '=', 'draft')], 'required': [('state', '=', 'f_approve')]}"/>
+            </field>-->
+
+            <field name='overtime_type_id' position="replace">
+                <field name='overtime_type_id' groups="hr.group_hr_user"  attrs="{'readonly': [('state', '!=', 'f_approve')], 'invisible': [('state', '=', 'draft')]}" options="{'no_open': True, 'no_create': True}"/>
+                <field name="rate_hours"  groups="hr.group_hr_user"  attrs="{'readonly': [('state', '!=', 'f_approve')], 'invisible': [('state', '=', 'draft')], 'required': [('state', '=', 'f_approve')]}"/>
+            </field>
+
+            <field name="days_no_tmp" position="replace"/>
+            <field name="days_no_tmp" position="replace">
+                <field name="days_no_tmp" string="Hours" attrs="{'invisible': [('duration_type', 'in', ('days','period'))]}" widget="float_time"/>
+                <field name="days_no_tmp" string="Days" attrs="{'invisible': [('duration_type', 'in', ('hours','period'))]}"/>
+                <field name="days_no_tmp_period" string="Hours" attrs="{'invisible': [('duration_type', 'in', ('hours','days'))]}" widget="float_time"/>
+            </field>
+
+            <field name="cash_hrs_amount" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('state', '=', 'draft'),('type','!=', 'cash'),('duration_type','=','days')]}</attribute>
+                <attribute name="force_save">1</attribute>
+                <attribute name="groups">hr_payroll_community.group_hr_payroll_community_user,hr_payroll_community.group_hr_payroll_community_manager</attribute>
+            </field>
+            <field name="cash_day_amount" position="attributes">
+                <attribute name="groups">hr_payroll_community.group_hr_payroll_community_user,hr_payroll_community.group_hr_payroll_community_manager</attribute>
+            </field>
+
+            <xpath expr="//field[@name='public_holiday']/../.." position="replace">
+                <group>
+                    <separator string="Public Holiday"/>
+                    <field name="public_holiday" force_save="1"/>
+                </group>
+            </xpath>
+
+            <!--<field name="work_schedule" position="attributes">
+                <attribute name='invisible'>True</attribute>
+            </field>
+
+            <xpath expr="//page[4]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>-->
+        </field>
+    </record>
+
+    <record id="hr_overtime_tree_view_dev" model="ir.ui.view">
+        <field name="name">HR Overtime</field>
+        <field name="model">hr.overtime</field>
+        <field name="inherit_id" ref="ohrms_overtime.hr_overtime_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="days_no_tmp" position="attributes">
+                <attribute name="widget">float_time</attribute>
+            </field>
+            <field name="days_no_tmp" position="after">
+                <field name="rate_hours"  groups="hr.group_hr_user"  attrs="{'readonly': [('state', '!=', 'f_approve')],
+                                 'invisible': [('state', '=', 'draft')], 'required': [('state', '=', 'f_approve')]}"/>
+                <field name="cash_hrs_amount" groups='hr_payroll_community.group_hr_payroll_community_user,hr_payroll_community.group_hr_payroll_community_manager'
+                       attrs="{'readonly': [('state', '!=', 'f_approve')], 'invisible': [('state', '=', 'draft')], 'required': [('state', '=', 'f_approve')]}"/>
+            </field>
+            <field name="payslip_paid" position="after">
+                <field name="payslip_period" optional="hide" readonly="1" attrs="{'invisible': [('type','!=', 'cash')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_overtime_pivot_view_dev" model="ir.ui.view">
+        <field name="name">HR Overtime</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <pivot string="HR Overtime" sample="1">
+                <field name='employee_id' type="row"/>
+                <field name='date_from'  type="row"/>
+                <field name='state'  type="col"/>
+                <field name='cash_hrs_amount'  type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="hr_overtime_calendar_view_dev" model="ir.ui.view">
+        <field name="name">HR Overtime</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <calendar date_start="date_from" date_stop="date_to" mode="month" string="Overtime" color="color" event_limit="5" >
+                <field name="employee_id"/>
+                <field name="days_no_tmp"/>
+                <field name='state'/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="hr_overtime_search_dev" model="ir.ui.view">
+        <field name="name">HR Overtime</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <search string="Overtime Search">
+                <field name="date_from"/>
+                <field name="name"/>
+                <separator/>
+                <filter name="this_month" string="This Month" domain="[('date_from','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date_from','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                <filter name="last_month" string="Last Month" domain="[('date_from','&gt;=',(context_today()-relativedelta(months=1)).strftime('%%Y-%%m-01')),('date_from','&lt;',time.strftime('%%Y-%%m-01'))]"/>
+                <separator/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="waiting" string="Waiting" domain="[('state', '=', 'f_approve')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                    <filter string="Period Payslip" name="payslip_period" context="{'group_by':'payslip_period'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="ohrms_overtime.hr_overtime_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,form,pivot,calendar</field>
+    </record>
+
+</odoo>

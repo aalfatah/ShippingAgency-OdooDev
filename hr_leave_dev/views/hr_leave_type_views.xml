@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+	<record id="hr_leave_type_dev" model="ir.ui.view">
+	    <field name="name">hr.leave.type</field>
+	    <field name="model">hr.leave.type</field>
+	    <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+	    <field name="arch" type="xml">
+	        <xpath expr="//field[@name='request_unit']" position="replace">
+				<field name="request_unit" widget="radio" options="{'horizontal': true}"/>
+	            <field name="validity_by" widget="radio" options="{'horizontal': true}"/>
+	            <field name="allocation_by" widget="radio" options="{'horizontal': true}"
+					   attrs="{'invisible': [('validity_by','=','type')]}"/>
+				<!--<label for="initiate_leave_quota" attrs="{'invisible': [('validity_by','!=','allocation')]}"/>-->
+					<!--<div class="o_row" attrs="{'invisible': [('validity_by','!=','allocation')]}">-->
+				<field name="leave_quota" attrs="{'invisible': [('validity_by','!=','allocation')]}"/>
+				<field name="initiate_leave_quota" attrs="{'invisible': [('validity_by','!=','allocation')]}"/>
+					<!--</div>-->
+	        </xpath>
+			<group name="leave_validation" position="before">
+				 <group name="validity" string="Validity" attrs="{'invisible': [('validity_by','=','allocation')]}">
+					<field name="validity_start"/>
+					<field name="validity_stop"/>
+				</group>
+				<group string="Validity" attrs="{'invisible': [('validity_by','!=','allocation')]}">
+					<label for="validity_interval"/>
+					<div class="o_row">
+						<field name="validity_interval" nolabel="1" help="Validity of the leave type"/><span>Months</span>
+					</div>
+					<label for="repeated_frequency"/>
+					<div class="o_row">
+						<field name="repeated_frequency" nolabel="1"/><span>Months</span>
+					</div>
+					<!--<field name="auto_generate_allocation" attrs="{'invisible': [('validity_by','!=','allocation')]}"/>-->
+				</group>
+			</group>
+	    </field>
+	</record>
+</odoo>

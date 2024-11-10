@@ -1,0 +1,116 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<odoo>
+    <record id="view_exit_req_tree_dev" model="ir.ui.view">
+        <field name="name">exit.request.tree.dev</field>
+        <field name="model">exit.request</field>
+        <field name="inherit_id" ref="bi_hr_exit_process.view_exit_req_tree_1"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="employee_id"/>
+            </field>
+            <field name="user_id" position="replace"/>
+            <xpath expr="//field[last()]" position="after">
+                <field name="state"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_exit_req_dev_form" model="ir.ui.view">
+        <field name="name">exit.request.dev.form</field>
+        <field name="model">exit.request</field>
+        <field name="inherit_id" ref="bi_hr_exit_process.view_exit_req_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/h2" position="replace">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+            <field name="reason" position="before">
+                <field name="resignation_type" attrs="{'readonly' : [('state','!=','draft')]}"/>
+            </field>
+            <xpath expr="//notebook/page/group/field[@name='checklist_ids']" position="replace"/>
+            <xpath expr="//form/sheet/group" position="replace">
+                <group>
+                    <group>
+                        <field name="employee_id" attrs="{'readonly' : [('state','!=','draft')]}"
+                               options="{'no_open': True, 'no_create': True}"/>
+                        <field name="joined_date"/>
+                        <field name="req_date" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                        <field name="last_date" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                        <field name="notice_period" invisible="1"/>
+                    </group>
+                    <group>
+                        <!--<field name="department_manager_id" attrs="{'readonly' : [('state','!=','draft')]}" options="{'no_open': True, 'no_create': True}"/>-->
+                        <!--<field name="department_manager_id" attrs="{'readonly' : True}" options="{'no_open': True, 'no_create': True}"/>-->
+                        <field name='department_id' attrs="{'readonly' : True}" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="job_title_id" attrs="{'readonly' : True}" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="area_id" attrs="{'readonly' : True}" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="survey_id" attrs="{'readonly' : [('state','!=','draft')]}" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="response_id" invisible="1"/>
+                        <field name="user_id" attrs="{'readonly' : [('state','!=','draft')]}" options="{'no_open': True, 'no_create': True}"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Checklist">
+                    <group>
+                        <field name="checklist_ids" attrs="{'readonly' : [('state','!=','draft')]}" options="{'no_create':False}"  context="{'default_employee_id': employee_id}"/>
+                    </group>
+                </page>
+                <page string="Approval" name="approval">
+                    <group>
+                        <group>
+                            <field name="confirmed_by_id"/>
+                            <field name="approved_by_dept_manager_id"/>
+                            <field name='approved_by_hr_manager_id'/>
+                            <field name="approved_by_hr_genral_id"/>
+                        </group>
+                        <group>
+                            <field name="confirm_date"/>
+                            <field name="approve_date_dept_manager"/>
+                            <field name="approve_date_hr_manager"/>
+                            <field name="approve_date_gen_manager"/>
+                        </group>
+                    </group>
+                    <group string="Contact" id="contact" col='2'>
+                        <field name="partner_id" attrs="{'readonly' : [('state','!=','draft')]}" options="{'no_open': True, 'no_create': True}"/>
+                    </group>
+                </page>
+                <page string="Payroll" name="payroll">
+                    <group>
+                        <group col="2">
+                            <field name="pending_payroll"/>
+                            <field name="last_payroll_date" attrs="{'invisible':[('pending_payroll','=',False)], 'readonly':[('state','!=','draft')], 'required':[('pending_payroll','=',True)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_cancel" string="Cancel" type="object" states="done,confirm,approved_dept,approved_hr,approved_gen" class="btn-secondary" groups="bi_hr_exit_process.hr_exit_general_manager_id" style="margin-left:5px;"/>
+            </xpath>
+            <xpath expr="//notebook/page[2]" position="replace"/>
+
+            <xpath expr="//sheet" position="after" >
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_exit_req_search" model="ir.ui.view">
+        <field name="name">exit.request.search</field>
+        <field name="model">exit.request</field>
+        <field name="arch" type="xml">
+            <search string="Exit Request">
+                <field name="employee_id"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+</odoo>

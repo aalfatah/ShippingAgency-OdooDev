@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_travel_request,access.travel.request,bi_employee_travel.model_travel_request,bi_employee_travel.hr_travel_manager_id,1,1,1,1
+access_travel_mode,access.travel.mode,bi_employee_travel.model_travel_mode,bi_employee_travel.hr_travel_manager_id,1,1,1,1
+access_travel_expense,access_travel_expense,bi_employee_travel.model_travel_expense,bi_employee_travel.hr_travel_manager_id,1,1,1,1

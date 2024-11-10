@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="act_payslip_run_lines" model="ir.actions.act_window">
+            <field name="name">Payslip Details</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="context">{}</field>
+    </record>
+
+    <record id="view_hr_payslip_run_form_dev" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.dev</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll_community.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <button name="close_payslip_run" position="after">
+                <button name="close_payslip_run" type="object" string="Close (No Recompute)" states="draft" context="{'no_recompute': True}"/>
+            </button>
+            <xpath expr="//header" position="inside">
+                <button name="action_export_to_excel" string="Export to Excel" type="object" class="btn-secondary"/>
+            </xpath>
+            <xpath expr="//sheet/label" position='before'>
+                <div class="oe_button_box" name="button_box">
+                    <button name="%(act_payslip_run_lines)d"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        type="action"
+                        context="{'search_default_payslip_run_id': id}">
+                        <!--context="{'search_default_payslip_run_id': id}">'default_payslip_run_id': id,-->
+                        <field name="payslip_count" widget="statinfo" string="Payslips" help="Payslip Details"/>
+                    </button>
+                </div>
+            </xpath>
+            <separator position="attributes">
+                <attribute name="invisible">1</attribute>
+            </separator>
+            <field name="slip_ids" position="replace">
+                <notebook>
+                    <page string="Payslips">
+                        <field name="slip_ids">
+                            <tree string="Payslips">
+                                <field name="number"/>
+                                <field name="employee_id"/>
+                                <field name="name"/>
+                                <!--<field name="customer_id"/>
+                                <field name="area_id"/>
+                                <field name="account_analytic_id"/>
+                                <field name="cost_category_id"/>-->
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="state"/>
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                <field name="payslip_run_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <!--<page string="Other Informations" >
+                        <group>
+                            <group string="BPJS Payment Date">
+                                <field name="bpjs_kes_payment_date" string="Kesehatan"/>
+                                <field name="bpjs_tk_payment_date" string="Ketenagakerjaan"/>
+                            </group>
+                            <group string="Productivity This Month">
+                                <field name="revenue_amount"/>
+                                <field name="total_employees"/>
+                                <field name="productivity"/>
+                            </group>
+                        </group>
+                    </page>-->
+                </notebook>
+            </field>
+        </field>
+    </record>
+
+</odoo>

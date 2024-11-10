@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="travel_advance_declaration_reminder" model="mail.template">
+            <field name="name">Travel Advance Declaration Reminder</field>
+            <field name="subject">Deklarasi Cash Advance Reminder ${object.employee_id.name}</field>
+            <field name="model_id" ref="model_travel_request"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_to">${object.employee_id.work_email|safe}</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="email_cc">${object.mail_reminder|safe}</field>
+            <field name="body_html">
+                <![CDATA[
+                Travel cash advance anda sudah jatuh tempo, silahkan di deklarasi.<br/>
+                No Advance: ${object.name} <br/>
+                Tanggal Return: ${object.return_date_str} <br/>
+                Nilai Advance: ${object.nilai_advance_str} <br/>
+                <br/>
+                <br/>
+                Odoo
+                ]]>
+            </field>
+        </record>
+
+        <record id="process_travel_request_reminder" model="ir.cron">
+            <field name="name">Travel Request Reminder</field>
+            <field name="model_id" ref="model_travel_request"/>
+            <field name="state">code</field>
+            <field name="code">model._reminder_send_email()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

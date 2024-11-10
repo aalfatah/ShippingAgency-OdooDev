@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--<menuitem id="menu_resignation" name="Termination" parent="hr_tbd.menu_hr_operations_tbd"
+              sequence="3" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+    <menuitem id="employee_resignation_request" parent="menu_resignation" name="Termination Request"
+              action="hr_resignation.view_employee_resignation" groups="base.group_user" sequence="1"/>
+
+    <menuitem id="employee_resignation_approved" parent="menu_resignation" name="Approved Termination"
+              action="hr_resignation.view_approved_resignation" groups="hr.group_hr_user" sequence="2"/>-->
+
+    <menuitem id="bi_hr_exit_process.sub_menu_employee_exit" active="false"/>
+    <menuitem id="menu_resignation" name="Termination" parent="hr_dev.menu_hr_operations_tbd"
+              sequence="3" groups="hr.group_hr_manager,hr.group_hr_user"/>
+    <menuitem id="bi_hr_exit_process.menu_employee_exit" parent="menu_resignation"
+              name="Request" sequence="3"/>
+    <menuitem id="bi_hr_exit_process.menu_employee_exit_checklist" parent="menu_resignation"
+              name="Checklist"/>
+
+    <!--<menuitem id="termination_configuration" name="Termination" parent="hr.menu_human_resources_configuration"
+        sequence="99" groups="base.group_system"/>-->
+
+	<menuitem id="bi_hr_exit_process.menu_employee_exit_checklist_config" parent="hr_dev.others_configuration"
+              name="Termination Checklist" sequence="99"/>
+</odoo>

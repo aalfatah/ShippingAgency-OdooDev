@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hr_payslip_resign" model="ir.ui.view">
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <!--<xpath expr="//notebook/page[last()]" position="before">
+                <page string="Termination Information" attrs="{'invisible':[('exit_request_id','=',False)]}">
+                    <group>
+                        <group>
+                            <field name="exit_request_id"/>
+                            <field name="resign_date"/>
+                            <field name="resign_last_payroll" attrs="{'invisible':[('resign_last_payroll','=',False)]}"/>
+                            <field name="resign_state"/>
+                        </group>
+                        <group>
+                            <field name="resign_exclude_contract"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>-->
+            <xpath expr="//notebook/page[last()]/group" position="inside">
+                <group string="Termination Payslip">
+                    <field name="resign_date"/>
+                    <field name="resign_this_period" invisible="True"/>
+                    <field name="resign_work_days" attrs="{'invisible': [('resign_this_period', '=', False)]}"/>
+                    <field name="pay_resign_proportional" widget="percentage" attrs="{'invisible': [('resign_this_period', '=', False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate='1'>
+		<record id="ir_seq_payroll_other_input" model="ir.sequence">
+			<field name="name">Payroll Other Input Sequence</field>
+			<field name="code">payroll.other.input.seq</field>
+			<field name="prefix">REQ/OTHER/</field>
+			<field name="suffix"></field>
+			<field name="padding">5</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+	</data>
+</odoo>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_overtime_type_form_view_dev" model="ir.ui.view">
+            <field name="name">Overtime Type Dev</field>
+            <field name="model">overtime.type</field>
+            <field name="inherit_id" ref="ohrms_overtime.hr_overtime_type_form_view"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="day_type"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_overtime_type_tree_view_dev" model="ir.ui.view">
+            <field name="name">Overtime Type Dev</field>
+            <field name="model">overtime.type</field>
+            <field name="inherit_id" ref="ohrms_overtime.hr_overtime_type_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="day_type"/>
+                    <field name="type"/>
+                    <field name="duration_type"/>
+                </field>
+            </field>
+        </record>
+
+        <menuitem id="overtime_config" name="Configuration" parent="ohrms_overtime.overtime_submenu"
+                  groups="hr.group_hr_manager" sequence="10"/>
+
+        <menuitem id="ohrms_overtime.overtime_type_submenu" name="Overtime Types"
+                  parent="overtime_config"
+                  groups="overtime_dev.group_overtime_manager"
+                  action="ohrms_overtime.hr_overtime_type_action" sequence="2"/>
+    </data>
+</odoo>

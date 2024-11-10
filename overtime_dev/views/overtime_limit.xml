@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_overtime_limit_form_view_dev" model="ir.ui.view">
+            <field name="name">Overtime limit</field>
+            <field name="model">hr.overtime.limit</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Limit">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="alokasi_pembebanan"/>
+                                <field name="customer_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="customer_user_id" options="{'no_open': True, 'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="job_penagihan_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="area_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="hours_max"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_overtime_limit_tree_view" model="ir.ui.view">
+            <field name="name">Overtime Limit</field>
+            <field name="model">hr.overtime.limit</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="alokasi_pembebanan"/>
+                    <field name="customer_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="customer_user_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="job_penagihan_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="area_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="hours_max"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_overtime_limit_action" model="ir.actions.act_window">
+            <field name="name">Overtime Limit</field>
+            <field name="res_model">hr.overtime.limit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create new Overtime limit.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="overtime_limit_menu" name="Overtime Limit"
+                  parent="overtime_config"
+                  groups="hr_holidays.group_hr_holidays_user"
+                  action="hr_overtime_limit_action" sequence="3"/>
+
+    </data>
+</odoo>

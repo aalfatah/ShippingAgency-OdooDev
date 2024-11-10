@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- RESOURCE.CALENDAR.LEAVES -->
+    <record id="view_resource_calendar_leaves_search_dev" model="ir.ui.view">
+        <field name="name">resource.calendar.leaves.search.dev</field>
+        <field name="model">resource.calendar.leaves</field>
+        <field name="inherit_id" ref="resource.view_resource_calendar_leaves_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="religion"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="resource_calendar_leave_form_dev" model="ir.ui.view">
+        <field name="name">resource.calendar.leaves.form.dev</field>
+        <field name="model">resource.calendar.leaves</field>
+        <field name="inherit_id" ref="resource.resource_calendar_leave_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="religion"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="resource_calendar_leave_tree_dev" model="ir.ui.view">
+        <field name="name">resource.calendar.leaves.tree.dev</field>
+        <field name="model">resource.calendar.leaves</field>
+        <field name="inherit_id" ref="resource.resource_calendar_leave_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="religion"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="hr_payroll_pkp_tree">
+        <field name="name">PKP List</field>
+        <field name="model">hr.payroll.pkp</field>
+        <field name="arch" type="xml">
+            <tree string="PKP" editable="bottom">
+                <field name="name"/>
+                <field name="max_income"/>
+                <field name="tax_rate_npwp"/>
+                <field name="tax_rate_no_npwp"/>
+                <!--<field name="validity_start"/>
+                <field name="validity_end"/>-->
+                <!--<field name="active" invisible="1"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_payroll_pkp_form">
+        <field name="name">PKP Form</field>
+        <field name="model">hr.payroll.pkp</field>
+        <field name="arch" type="xml">
+            <form string="Tax Status">
+                <sheet>
+                    <!--<widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>-->
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="max_income"/>
+                            <field name="tax_rate_npwp"/>
+                            <field name="tax_rate_no_npwp"/>
+                        </group>
+                        <group>
+                            <!--<field name="validity_start"/>
+                            <field name="validity_end"/>-->
+                            <!--<field name="active"  invisible="1"/>-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_payroll_pkp_search">
+        <field name="name">PKP</field>
+        <field name="model">hr.payroll.pkp</field>
+        <field name="arch" type="xml">
+            <search string="PKP Search">
+                <field name="name"/>
+                <!--<filter string="Archived" name="archived" domain="[('active', '=', False)]"/>-->
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_pkp" model="ir.actions.act_window">
+        <field name="name">PKP</field>
+        <field name="res_model">hr.payroll.pkp</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_payroll_pkp"
+            action="action_hr_payroll_pkp"
+            parent="hr_payroll_community.menu_hr_payroll_community_configuration"
+            name="PKP"
+            sequence="52"/>
+
+
+
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_wage_hours_view">
+            <field name="name">hr.contract.wage.form.inherit.view</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="ohrms_overtime.hr_contract_overtime_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='allowances']" position="after">
+                    <group string="Python Code" invisible="0">
+                        <field name="wage_hours_python_compute"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

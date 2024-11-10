@@ -1,0 +1,52 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<odoo>
+
+	<record id="view_travel_type_tree" model="ir.ui.view">
+	    <field name="name">travel.type.tree</field>
+	    <field name="model">travel.type</field>
+	    <field name="priority">2</field>
+	    <field name="arch" type="xml">
+	        <tree string="Travel Type" editable="bottom">
+	            <field name="name"/>
+	            <!--<field name="claimable"/>
+	            <field name="show_leave"/>-->
+	        </tree>
+	    </field>
+	</record>
+
+	<record id="view_travel_type_form" model="ir.ui.view">
+	    <field name="name">travel.type.form</field>
+	    <field name="model">travel.type</field>
+	    <field name="priority">2</field>
+	    <field name="arch" type="xml">
+	        <form string="Travel Type">
+	        	<sheet>
+	        		<group>
+		        		<group>
+				            <field name="name"/>
+				            <!--<field name="claimable"/>
+				            <field name="show_leave"/>-->
+				        </group>
+				        <group></group>
+				    </group>
+		        </sheet>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="action_travel_type" model="ir.actions.act_window">
+        <field name="name">Travel Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">travel.type</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"></p>
+            <p></p>
+        </field>
+    </record>
+
+    <menuitem id="config_menu" name="Configuration" sequence="100" parent="bi_employee_travel.travel_main_menu"/>
+
+    <menuitem action="action_travel_type" id="menu_travel_type" parent="config_menu"
+              name="Travel Type" sequence="1" groups="bi_employee_travel.hr_travel_manager_id"/>
+</odoo>

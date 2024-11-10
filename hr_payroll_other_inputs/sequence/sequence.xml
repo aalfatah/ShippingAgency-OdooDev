@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate='1'>
+		<record id="ir_seq_employee_contract_update" model="ir.sequence">
+			<field name="name">Employee Contract Update Sequence</field>
+			<field name="code">hr.contract.payroll.update.seq</field>
+			<field name="prefix">UPD/CONTRACT/</field>
+			<field name="suffix"></field>
+			<field name="padding">5</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+	</data>
+</openerp>
+

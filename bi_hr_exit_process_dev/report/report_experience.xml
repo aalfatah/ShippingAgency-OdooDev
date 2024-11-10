@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <template id="report_layout" name="Report layout">
+            <div class="header" style="padding-top:8px;">
+                <span style="width:10%;float:left;">
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="max-height: 150px;"/>
+                </span>
+            </div>
+
+            <div class="footer" style="font-size:12px;">
+                <strong>
+                    <i>
+                    <span><u>Rep Office :</u></span><br/>
+                    <span t-esc="company.street" />, <span t-esc="company.phone" />, <span t-esc="company.email" /><!--, <span t-esc="company.website" />-->
+                    </i>
+                </strong>
+            </div>
+            <main>
+                <t t-raw="0"/>
+            </main>
+        </template>
+
+        <template id="html_container">
+            <t t-set="body_classname" t-value="'container'"/>
+            <t t-call="bi_hr_exit_process_dev.report_layout">
+                <t t-raw="0"/>
+            </t>
+        </template>
+
+        <template id="basic_layout">
+            <t t-call="bi_hr_exit_process_dev.html_container">
+                <t t-if="not o" t-set="o" t-value="doc"/>
+
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+
+
+                <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                    <t t-raw="0"/>
+                </div>
+            </t>
+        </template>
+
+		<template id="report_experience_template">
+			<t t-call="bi_hr_exit_process_dev.basic_layout">
+				<t t-set="doc" t-value="doc.with_context({})" />
+				<div class="page" style="border-top:1px solid black;">
+                    <style>
+                        .table th, .table td {
+                            padding: 5px 5px 5px 20px;
+                            vertical-align: top;
+                        }
+                        i {
+                            color:grey;
+                        }
+
+                    </style>
+                    <span>
+                        <center>
+        					<h5 style="text-align: center;font-style:normal;margin:20px 0px 0px 0px !important;">
+                                <strong>SURAT PENGALAMAN KERJA</strong><br/>
+                                <strong>To Whom it May Concern</strong><br/>
+                                <h4 style="margin:0px!important;font-size:14px;">No.<span t-field="doc.name"/></h4>
+        					</h5>
+                        </center>
+                    </span><br/>
+
+                    <span>Yang bertanda tangan di bawah ini :</span>
+                    <table style="border-collapse: collapse;width: 100%;margin-top:15px" class="table table-borderless">
+                        <tr style="padding: 8px;text-align: left;">
+                            <td style="width:150px;">Nama</td>
+                            <td style="width:10px;"> : </td>
+                            <td><strong>Baladi</strong></td>
+                        </tr>
+                        
+                        <tr style="padding: 8px;text-align: left;">
+                            <td>Jobatan</td>
+                            <td> : </td>
+                            <td><strong>Dept Head Human Capital</strong></td>
+                        </tr>
+
+                        <tr style="padding: 8px;text-align: left;">
+                            <td>Alamat</td>
+                            <td> : </td>
+                            <td><strong>Jl.Raya bekasi KM.22, Cakung, Jakarta 13910</strong></td>
+                        </tr>
+                    </table>
+
+                    <span>Menerangkan dengan sebenarnya bahwa :</span>
+					<table style="border-collapse: collapse;width: 100%;margin-top:15px" class="table table-borderless">
+                        <tr style="padding: 8px;text-align: left;">
+                            <td style="width:150px;">Nama</td>
+                            <td style="width:10px;"> : </td>
+                            <td><strong><span t-field="doc.employee_id.name"/></strong></td>
+                        </tr>
+                        <tr style="padding: 8px;text-align: left;">
+                            <td>NIK</td>
+                            <td> : </td>
+                            <td><strong><span t-field="doc.employee_id.nrp" /></strong></td>
+                        </tr>
+                        <tr style="padding: 8px;text-align: left;">
+                            <td>Jobatan</td>
+                            <td> : </td>
+                            <td><strong><span t-field="doc.job_title_id.name" /></strong></td>
+                        </tr>
+                        <tr style="padding: 8px;text-align: left;">
+                            <td>Alamat</td>
+                            <td> : </td>
+                            <td><strong><span t-field="doc.employee_id.address_home_id.street" /></strong></td>
+                        </tr>
+                    </table>
+
+                    <p>Yang bersangkutan telah menjadi karyawan kami terhitung sejak <span t-field="doc.employee_id.joining_date" t-options='{"format": "d MMMM y"}'/> sampai dengan <span t-field="doc.last_date" t-options='{"format": "d MMMM y"}'/> Jabatan terakhir adalah <strong><span t-field="doc.job_title_id.name" /></strong>.</p>
+
+                    <p>Selama bekerja sebagai karyawan PT Mitra Bakti UT, saudara <strong><span t-field="doc.employee_id.name"/></strong> telah memberikan kontribusi yang baik bagi perusahaan.</p>
+
+                    <p>Oleh karena itu, kami atas nama perusahaan PT Mitra Bakti UT mengucapkan terima kasih dan semoga selalu diberikan kebahagian dan kesuksesan.</p>
+
+                    <p>Demikian surat ini dibuat,agar dapat dipergunakan sebagaimana mestinya.</p>
+                    <br/>
+                    <div style="padding-top:5px;width:100%;float:left;font-size:14px;">
+                        <div style="width:200px;text-align:left;">
+                            Jakarta, <span t-field="doc.create_date" t-options='{"format": "d MMMM y"}'/><br/>
+                            <span>PT. Mitra Bakti UT</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div style="padding-top:10px;width:100%;margin-top:60px;font-size:14px;">
+                        <div style="width:200px;text-align:left;">
+                            <span style="margin:10px 0px;"><u>Baladi</u></span>
+                            <br/>
+                            <span>Dept.Head Human Capital</span>
+                        </div>
+                    </div><br/>
+                </div>
+			</t>
+		</template>
+
+		<template id="report_experience_id">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="bi_hr_exit_process_dev.report_experience_template"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</openerp>

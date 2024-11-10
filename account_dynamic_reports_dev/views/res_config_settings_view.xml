@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_views_form" model="ir.ui.view">
+        <field name="name">sh.res.config.settings.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div data-key="account" position="inside">
+                    <h2>Signer</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="show_signer">
+                            <div class="o_setting_left_pane">
+                                <field name="show_signer"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="show_signer"/>
+                                <div class="text-muted">
+                                    Show Signer
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="">
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="accounting_staff_id" attrs="{'invisible': [('show_signer', '=', False)]}">
+                            <div class="o_setting_right_pane">
+                                <div class="o_form_label">Accounting Staff</div>
+                                <field name="accounting_staff_id"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="fatt_dept_head_id" attrs="{'invisible': [('show_signer', '=', False)]}">
+                            <div class="o_setting_right_pane">
+                                <div class="o_form_label">FATT Dept. Head</div>
+                                <field name="fatt_dept_head_id"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="fatt_director_id" attrs="{'invisible': [('show_signer', '=', False)]}">
+                            <div class="o_setting_right_pane">
+                                <div class="o_form_label">FATT Director</div>
+                                <field name="fatt_director_id"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="presiden_director_id" attrs="{'invisible': [('show_signer', '=', False)]}">
+                            <div class="o_setting_right_pane">
+                                <div class="o_form_label">Presiden Director</div>
+                                <field name="presiden_director_id"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

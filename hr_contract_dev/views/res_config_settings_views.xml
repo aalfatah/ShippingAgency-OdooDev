@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_contract_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr_contract</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Contract" string="Contract" data-key="hr_contract" groups="hr_contract.group_hr_contract_manager">
+                    <h2>Contracts</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <field name="contract_monitoring_mail_template_id" nolabel="1" />
+                                </div>
+                                <div class="text-muted">
+                                    Monitoring Contract Mail Template
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

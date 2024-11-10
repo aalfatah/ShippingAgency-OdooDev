@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_employee_form_payroll">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <group name="payroll_group" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </group>
+            <group name="payroll_group" position="inside">
+                <field name="ptkp_id" options="{'no_create': True}"/>
+                <label for="bpjstk_status" string="BPJS Tenagakerja"/>
+                <div class="o_row" name="div_bpjstk_status">
+                    <field name="bpjstk_status"/>
+                    <span><field name="bpjstk_no" attrs="{'readonly': [('bpjstk_status', '=', False)]}"/></span>
+                </div>
+                <label for="bpjsks_status" string="BPJS Kesehatan"/>
+                <div class="o_row" name="div_bpjsks_status">
+                    <field name="bpjsks_status" class="bpjsks_status"/>
+                    <span><field name="bpjsks_no" attrs="{'readonly': [('bpjsks_status', '=', False)]}"/></span>
+                </div>
+                <field name="unit_kerja"/>
+                <field name="payslip_password"/>
+                <field name="payslip_email"/>
+            </group>
+        </field>
+    </record>
+</odoo>

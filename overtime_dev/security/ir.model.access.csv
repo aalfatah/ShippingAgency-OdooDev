@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_overtime_confirm_user,Hr overtime confirm user,model_hr_overtime_confirm,hr.group_hr_user,1,1,0,0
+access_hr_overtime_confirm_manager,Hr overtime confirm mgr,model_hr_overtime_confirm,hr.group_hr_manager,1,1,1,1
+access_hr_overtime_approve_user,hr_overtime_approve user,model_hr_overtime_approve,hr.group_hr_user,1,1,0,0
+access_hr_overtime_approve_manager,hr_overtime_approve mgr,model_hr_overtime_approve,hr.group_hr_manager,1,1,1,1
+access_hr_overtime_cancel_user,hr_overtime_cancel user,model_hr_overtime_cancel,hr.group_hr_user,1,1,0,0
+access_hr_overtime_cancel_manager,hr_overtime_cancel mgr,model_hr_overtime_cancel,hr.group_hr_manager,1,1,1,1

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="hr_payroll_ptkp_tree">
+        <field name="name">PTKP List</field>
+        <field name="model">hr.payroll.ptkp</field>
+        <field name="arch" type="xml">
+            <tree string="PTKP" editable="bottom">
+                <field name="name"/>
+                <field name="tarif"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_payroll_ptkp_form">
+        <field name="name">PTKP Form</field>
+        <field name="model">hr.payroll.ptkp</field>
+        <field name="arch" type="xml">
+            <form string="Tax Status">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tarif"/>
+                        </group>
+                        <group></group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_payroll_ptkp_search">
+        <field name="name">PTKP</field>
+        <field name="model">hr.payroll.ptkp</field>
+        <field name="arch" type="xml">
+            <search string="Tax Status Search">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_ptkp" model="ir.actions.act_window">
+        <field name="name">PTKP</field>
+        <field name="res_model">hr.payroll.ptkp</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_action_hr_payroll_ptkp"
+            action="action_hr_payroll_ptkp"
+            parent="hr_payroll_community.menu_hr_payroll_community_configuration"
+            name="PTKP"
+            sequence="51"/>
+</odoo>

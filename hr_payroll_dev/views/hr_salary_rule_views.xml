@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- SALARY CATEGORY-->
+        <record id="hr_salary_rule_category_form_dev" model="ir.ui.view">
+            <field name="name">hr.salary.rule.category.form.dev</field>
+            <field name="model">hr.salary.rule.category</field>
+            <field name="inherit_id" ref="hr_payroll_community.hr_salary_rule_category_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="sequence"/>
+                </field>
+            </field>
+        </record>
+        <record id="hr_salary_rule_category_tree_dev" model="ir.ui.view">
+            <field name="name">hr.salary.rule.category.tree.dev</field>
+            <field name="model">hr.salary.rule.category</field>
+            <field name="inherit_id" ref="hr_payroll_community.hr_salary_rule_category_tree"/>
+            <field name="arch" type="xml">
+                <field name="code" position="before">
+                    <field name="sequence"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_salary_rule_dev_form">
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll_community.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='appears_on_payslip']" position="after">
+                    <field name="bold_on_payslip"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

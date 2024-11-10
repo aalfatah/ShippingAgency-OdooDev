@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_hr" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_dev.view_partner_form_dev"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='employee']/.." position="inside">
+                    <group>
+                        <field name="employee" invisible="True"/>
+                        <field name="bpjstk_no" attrs="{'invisible': [('employee','=',False)]}"/>
+                        <field name="bpjsks_no" attrs="{'invisible': [('employee','=',False)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_view_form_private_payroll" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_dev.res_partner_view_form_private_dev"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="employee" invisible="True"/>
+                    <field name="bpjstk_no" attrs="{'invisible': [('employee','=',False)]}"/>
+                    <field name="bpjsks_no" attrs="{'invisible': [('employee','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

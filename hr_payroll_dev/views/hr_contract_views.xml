@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_form_additional_allowance_dev" model="ir.ui.view">
+        <field name="name">hr.contract.view.additional.allowance</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_payroll_community.hr_contract_form_additional_allowance"/>
+        <field name="arch" type="xml">
+            <group name='allowances' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+            <field name="schedule_pay" position="replace"/>
+            <field name="struct_id" position="after">
+                <field name="schedule_pay"/>
+            </field>
+            <page name="information" position="inside">
+                <field name="advantage_ids" editable="bottom" nolabel="1">
+                    <tree string="Worked Days" editable="bottom">
+                        <field name="advantage_id" options="{'no_create': True}"/>
+                        <field name="code"/>
+                        <field name="value"/>
+                    </tree>
+                </field>
+            </page>
+        </field>
+    </record>
+</odoo>

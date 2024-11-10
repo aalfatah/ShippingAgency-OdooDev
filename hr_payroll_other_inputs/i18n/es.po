@@ -1,0 +1,245 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* payroll_other_inputs
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-04 22:19+0000\n"
+"PO-Revision-Date: 2019-09-04 22:19+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,help:payroll_other_inputs.field_payroll_other_input_employee_amount
+#: model:ir.model.fields,help:payroll_other_inputs.field_payroll_other_input_employee_line_amount
+msgid "Admission amount for payroll calculation."
+msgstr "Cantidad de admisión para cálculo de nómina."
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_amount
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_amount
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_amount
+msgid "Amount"
+msgstr "Importe"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.menu,name:payroll_other_inputs.payroll_other_input_employee_menu
+msgid "Assignment of inputs"
+msgstr "Asignación de entradas"
+
+#. module: payroll_other_inputs
+#: model:ir.actions.act_window,name:payroll_other_inputs.payroll_other_input_employee_action
+#: model:ir.ui.view,arch_db:payroll_other_inputs.payroll_other_input_employee_wizard
+msgid "Assignment of inputs per employee"
+msgstr "Asignación de entradas por empleado"
+
+#. module: payroll_other_inputs
+#: selection:payroll.other.input.employee,type:0
+msgid "By employee"
+msgstr "Por empleado"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.view,arch_db:payroll_other_inputs.payroll_other_input_employee_wizard
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_create_uid
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_create_uid
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_create_date
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_create_date
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_date_from
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_date_from
+msgid "Date from"
+msgstr "Fecha desde"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,help:payroll_other_inputs.field_payroll_other_input_employee_date_from
+msgid "Date from which the assignment for payroll calculation will be taken into account"
+msgstr "Fecha a partir de la cual se tendrá en cuenta la asignación para el cálculo de la nómina"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_date_to
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_date_to
+msgid "Date to"
+msgstr "Fecha hasta"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,help:payroll_other_inputs.field_payroll_other_input_employee_date_to
+msgid "Date until which the allocation for payroll calculation will be taken into account"
+msgstr "Fecha hasta la cual se tendrá en cuenta la asignación para el cálculo de la nómina"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_display_name
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_display_name
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.view,arch_db:payroll_other_inputs.payroll_other_input_employee_wizard
+msgid "Download data"
+msgstr "Descargar datos"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_employee_data_ids
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_employee_ids
+msgid "Empleados"
+msgstr "Empleados"
+
+#. module: payroll_other_inputs
+#: model:ir.model,name:payroll_other_inputs.model_hr_employee
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_employee_id
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_file_ids
+msgid "Employee File"
+msgstr "Archivo de empleado"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.view,arch_db:payroll_other_inputs.payroll_other_input_employee_wizard
+msgid "Employees"
+msgstr "Empleados"
+
+#. module: payroll_other_inputs
+#: model:ir.actions.report.xml,name:payroll_other_inputs.action_report_data_employees_excel
+msgid "Excel Data Employee"
+msgstr "Empleado de datos en Excel"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_file_name
+msgid "File name"
+msgstr "Nombre del archivo"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_id
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_id
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,help:payroll_other_inputs.field_payroll_other_input_employee_load_employees
+msgid "If the assignment will be made to all active employees, select this option to load them all."
+msgstr "Si la asignación se realizará a todos los empleados activos, seleccione esta opción para cargarlos a todos."
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line___last_update
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee___last_update
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_write_uid
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_write_uid
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_write_date
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_write_date
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_load_employees
+msgid "Load All"
+msgstr "Cargar todos"
+
+#. module: payroll_other_inputs
+#: selection:payroll.other.input.employee,type:0
+msgid "Massive"
+msgstr "Masivo"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_payroll_other_input_line_name
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_rule_input_id
+msgid "Other Input"
+msgstr "Otra entrada"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_other_input_employee_ids
+msgid "Other Input by employee"
+msgstr "Otra entrada por empleado"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_hr_employee_other_input_ids
+msgid "Other Payroll Input"
+msgstr "Otra entrada de nómina"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_line_other_input_employee_id
+msgid "Other input employee id"
+msgstr "Otra entrada empleado"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.view,arch_db:payroll_other_inputs.view_employee_payroll_other_inputs_inherit
+msgid "Other payroll inputs"
+msgstr "Otras entradas de nómina"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.menu,name:payroll_other_inputs.payroll_other_input_menu
+msgid "Others Inputs"
+msgstr "Otras entradas"
+
+#. module: payroll_other_inputs
+#: model:ir.model,name:payroll_other_inputs.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Nómina"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.view,arch_db:payroll_other_inputs.payroll_other_input_employee_wizard
+msgid "To assign"
+msgstr "Asignar"
+
+#. module: payroll_other_inputs
+#: model:ir.model.fields,field_description:payroll_other_inputs.field_payroll_other_input_employee_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.view,arch_db:payroll_other_inputs.payroll_other_input_employee_wizard
+msgid "Use to export employee data"
+msgstr "Use para exportar datos de empleados"
+
+#. module: payroll_other_inputs
+#: model:ir.ui.view,arch_db:payroll_other_inputs.payroll_other_input_employee_wizard
+msgid "Use to import employee data from Excel"
+msgstr "Usar para importar datos de empleados desde Excel "
+
+#. module: payroll_other_inputs
+#: model:ir.model,name:payroll_other_inputs.model_hr_payroll_other_input_line
+msgid "hr.payroll.other.input.line"
+msgstr "hr.payroll.other.input.line"
+
+#. module: payroll_other_inputs
+#: model:ir.model,name:payroll_other_inputs.model_payroll_other_input_employee
+msgid "payroll.other.input.employee"
+msgstr "payroll.other.input.employee"
+
+#. module: payroll_other_inputs
+#: model:ir.model,name:payroll_other_inputs.model_payroll_other_input_employee_line
+msgid "payroll.other.input.employee.line"
+msgstr "payroll.other.input.employee.line"

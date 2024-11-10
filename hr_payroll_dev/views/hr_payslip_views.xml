@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_form_dev" model="ir.ui.view">
+        <field name="name">hr.payslip.form.dev</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <field name="number" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="employee_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+            <xpath expr="//notebook" position="inside">
+                <page string="Calculation Information">
+                    <group>
+                        <group>
+                            <field name="npwp"/>
+                            <field name="bpjsks_status"/>
+                            <field name="bpjstk_status"/>
+                            <!--<field name="pensiun"/>-->
+                            <field name="ptkp_id"/>
+                            <field name="unit_kerja"/>
+                            <field name="bank_id"/>
+                        </group>
+                        <group>
+                            <field name="first_contract_date"/>
+                            <field name="tahun"/>
+                            <field name="masa_start"/>
+                            <field name="masa"/>
+                            <field name="masa_year"/>
+                            <field name="masa_ytd"/>
+                        </group>
+                        <group string="Payslip Summary">
+                            <field name="gross_amt"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[1]/field[@name='worked_days_line_ids']/tree/field[@name='number_of_hours']" position="after">
+                <field name="remaining_days"/>
+                <field name="quantity"/>
+            </xpath>
+            <xpath expr="//page[1]/field[@name='worked_days_line_ids']/form/group/field[@name='number_of_hours']" position="after">
+                <field name="remaining_days"/>
+                <field name="quantity"/>
+            </xpath>
+            <xpath expr="//page[1]/field[@name='worked_days_line_ids']/tree/field[@name='contract_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[2]/field[@name='line_ids']/tree" position="attributes">
+                <attribute name="limit">50</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[3]/field[@name='details_by_salary_rule_category']/tree" position="attributes">
+                <attribute name="limit">50</attribute>
+            </xpath>
+            <!--<xpath expr="//page[1]/field[@name='worked_days_line_ids']/tree/field[@name='contract_id']" position="after">
+                <field name="quantity"/>
+            </xpath>
+            <xpath expr="//page[1]/field[@name='worked_days_line_ids']/form/group" position="after">
+                <group>
+                    <field name="quantity"/>
+                </group>
+            </xpath>-->
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_pivot" model="ir.ui.view">
+        <field name="name">hr.payslip pivot View</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <pivot string="Payslip" sample="1">
+                <field name='employee_id' type="row"/>
+                <!--<field name='name' type="row"/>-->
+                <field name='date_from' interval="year" type="col"/>
+                <field name='gross_amt' type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!--<record id="view_hr_payslip_filter_dev" model="ir.ui.view">
+        <field name="name">hr.payslip.line.filter.dev</field>
+        <field name="model">hr.payslip.line</field>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="payslip_run_id"/>
+            </field>
+
+        </field>
+    </record>-->
+
+    <record id="hr_payroll_community.action_view_hr_payslip_form" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,pivot,form</field>
+    </record>
+
+</odoo>

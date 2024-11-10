@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="ir_sequence_view_kamaju_form">
+        <field name="model">ir.sequence</field>
+        <field name="inherit_id" ref="base.sequence_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page/group[2]/group[3]" position="after">
+                <group>
+                    <span colspan="2">[ROMAN]Current Year with Century: %%(rom_year)s</span>
+                    <span colspan="2">[ROMAN]Current Year without Century: %%(rom_y)s</span>
+                    <span colspan="2">[ROMAN]Month: %%(rom_month)s</span>
+                    <span colspan="2">[ROMAN]Day: %%(rom_day)s</span>
+                </group>
+                <group>
+                    <span colspan="2">[ROMAN]Day of the Year: %%(rom_doy)s</span>
+                    <span colspan="2">[ROMAN]Week of the Year: %%(rom_woy)s</span>
+                    <span colspan="2">[ROMAN]Day of the Week (0:Monday): %%(rom_weekday)s</span>
+                </group>
+                <group>
+                    <span colspan="2">[ROMAN]Hour 00->24: %%(rom_h24)s</span>
+                    <span colspan="2">[ROMAN]Hour 00->12: %%(rom_h12)s</span>
+                    <span colspan="2">[ROMAN]Minute: %%(rom_min)s</span>
+                    <span colspan="2">[ROMAN]Second: %%(rom_sec)s</span>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

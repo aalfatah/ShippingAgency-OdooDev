@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_data_employees_excel" model="ir.actions.report">
+            <field name="name">Excel Data Employee</field>
+            <field name="model">payroll.other.input.employee</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">hr_payroll_other_inputs.input_other_xlsx</field>
+            <field name="report_file">hr_payroll_other_inputs.input_other_xlsx</field>
+            <field name="print_report_name">'Payroll Other Inputs - %s' % object.name</field>
+            <field name="binding_model_id" ref="model_payroll_other_input_employee"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

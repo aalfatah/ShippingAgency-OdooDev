@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_employee_kamaju_form">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="before">
+                <field name="contract_expiry_status"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_expired_view" model="ir.ui.view">
+        <field name="name">contract.expired.view</field>
+        <field name="model">hr.contract</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <tree string="Contracts" default_order="date_end asc, employee_id" create="false" delete="false">
+                <field name="employee_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="days_exp"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'close'" decoration-success="state == 'open'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="contract_expired_action">
+        <field name="name">Monitoring Expired Contracts</field>
+        <field name="res_model">hr.contract</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('days_exp', '&lt;=', 60)]</field>
+        <field name="view_id" eval="False"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="contract_expired_action_view" >
+        <!--<field name="sequence" eval="21"/>-->
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="contract_expired_view"/>
+        <field name="act_window_id" ref="contract_expired_action"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="contract_expired_action_form_view" >
+        <!--<field name="sequence" eval="21"/>-->
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="act_window_id" ref="contract_expired_action"/>
+    </record>
+
+    <menuitem
+        id="hr_menu_contract_expired"
+        name="Monitoring Contracts"
+        action="contract_expired_action"
+        parent="hr.menu_hr_employee_payroll"
+        sequence="5"
+        groups="hr_contract.group_hr_contract_manager"/>
+</odoo>

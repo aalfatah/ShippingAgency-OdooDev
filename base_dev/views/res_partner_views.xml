@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_tree_dev" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="before">
+                    <field name="number"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_form_dev" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <span name="address_name" position="before">
+                    <field name="number"/>
+                </span>
+                <notebook position="inside">
+                    <page string="Employee" invisible="1" name="employee">
+                        <group>
+                            <group name="employee"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="res_partner_view_form_private_dev" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_view_form_private"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='div_address']/../../.." position="inside">
+                    <group invisible="1" name="employee">
+                        <field name="vat"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_view_search" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.res_partner_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='customer']" position="before">
+                   <filter string="Employee" name="employee" domain="[('employee_ids','!=', False)]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

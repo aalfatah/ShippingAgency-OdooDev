@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="hr_payroll_ptkp_tree_ter">
+        <field name="model">hr.payroll.ptkp</field>
+        <field name="inherit_id" ref="hr_payroll_dev.hr_payroll_ptkp_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="ter"/>
+            </field>
+        </field>
+    </record>
+</odoo>

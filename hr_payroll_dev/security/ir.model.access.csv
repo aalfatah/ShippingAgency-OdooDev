@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payroll_ptkp_user,hr tax status user,model_hr_payroll_ptkp,hr_payroll_community.group_hr_payroll_community_user,1,1,0,0
+access_hr_payroll_ptkp_manager,hr tax status mgr,model_hr_payroll_ptkp,hr_payroll_community.group_hr_payroll_community_manager,1,1,1,1
+access_hr_payroll_pkp_user,hr payroll pkp user,model_hr_payroll_pkp,hr_payroll_community.group_hr_payroll_community_user,1,1,0,0
+access_hr_payroll_pkp_manager,hr payroll pkp manager,model_hr_payroll_pkp,hr_payroll_community.group_hr_payroll_community_manager,1,1,1,1
+access_hr_payroll_bpjs_user,hr payroll bpjs user,model_hr_payroll_bpjs,hr_payroll_community.group_hr_payroll_community_user,1,1,0,0
+access_hr_payroll_bpjs_manager,hr payroll bpjs manager,model_hr_payroll_bpjs,hr_payroll_community.group_hr_payroll_community_manager,1,1,1,1
+access_hr_contract_advantage,hr.contract.advantage.template.user,model_hr_contract_advantage,hr_payroll_community.group_hr_payroll_community_user,1,1,1,1
+access_hr_contract_advantage_hr_user,hr.contract.advantage.template.hr.user,model_hr_contract_advantage,hr.group_hr_user,1,0,0,0

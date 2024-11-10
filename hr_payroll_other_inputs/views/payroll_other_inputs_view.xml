@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--<record id="view_employee_payroll_other_inputs_inherit" model="ir.ui.view">
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <page name="hr_settings" position="before" >
+                    <page name="other_payroll_inputs" string="Other payroll inputs" groups="hr.group_hr_user">
+                        <field name="other_input_ids">
+                            <tree string="Other payroll inputs" editable="bottom">
+                                <field name="name" />
+                                <field name="amount" required="1"/>
+                                <field name="date_from"/>
+                                <field name="date_to" />
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>-->
+
+        <record id="view_employee_payroll_other_inputs_tree" model="ir.ui.view">
+            <field name="name">view.employee.payroll.other.inputs.tree</field>
+            <field name="model">hr.payroll.other.input.line</field>
+            <field name="arch" type="xml">
+                <tree string="Other payroll inputs" editable="bottom">
+                    <field name="name" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="amount" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_employee_payroll_other_inputs_pivot" model="ir.ui.view">
+            <field name="name">view.employee.payroll.other.inputs.pivot</field>
+            <field name="model">hr.payroll.other.input.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Other payroll inputs" sample="1">
+                    <field name='name'  type="row"/>
+                    <!--<field name='employee_id' type="row"/>-->
+                    <field name='date_to' interval="month" type="col"/>
+                    <field name='amount'  type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="select_employee_payroll_other_inputs_filter" model="ir.ui.view">
+            <field name="name">select.employee.payroll.other.inputs.filter</field>
+            <field name="model">hr.payroll.other.input.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Inputs">
+                    <field name="name" string="Inputs Type" filter_domain="['|',('name','ilike',self),('number','ilike',self)]"/>
+                    <field name="employee_id"/>
+                    <separator/>
+                    <filter name="this_month" string="This Month" domain="[('date_from','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date_from','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                    <filter name="last_month" string="Last Month" domain="[('date_from','&gt;=',(context_today()-relativedelta(months=1)).strftime('%%Y-%%m-01')),('date_from','&lt;',time.strftime('%%Y-%%m-01'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Inputs Type" name="name" context="{'group_by':'name'}"/>
+                        <filter string="Employees" name="employee_id" context="{'group_by':'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_employee_payroll_other_inputs" model="ir.actions.act_window">
+            <field name="name">Other Payroll Inputs</field>
+            <field name="res_model">hr.payroll.other.input.line</field>
+            <field name="view_mode">tree,pivot</field>
+            <!--<field name="view_id" ref="view_employee_payroll_other_inputs_tree"/>-->
+            <field name="search_view_id" ref="select_employee_payroll_other_inputs_filter"/>
+        </record>
+
+        <menuitem
+            id="payroll_other_input_root_menu"
+            name="Assignment of Inputs"
+            parent="hr_payroll_community.menu_hr_payroll_community_root"
+            sequence="15"/>
+
+        <menuitem
+            id="list_payroll_other_input_employee_menu"
+            name="Other Payroll Inputs"
+            action="action_employee_payroll_other_inputs"
+            parent="payroll_other_input_root_menu"
+            sequence="1"/>
+    </data>
+</odoo>
