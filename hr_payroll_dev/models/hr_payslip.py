@@ -79,9 +79,14 @@ class HrPayslip(models.Model):
         """
         res = []
         # fill only if the contract as a working schedule linked
-        for contract in contracts.filtered(lambda contract: contract.resource_calendar_id):
-            day_from = max(datetime.combine(fields.Date.from_string(date_from), time.min), datetime.combine(fields.Date.from_string(contract.date_start), time.min))
-            day_to = min(datetime.combine(fields.Date.from_string(date_to), time.max), datetime.combine(fields.Date.from_string(contract.date_end), time.min))
+        for contract in contracts.filtered(lambda c: c.resource_calendar_id):
+            day_from = max(datetime.combine(fields.Date.from_string(date_from), time.min),
+                           datetime.combine(fields.Date.from_string(contract.date_start), time.min))
+            if contract.date_end:
+                day_to = min(datetime.combine(fields.Date.from_string(date_to), time.max),
+                             datetime.combine(fields.Date.from_string(contract.date_end), time.min))
+            else:
+                day_to = datetime.combine(fields.Date.from_string(date_to), time.max)
             leaves = {}
             overtime = {}
             calendar = contract.resource_calendar_id

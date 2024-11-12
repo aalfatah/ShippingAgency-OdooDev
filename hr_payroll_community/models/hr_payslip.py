@@ -672,15 +672,10 @@ class HrPayslipLine(models.Model):
     # category_id = fields.Many2one(related='salary_rule_id.category_id', string='Category', required=True)
     contract_id = fields.Many2one('hr.contract', string='Contract',
                                   required=True, index=True, help="Contract")
-    rate = fields.Float(string='Rate (%)',
-                        digits=4,  # dp.get_precision('Payroll Rate'),
-                        default=100.0)
-    amount = fields.Float(digits=2)  # dp.get_precision('Payroll'))
-    quantity = fields.Float(digits=2,  # dp.get_precision('Payroll'),
-                            default=1.0)
-    total = fields.Float(compute='_compute_total', string='Total', help="Total",
-                         digits=2,  # dp.get_precision('Payroll'),
-                         store=True)
+    rate = fields.Float(string='Rate (%)', digits='Payroll Rate', default=100.0)
+    amount = fields.Float(digits='Payroll')
+    quantity = fields.Float(digits='Payroll', default=1.0)
+    total = fields.Float(compute='_compute_total', string='Total', help="Total", digits='Payroll', store=True)
 
     @api.depends('quantity', 'amount', 'rate')
     def _compute_total(self):

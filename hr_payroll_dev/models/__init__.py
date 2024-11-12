@@ -8,6 +8,7 @@ from . import hr_payslip_run
 from . import hr_employee
 from . import res_partner
 from . import hr_salary_rule
+from . import hr_contract_advantage_template
 from . import hr_contract_advantage
 from . import hr_contract
 

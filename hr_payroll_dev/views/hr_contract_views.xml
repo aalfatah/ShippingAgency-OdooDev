@@ -15,6 +15,7 @@
             <page name="information" position="inside">
                 <field name="advantage_ids" editable="bottom" nolabel="1">
                     <tree string="Worked Days" editable="bottom">
+                        <field name="sequence" force_save="1" invisible="1"/>
                         <field name="advantage_id" options="{'no_create': True}"/>
                         <field name="code"/>
                         <field name="value"/>

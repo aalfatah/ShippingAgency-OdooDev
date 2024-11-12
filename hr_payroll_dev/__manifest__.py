@@ -19,6 +19,7 @@
         "views/hr_salary_rule_views.xml",
         "views/hr_employee_views.xml",
         "views/res_partner_views.xml",
+        "views/hr_contract_advantage_template_views.xml",
         "views/hr_contract_views.xml",
         # "report/hr_payroll_report.xml",
         # "report/report_payslip_templates.xml",

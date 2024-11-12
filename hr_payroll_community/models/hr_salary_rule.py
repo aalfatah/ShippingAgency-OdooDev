@@ -149,9 +149,8 @@ class HrSalaryRule(models.Model):
         ('fix', 'Fixed Amount'),
         ('code', 'Python Code'),
     ], string='Amount Type', index=True, required=True, default='fix', help="The computation method for the rule amount.")
-    amount_fix = fields.Float(string='Fixed Amount', digits=2) #dp.get_precision('Payroll'))
-    amount_percentage = fields.Float(string='Percentage (%)', digits=4, #dp.get_precision('Payroll Rate'),
-        help='For example, enter 50.0 to apply a percentage of 50%')
+    amount_fix = fields.Float(string='Fixed Amount', digits='Payroll')
+    amount_percentage = fields.Float(string='Percentage (%)', digits='Payroll Rate', help='For example, enter 50.0 to apply a percentage of 50%')
     amount_python_compute = fields.Text(string='Python Code',
         default='''
                     # Available variables:

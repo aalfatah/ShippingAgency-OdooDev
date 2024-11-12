@@ -6,7 +6,9 @@ from odoo import api, fields, models
 class HrContractAdvantage(models.Model):
     _name = 'hr.contract.advantage'
     _description = "Employee's Advantage on Contract"
+    _order = 'sequence'
 
+    sequence = fields.Integer(required=True, index=True, related='advantage_id.sequence', store=True)
     contract_id = fields.Many2one('hr.contract', required=True)
     advantage_id = fields.Many2one('hr.contract.advantage.template', required=True)
     code = fields.Char('Code', related='advantage_id.code')
