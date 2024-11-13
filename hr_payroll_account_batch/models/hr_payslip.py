@@ -20,7 +20,7 @@ class HrPayslip(models.Model):
                                    )
                                 )
 
-    @api.constrains("credit_note","payslip_run_id","payslip_run_id.credit_note")
+    @api.constrains("credit_note", "payslip_run_id", "payslip_run_id.credit_note")
     def _check_credit_note_batch(self):
         if self.payslip_run_id:
             if self.payslip_run_id.credit_note != self.credit_note:

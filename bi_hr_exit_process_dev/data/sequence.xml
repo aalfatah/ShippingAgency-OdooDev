@@ -4,7 +4,7 @@
 		<record id="ir_seq_employee_resignation" model="ir.sequence">
 			<field name="name">Employee_resignation</field>
 			<field name="code">employeeresignation.seq</field>
-			<field name="prefix">KMJ/</field>
+			<field name="prefix">BSS/</field>
 			<field name="padding">4</field>
 			<field name="suffix">/type/%(rom_month)s/%(year)s</field>
 			<field name="number_increment">1</field>
@@ -15,7 +15,7 @@
 		<record id="ir_seq_hr_employee_resignation" model="ir.sequence">
 			<field name="name">HR Employee_resignation</field>
 			<field name="code">hr.employeeresignation.seq</field>
-			<field name="prefix">KMJ/</field>
+			<field name="prefix">BSS/</field>
 			<field name="padding">4</field>
 			<field name="suffix">/format</field>
 			<field name="number_increment">1</field>

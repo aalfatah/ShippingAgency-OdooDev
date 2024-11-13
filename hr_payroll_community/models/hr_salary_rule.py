@@ -6,6 +6,7 @@ from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons import decimal_precision as dp
 
+
 class HrPayrollStructure(models.Model):
     """
     Salary structure used to defined
@@ -23,11 +24,12 @@ class HrPayrollStructure(models.Model):
     name = fields.Char(required=True)
     code = fields.Char(string='Reference', required=True)
     company_id = fields.Many2one('res.company', string='Company', required=True,
-        copy=False, default=lambda self: self.env['res.company']._company_default_get())
+                                 copy=False, default=lambda self: self.env.user.company_id)
     note = fields.Text(string='Description')
     parent_id = fields.Many2one('hr.payroll.structure', string='Parent', default=_get_parent)
     children_ids = fields.One2many('hr.payroll.structure', 'parent_id', string='Children', copy=True)
-    rule_ids = fields.Many2many('hr.salary.rule', 'hr_structure_salary_rule_rel', 'struct_id', 'rule_id', string='Salary Rules')
+    rule_ids = fields.Many2many('hr.salary.rule', 'hr_structure_salary_rule_rel', 'struct_id', 'rule_id',
+                                string='Salary Rules')
 
     @api.constrains('parent_id')
     def _check_parent_id(self):
@@ -65,11 +67,11 @@ class HrContributionRegister(models.Model):
     _description = 'Contribution Register'
 
     company_id = fields.Many2one('res.company', string='Company',
-        default=lambda self: self.env['res.company']._company_default_get())
+                                 default=lambda self: self.env.user.company_id)
     partner_id = fields.Many2one('res.partner', string='Partner')
     name = fields.Char(required=True)
     register_line_ids = fields.One2many('hr.payslip.line', 'register_id',
-        string='Register Line', readonly=True)
+                                        string='Register Line', readonly=True)
     note = fields.Text(string='Description')
 
 
@@ -80,15 +82,14 @@ class HrSalaryRuleCategory(models.Model):
     name = fields.Char(required=True, translate=True)
     code = fields.Char(required=True)
     parent_id = fields.Many2one('hr.salary.rule.category', string='Parent',
-        help="Linking a salary category to its parent is used only for the reporting purpose.")
+                                help="Linking a salary category to its parent is used only for the reporting purpose.")
     children_ids = fields.One2many('hr.salary.rule.category', 'parent_id', string='Children')
     note = fields.Text(string='Description')
     company_id = fields.Many2one('res.company', string='Company',
-        default=lambda self: self.env['res.company']._company_default_get())
+                                 default=lambda self: self.env.user.company_id)
 
     @api.constrains('parent_id')
     def _check_parent_id(self):
-
         if not self._check_recursion():
             raise ValidationError(_('Error! You cannot create recursive hierarchy of Salary Rule Category.'))
 
@@ -100,34 +101,34 @@ class HrSalaryRule(models.Model):
 
     name = fields.Char(required=True, translate=True)
     code = fields.Char(required=True,
-        help="The code of salary rules can be used as reference in computation of other rules. "
-             "In that case, it is case sensitive.")
+                       help="The code of salary rules can be used as reference in computation of other rules. "
+                            "In that case, it is case sensitive.")
     sequence = fields.Integer(required=True, index=True, default=5,
-        help='Use to arrange calculation sequence')
+                              help='Use to arrange calculation sequence')
     quantity = fields.Char(default='1.0',
-        help="It is used in computation for percentage and fixed amount. "
-             "For e.g. A rule for Meal Voucher having fixed amount of "
-             u"1€ per worked day can have its quantity defined in expression "
-             "like worked_days.WORK100.number_of_days.")
+                           help="It is used in computation for percentage and fixed amount. "
+                                "For e.g. A rule for Meal Voucher having fixed amount of "
+                                u"1€ per worked day can have its quantity defined in expression "
+                                "like worked_days.WORK100.number_of_days.")
     category_id = fields.Many2one('hr.salary.rule.category', string='Category', required=True)
     active = fields.Boolean(default=True,
-        help="If the active field is set to false, it will allow you to hide the salary rule without removing it.")
+                            help="If the active field is set to false, it will allow you to hide the salary rule without removing it.")
     appears_on_payslip = fields.Boolean(string='Appears on Payslip', default=True,
-        help="Used to display the salary rule on payslip.")
+                                        help="Used to display the salary rule on payslip.")
     parent_rule_id = fields.Many2one('hr.salary.rule', string='Parent Salary Rule', index=True)
     company_id = fields.Many2one('res.company', string='Company',
-        default=lambda self: self.env['res.company']._company_default_get())
+                                 default=lambda self: self.env.user.company_id)
     condition_select = fields.Selection([
         ('none', 'Always True'),
         ('range', 'Range'),
         ('python', 'Python Expression')
     ], string="Condition Based on", default='none', required=True)
     condition_range = fields.Char(string='Range Based on', default='contract.wage',
-        help='This will be used to compute the % fields values; in general it is on basic, '
-             'but you can also use categories code fields in lowercase as a variable names '
-             '(hra, ma, lta, etc.) and the variable basic.')
+                                  help='This will be used to compute the % fields values; in general it is on basic, '
+                                       'but you can also use categories code fields in lowercase as a variable names '
+                                       '(hra, ma, lta, etc.) and the variable basic.')
     condition_python = fields.Text(string='Python Condition', required=True,
-        default='''
+                                   default='''
                     # Available variables:
                     #----------------------
                     # payslip: object containing the payslips
@@ -141,18 +142,20 @@ class HrSalaryRule(models.Model):
                     # Note: returned value have to be set in the variable 'result'
 
                     result = rules.NET > categories.NET * 0.10''',
-        help='Applied this rule for calculation if condition is true. You can specify condition like basic > 1000.')
+                                   help='Applied this rule for calculation if condition is true. You can specify condition like basic > 1000.')
     condition_range_min = fields.Float(string='Minimum Range', help="The minimum amount, applied for this rule.")
     condition_range_max = fields.Float(string='Maximum Range', help="The maximum amount, applied for this rule.")
     amount_select = fields.Selection([
         ('percentage', 'Percentage (%)'),
         ('fix', 'Fixed Amount'),
         ('code', 'Python Code'),
-    ], string='Amount Type', index=True, required=True, default='fix', help="The computation method for the rule amount.")
+    ], string='Amount Type', index=True, required=True, default='fix',
+        help="The computation method for the rule amount.")
     amount_fix = fields.Float(string='Fixed Amount', digits='Payroll')
-    amount_percentage = fields.Float(string='Percentage (%)', digits='Payroll Rate', help='For example, enter 50.0 to apply a percentage of 50%')
+    amount_percentage = fields.Float(string='Percentage (%)', digits='Payroll Rate',
+                                     help='For example, enter 50.0 to apply a percentage of 50%')
     amount_python_compute = fields.Text(string='Python Code',
-        default='''
+                                        default='''
                     # Available variables:
                     #----------------------
                     # payslip: object containing the payslips
@@ -169,7 +172,7 @@ class HrSalaryRule(models.Model):
     amount_percentage_base = fields.Char(string='Percentage based on', help='result will be affected to a variable')
     child_ids = fields.One2many('hr.salary.rule', 'parent_rule_id', string='Child Salary Rule', copy=True)
     register_id = fields.Many2one('hr.contribution.register', string='Contribution Register',
-        help="Eventual third party involved in the salary payment of the employees.")
+                                  help="Eventual third party involved in the salary payment of the employees.")
     input_ids = fields.One2many('hr.rule.input', 'input_id', string='Inputs', copy=True)
     note = fields.Text(string='Description')
 
@@ -187,7 +190,7 @@ class HrSalaryRule(models.Model):
             children_rules += rule.child_ids._recursive_search_of_rules()
         return [(rule.id, rule.sequence) for rule in self] + children_rules
 
-    #TODO should add some checks on the type of result (should be float)
+    # TODO should add some checks on the type of result (should be float)
     def _compute_rule(self, localdict):
 
         """
@@ -207,11 +210,13 @@ class HrSalaryRule(models.Model):
                         float(safe_eval(self.quantity, localdict)),
                         self.amount_percentage)
             except:
-                raise UserError(_('Wrong percentage base or quantity defined for salary rule %s (%s).') % (self.name, self.code))
+                raise UserError(
+                    _('Wrong percentage base or quantity defined for salary rule %s (%s).') % (self.name, self.code))
         else:
             try:
                 safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
-                return float(localdict['result']), 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+                return float(localdict['result']), 'result_qty' in localdict and localdict[
+                    'result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
             except:
                 raise UserError(_('Wrong python code defined for salary rule %s (%s).') % (self.name, self.code))
 
