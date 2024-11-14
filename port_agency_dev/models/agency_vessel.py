@@ -6,7 +6,7 @@ from odoo import api, fields, models, _
 class Vessel(models.Model):
     _name = 'agency.vessel'
     _description = "Vessel"
-    _order = "name"
+    _order = "type desc, name"
     _inherit = ['mail.thread']
 
     name = fields.Char('Vessel')

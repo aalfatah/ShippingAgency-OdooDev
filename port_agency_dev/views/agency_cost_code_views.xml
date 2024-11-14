@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="view_cost_header_tree" model="ir.ui.view">
-            <field name="name">cost.header.tree</field>
-            <field name="model">agency.cost.header</field>
+        <record id="view_cost_code_tree" model="ir.ui.view">
+            <field name="name">cost.code.tree</field>
+            <field name="model">agency.cost.code</field>
             <field name="type">tree</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <tree string="Cost Header">
+                <tree string="Cost Code">
                     <field name="sequence" widget="handle"/>
+                    <field name="cost_header_id"/>
                     <field name="name"/>
                 </tree>
             </field>
         </record>
 
-        <record id="view_cost_header_form" model="ir.ui.view">
-            <field name="name">cost.header.form</field>
-            <field name="model">agency.cost.header</field>
+        <record id="view_cost_code_form" model="ir.ui.view">
+            <field name="name">cost.code.form</field>
+            <field name="model">agency.cost.code</field>
             <field name="type">form</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <form string="Cost Header">
+                <form string="Cost Code">
                     <sheet>
                         <group>
                             <group>
@@ -30,15 +31,6 @@
                             <group>
                             </group>
                         </group>
-                        <separator string="Cost Code" colspan="4"/>
-                        <tree  editable="bottom">
-                            <field name="cost_code_ids">
-                                <tree string="Cost Code" editable="bottom">
-                                    <field name="sequence" widget="handle"/>
-                                    <field name="name"/>
-                                </tree>
-                            </field>
-                        </tree>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids"
@@ -50,45 +42,49 @@
             </field>
         </record>
 
-        <record id="view_cost_header_search" model="ir.ui.view">
-            <field name="name">cost.header.search</field>
-            <field name="model">agency.cost.header</field>
+        <record id="view_cost_code_search" model="ir.ui.view">
+            <field name="name">cost.code.search</field>
+            <field name="model">agency.cost.code</field>
             <field name="type">search</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <search string="Cost Header">
+                <search string="Cost Code">
                     <field name="name"/>
+                    <field name="cost_header_id"/>
                     <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Cost Header" name="group_cost_header" context="{'group_by':'cost_header_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="act_open_cost_header_view">
-            <field name="name">Header</field>
+        <record model="ir.actions.act_window" id="act_open_cost_code_view">
+            <field name="name">Code</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">agency.cost.header</field>
+            <field name="res_model">agency.cost.code</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_cost_header_search"/>
+            <field name="search_view_id" ref="view_cost_code_search"/>
             <field name="domain">[]</field>
-            <field name="context">{}</field>
+            <field name="context">{'search_default_group_cost_header': 1}</field>
         </record>
 
-        <record model="ir.actions.act_window.view" id="act_open_cost_header_view_form">
-            <field name="act_window_id" ref="act_open_cost_header_view"/>
+        <record model="ir.actions.act_window.view" id="act_open_cost_code_view_form">
+            <field name="act_window_id" ref="act_open_cost_code_view"/>
             <field name="sequence" eval="20"/>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_cost_header_form"/>
+            <field name="view_id" ref="view_cost_code_form"/>
         </record>
 
-        <record model="ir.actions.act_window.view" id="act_open_cost_header_view_tree">
-            <field name="act_window_id" ref="act_open_cost_header_view"/>
+        <record model="ir.actions.act_window.view" id="act_open_cost_code_view_tree">
+            <field name="act_window_id" ref="act_open_cost_code_view"/>
             <field name="sequence" eval="10"/>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_cost_header_tree"/>
+            <field name="view_id" ref="view_cost_code_tree"/>
         </record>
 
-        <menuitem action="act_open_cost_header_view"
-                  id="menu_cost_header"
+        <menuitem action="act_open_cost_code_view"
+                  id="menu_cost_code"
                   parent="menu_port_agency_config_cost_structure"
                   sequence="2"
                   groups="sales_team.group_sale_manager"
