@@ -20,6 +20,7 @@ class CostStructure(models.Model):
                                      'port_id', 'Load Port', tracking=True)
     discharge_port_ids = fields.Many2many('agency.port', 'agency_cost_structure_discharge_port_rel',
                                           'cost_structure_id', 'port_id', 'Discharge Port', tracking=True)
+    line_ids = fields.One2many('agency.cost.structure.line', 'cost_structure_id', 'Lines')
 
     @api.onchange('vessel_ids')
     def _get_vessel_grt(self):

@@ -46,6 +46,25 @@
                                 <field name="discharge_port_ids" widget="many2many_tags" options="{'no_create': True}"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Cost Structure Details">
+                                <field name="line_ids" widget="section_and_note_one2many" mode="tree,kanban">
+                                    <tree string="Cost Structure Details" editable="bottom">
+                                        <control>
+                                            <create name="add_product_control" string="Add a product"/>
+                                            <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                            <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="display_type" invisible="1"/>
+                                        <field name="package_id" options="{'no_create': True}"/>
+                                        <field name="header_id" options="{'no_create': True}"/>
+                                        <field name="code_id" options="{'no_create': True}" domain="[('cost_header_id', '=', header_id)]"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids"
