@@ -8,7 +8,7 @@ class CostHeader(models.Model):
     _description = 'Cost Header'
     _inherit = ['mail.thread']
 
-    sequence = fields.Integer("Number", required=True, tracking=True)
+    sequence = fields.Integer("Number", tracking=True)
     name = fields.Char("Cost Header Name", required=True, tracking=True)
-    cost_code_ids = fields.One2many('agency.cost.code', 'cost_header_id', string="Cost Code")
+    cost_item_ids = fields.One2many('agency.cost.item', 'cost_header_id', string="Cost Item")
     active = fields.Boolean('Active', default=True, tracking=True)

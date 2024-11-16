@@ -10,12 +10,13 @@
                 <tree string="Cost Structure">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
-                    <field name="vessel_ids" widget="many2many_tags"/>
+                    <field name="last_port_id" optional="show"/>
+                    <field name="load_port_ids" widget="many2many_tags" optional="show"/>
+                    <field name="discharge_port_ids" widget="many2many_tags" optional="show"/>
+                    <field name="vessel_ids" widget="many2many_tags" optional="show"/>
                     <field name="grt"/>
                     <field name="capacity"/>
-                    <field name="last_port_id"/>
-                    <field name="load_port_ids" widget="many2many_tags"/>
-                    <field name="discharge_port_ids" widget="many2many_tags"/>
+                    <field name="amount_total"/>
                 </tree>
             </field>
         </record>
@@ -59,10 +60,18 @@
                                         <field name="display_type" invisible="1"/>
                                         <field name="package_id" options="{'no_create': True}"/>
                                         <field name="header_id" options="{'no_create': True}"/>
-                                        <field name="code_id" options="{'no_create': True}" domain="[('cost_header_id', '=', header_id)]"/>
+                                        <field name="item_id" options="{'no_create': True}" domain="[('cost_header_id', '=', header_id)]"/>
+                                        <field name="code"/>
                                         <field name="name"/>
+                                        <field name="estimated_cost"/>
                                     </tree>
                                 </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <label for="amount_total"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <field name="amount_total" nolabel="1"/>
+                                    </div>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>

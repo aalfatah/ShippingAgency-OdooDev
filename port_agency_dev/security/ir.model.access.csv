@@ -3,7 +3,7 @@ access_agency_vessel_user,agency_vessel_user,model_agency_vessel,sales_team.grou
 access_agency_vessel_mgr,agency_vessel_mgr,model_agency_vessel,sales_team.group_sale_manager,1,1,1,1
 access_agency_port_user,agency_port_user,model_agency_port,sales_team.group_sale_salesman,1,0,0,0
 access_agency_port_mgr,agency_port_mgr,model_agency_port,sales_team.group_sale_manager,1,1,1,1
-access_agency_cost_code,access_agency_cost_code,model_agency_cost_code,,1,1,1,1
+access_agency_cost_item,access_agency_cost_item,model_agency_cost_item,,1,1,1,1
 access_agency_cost_header,access_agency_cost_header,model_agency_cost_header,,1,1,1,1
 access_agency_cost_package,access_agency_cost_package,model_agency_cost_package,,1,1,1,1
 access_agency_cost_structure,access_agency_cost_structure,model_agency_cost_structure,,1,1,1,1

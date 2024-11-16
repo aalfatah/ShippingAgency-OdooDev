@@ -25,17 +25,18 @@
                         <group>
                             <group>
                                 <field name="name" select="1"/>
-                                <field name="sequence"/>
                             </group>
                             <group>
                             </group>
                         </group>
                         <separator string="Cost Code" colspan="4"/>
                         <tree  editable="bottom">
-                            <field name="cost_code_ids">
-                                <tree string="Cost Code" editable="bottom">
+                            <field name="cost_item_ids">
+                                <tree string="Cost Item" editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="cost_formula"/>
                                 </tree>
                             </field>
                         </tree>

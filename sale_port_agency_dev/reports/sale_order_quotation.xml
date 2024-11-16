@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_quotation"
+        model="report.paperformat">
+        <field name="name">A4 TBD</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">14</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">8</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report
+        id="action_quotation_print"
+        string="Cetak Quotation"
+        model="sale.order"
+        report_type="qweb-pdf"
+        name="sale_order_tbd.quotation_tbd"
+        paperformat="sale_order_tbd.paperformat_quotation"/>
+
+    <template id="quotation_document_tbd">
+        <t t-call="web.external_layout">
+
+            <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
+                <div class="page" style="font-size: 15px; font-family: 'Gideon Roman', sans-serif;">
+                    <div class="oe_structure"/>
+                    <table class="pull-left" style="border: 0px;">
+                        <tr>
+                            <th width="35px">No. :</th>
+                            <th><span t-field="o.name"/></th>
+                        </tr>
+                    </table>
+
+                    <table class="pull-right" style="border: 0px;">
+                        <tr>
+                            <td style="text-align:right; border: 0px; background: white;">
+                                <span t-field="o.company_id.city"/>,  <span t-esc="o.date_id1()"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <![CDATA[<br>]]>
+                    <![CDATA[<br>]]>
+
+                    <table style="border: 0px;" width="700px">
+                        <tr>
+                            <td style="border: 0px; background: white;">Kepada Yth;</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 0px; background: white;"><span t-field='o.partner_id'/></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 0px; background: white;"><span t-field='o.partner_id.street'/></td>
+                        </tr>
+                        <!--<tr>
+                            <td style="border: 0px; background: white;"><span t-field='o.partner_id.street2'/><![CDATA[&nbsp;]]>-<![CDATA[&nbsp;]]><span t-field='o.partner_id.zip'/></td>
+                        </tr>-->
+                        <tr>
+                            <td style="border: 0px; background: white;"><![CDATA[<br>]]></td>
+                        </tr>
+                    </table>
+                    <table style="border: 1px; width: 100%;">
+                        <tr>
+                            <th width="10%">Perihal</th>
+                            <th width="2%">:</th>
+                            <th width="88%"><u><span t-field='o.perihal'/></u></th>
+                        </tr>
+                        <!--<tr>
+                            <td style="border: 0px; background: white;"><![CDATA[<br>]]></td>
+                        </tr>-->
+                        <tr>
+                            <th style="padding-top: 10px;padding-bottom: 15px;">UP</th>
+                            <th>:</th>
+                            <th><u><span t-field='o.up'/></u></th>
+                        </tr>
+                        <!--<tr>
+                            <td style="border: 0px; background: white;"><![CDATA[<br>]]></td>
+                        </tr>-->
+                    </table>
+                    <span style="border: 0px; background: white;">Dengan hormat,</span>
+
+                    <!--<![CDATA[<br>]]>-->
+
+                    <p>Bersama ini kami mengajukan Penawaran Harga, dengan rincian sebagai berikut :</p>
+
+
+                    <!--<![CDATA[<br>]]>-->
+
+                    <table style="font-size: 12px; border: 0px; width: 100%;"> <!--background-color: #F1F1F1; color: #454748;">-->
+                        <thead>
+                            <tr style="background-color:#893b74 !important; border-color: #fff; color:#fff !important; border: solid 1px; height: 20px;">
+                                <th class="text-center" style="border-right: solid 1px; height: 20px;">NO</th>
+                                <th class="text-center" style="border-right: solid 1px; height: 20px;">DESKRIPSI</th>
+                                <th class="text-center" style="border-right: solid 1px; height: 20px;">KUANTITAS</th>
+                                <th class="text-center" style="border-right: solid 1px; height: 20px;">SATUAN</th>
+                                <th class="text-center" style="border-right: solid 1px; height: 20px;">HARGA PER UNIT</th>
+                                <th class="text-center" style="border-right: solid 1px; height: 20px;">JUMLAH</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-set="urutan" t-value="0"/>
+                            <t t-foreach="o.order_line" t-as="l">
+                                <t t-set="urutan" t-value="urutan+1"/>
+                                <tr style="border: 0px; border: solid 1px; height: 20px;">
+                                    <td class="text-center" style="border: 0px; border-right: solid 1px; height: 20px;"><t t-esc="urutan"/></td>
+                                    <!--<td width="5px" style="border-right: solid 0px;"/>-->
+                                    <td style="border-right: solid 1px; height: 20px; padding-left: 5px;"><span t-field="l.name"/></td>
+                                    <td class="text-center" style="border: 0px; border-right: solid 1px; height: 20px;"><span t-esc="'{:,.0f}'.format(l.product_uom_qty)"/></td>
+                                    <td class="text-center" style="border: 0px; border-right: solid 1px; height: 20px;"><span t-field="l.product_uom"/></td>
+                                    <td class="text-right" style="border-right: solid 1px; padding-right: 5px;"><span t-field="l.price_unit" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
+                                    <td class="text-right" style="border-right: solid 1px; padding-right: 5px;"><span t-field="l.price_subtotal" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
+                                    <!-- <td class="text-right"><span t-esc="'{:,.0f}'.format(l.price_subtotal)"/></td> -->
+                                </tr>
+                            </t>
+                        </tbody>
+
+                        <tr style="border: 0px;">
+                            <td style="border: 0px;"></td>
+                            <td style="border: 0px;"></td>
+                            <td style="border: 0px;"></td>
+                            <td style="border: 0px;"></td>
+                            <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 5px;"><strong>Sub Total</strong></td>
+                            <td style="text-align:right; border: solid 1px; padding-right: 5px;">
+                                <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/>
+                            </td>
+                        </tr>
+                        <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                            <tr style="border: 0px;">
+                                <td style="border: 0px;" colspan="4"></td>
+                                <t t-if="amount_by_group[5] == 1 and o.amount_untaxed == amount_by_group[2]">
+                                    <td name="td_amount_by_group_label_3" style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px; font-weight:bold;">
+                                        <span t-esc="amount_by_group[0]"/>
+                                        <!--<span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/></span>-->
+                                    </td>
+                                    <td name="td_amount_by_group_3" class="text-right o_price_total" style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px;">
+                                        <span t-esc="amount_by_group[1]"
+                                            t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/>
+                                    </td>
+                                </t>
+                                <t t-else ="">
+                                    <td name="td_amount_by_group_label" style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px; font-weight:bold;">
+                                        <span t-esc="amount_by_group[0]"/>
+                                    </td>
+                                    <td name="td_amount_by_group" class="text-right o_price_total" style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px;">
+                                        <span t-esc="amount_by_group[1]"
+                                            t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                        <!--<tr style="border: 0px;">
+                            <td style="border: 0px;" colspan="4"></td>
+                            <td style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px;"><strong>PPN</strong></td>
+                            <td style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px;">
+                                <span t-field="o.amount_tax" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/>
+                                &lt;!&ndash; <span t-esc="'{:,.0f}'.format(o.amount_tax)"/> &ndash;&gt;
+                            </td>
+                        </tr>-->
+                        <tr style="border: 0px;">
+                            <td style="border: 0px;" colspan="4"></td>
+                            <td style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px;"><strong>Grand Total</strong></td>
+                            <td style="text-align:right; border: solid 1px; padding-right: 5px; height: 20px;">
+                                <strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left; border: 0px; width: 70%;" rowspan="3" colspan="4">
+                                <div style="width: 100%;">
+                                    <strong>Note:</strong>
+                                    <p>Mohon untuk mengkonfirmasi atau menanggapi Quotation ini dalam jangka waktu 7 hari. Apabila kami tidak menerima konfirmasi tersebut, maka kami menganggap Quotation ini disetujui.</p>
+                                </div>
+                            </td>
+                            <!--<td style="border: 0px;" colspan="4"></td>-->
+                            <td style="text-align:right; border: 0px;" colspan="2"></td>
+                        </tr>
+                    </table>
+
+                    <!--<![CDATA[<br>]]>-->
+
+                    <table style="border: 0px;">
+                        <tr>
+                            <td width="700px" style="border: 0px; background: white; border-right: solid 0px;">
+                                <i style="color:Red;"><span t-field="o.note"/></i>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!--<![CDATA[<br>]]>-->
+
+                    <p>Demikian penawaran harga ini kami sampaikan. Atas perhatian dan kerjasamanya kami ucapkan terima kasih.</p>
+
+                    <![CDATA[<br>]]>
+
+                    <table class="text-align:center" width="100%">
+                        <tr>
+                            <td class="text-center" width="10%"></td>
+                            <td class="text-center" style="width: 30%;">Hormat kami,</td>
+                            <td class="text-center" width="20%"></td>
+                            <td class="text-center" style="width: 30%;">Disetujui,</td>
+                            <td class="text-center" width="10%"></td>
+                        </tr>
+                    </table>
+
+                    <![CDATA[<br>]]>
+                    <![CDATA[<br>]]>
+                    <![CDATA[<br>]]>
+                    <![CDATA[<br>]]>
+                    <![CDATA[<br>]]>
+
+                    <table class="text-align:center" width="100%">
+                        <tr>
+                            <td width="10%"></td>
+                            <td width="30%"></td>
+                            <td width="20%"></td>
+                            <td width="30%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td class="text-center border-black" style="border-bottom: solid 1px;"><span t-field="o.signed_quotation_name"/></td>
+                            <td/>
+                            <td class="text-center border-black" style="border-bottom: solid 1px;"><span t-field='o.up'/></td>
+                            <td/>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td class="text-center"><span t-field="o.signed_quotation_title"/></td>
+                            <td/>
+                            <td class="text-center" ><span t-field='o.job_title'/></td>
+                            <td/>
+                        </tr>
+                    </table>
+                </div>
+            <!--</t>-->
+        </t>
+    </template>
+
+    <template id="quotation_tbd">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="sale_order_tbd.quotation_document_tbd" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="sale.action_report_saleorder" model="ir.actions.report">
+        <!--<field name="name">Quotation / Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sale.report_saleorder</field>
+        <field name="report_file">sale.report_saleorder</field>
+        <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>-->
+        <field name="binding_model_id" ref=""/>
+        <!--<field name="binding_type">report</field>-->
+    </record>
+</odoo>

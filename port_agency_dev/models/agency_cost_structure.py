@@ -20,9 +20,15 @@ class CostStructure(models.Model):
                                      'port_id', 'Load Port', tracking=True)
     discharge_port_ids = fields.Many2many('agency.port', 'agency_cost_structure_discharge_port_rel',
                                           'cost_structure_id', 'port_id', 'Discharge Port', tracking=True)
+    amount_total = fields.Float(string="Total", compute='_compute_total')
     line_ids = fields.One2many('agency.cost.structure.line', 'cost_structure_id', 'Lines')
 
     @api.onchange('vessel_ids')
     def _get_vessel_grt(self):
         for s in self:
             s.grt = sum(s.vessel_ids.mapped('grt')) if s.vessel_ids else 0
+
+    @api.onchange('line_ids', 'line_ids.estimated_cost')
+    def _compute_total(self):
+        for s in self:
+            s.amount_total = sum(s.line_ids.mapped('estimated_cost')) if s.line_ids else 0

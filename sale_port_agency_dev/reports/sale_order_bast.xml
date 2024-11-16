@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_bast_print"
+        string="Cetak BAST"
+        model="sale.order"
+        report_type="qweb-pdf"
+        name="sale_order_tbd.bast_tbd"
+        paperformat="sale_order_tbd.paperformat_quotation"/>
+
+    <template id="bast_document_tbd">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
+            <div class="page" style="font-size: 15px; font-family: 'Gideon Roman', sans-serif;">
+
+                <div class="oe_structure"/>
+
+                <!--<table width="1500px">
+                    <tr>
+                        <th><img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo" style="max-height:100px"/></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </table>-->
+
+                <table width="100%" style="font-size: 18px; border: 0px;">
+                    <t t-set="my_num" t-value="o.name.split('/')"/>
+
+                    <tr>
+                        <td style="border: 0px; background: white;"></td>
+                        <th style="text-align:center;">BERITA ACARA</th>
+                        <td style="border: 0px; background: white;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 0px; background: white;"></td>
+                        <th style="text-align:center;">SERAH TERIMA PEKERJAAN</th>
+                        <td style="border: 0px; background: white;"></td>
+                    </tr>
+                    <tr style="font-size: 16px;">
+                        <td style="border: 0px; background: white;"></td>
+                        <th style="text-align:center;">No. : <span t-esc="'BAST/%s/%s/%s' % (my_num[2], my_num[3], my_num[4])"/><![CDATA[<hr>]]></th>
+                        <td style="border: 0px; background: white;"></td>
+                    </tr>
+                </table>
+
+                <!--<![CDATA[<br>]]>-->
+                <!--<![CDATA[<br>]]>
+                <![CDATA[<br>]]>-->
+
+                <p> Sesuai Work Order No. <span t-field="o.client_order_ref"/> telah dilakukan Berita Acara Serah Terima Pekerjaan borongan dengan detail sbb.: </p>
+
+                <![CDATA[<br>]]>
+                <!--<![CDATA[<br>]]>-->
+
+                <!--<table class="table" style="table-layout:auto; font-size: 14px;">-->
+                <table style="width:100%;">
+                    <thead>
+                        <tr style="font-size: 17px; border-bottom: solid 1px #8c8b8b; height: 20px;">
+                            <th></th>
+                            <th>Pekerjaan</th>
+                            <th class="text-center">QTY</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <t t-set="urutan" t-value="0"/>
+                        <t t-foreach="o.order_line" t-as="l">
+                            <t t-set="urutan" t-value="urutan+1"/>
+                            <tr style="border: 0px; border-bottom: solid 1px #8c8b8b; height: 15px;">
+                                <td class="text-center"><t t-esc="'%s.' % urutan"/></td>
+                                <td><span t-field="l.name"/></td>
+                                <td class="text-center" style="border: 0px;"><span t-field="l.product_uom_qty"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <![CDATA[<br>]]>
+                <!--<![CDATA[<br>]]>-->
+                <!--<![CDATA[<br>]]>-->
+
+                <p> Berita Acara ini ditandatangani bahwa kedua belah pihak dan merupakan dokumen resmi sebagai lampiran penagihan. </p>
+
+                <![CDATA[<br>]]>
+                <!--<![CDATA[<br>]]>-->
+
+                <table style="width:100%; border: 0px;">
+                    <tr>
+                        <td class="text-center" width="4%"></td>
+                        <td style="text-align:center; border: 0px;" width="28%"><span t-field="o.company_id.city"/>, <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></td>
+                        <td class="text-center" width="4%"></td>
+                        <td class="text-center" width="28%"></td>
+                        <td class="text-center" width="4%"></td>
+                        <td class="text-center" width="28%"></td>
+                        <td class="text-center" width="4%"></td>
+                        <!--<td colspan="2" style="border: 0px; background: white;"></td>-->
+                    </tr>
+                    <tr>
+                        <td class="text-center" width="4%"></td>
+                        <td style="text-align:center; border: 0px;">Yang Melaksanakan Pekerjaan</td>
+                        <td class="text-center" width="4%"></td>
+                        <td class="text-center" width="28%"></td>
+                        <td class="text-center" width="4%"></td>
+                        <td class="text-center" width="28%"></td>
+                        <td class="text-center" width="4%"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" width="4%"></td>
+                        <td style="text-align:center; border: 0px;" width="28%">PT. Dian Pandu Pratama
+                        <![CDATA[<br>]]><![CDATA[<br>]]><![CDATA[<br>]]>
+                        <![CDATA[<br>]]><![CDATA[<br>]]><![CDATA[<br>]]></td>
+                        <!--<td class="text-center" width="4%"></td>-->
+                        <!--<td class="text-center" width="28%"></td>-->
+                        <!--<td class="text-center" width="4%"></td>-->
+                        <td colspan="5" style="text-align:center; border: 0px; background: white;" width="68%"><span t-field="o.partner_id.name"/>
+                        <![CDATA[<br>]]><![CDATA[<br>]]><![CDATA[<br>]]>
+                        <![CDATA[<br>]]><![CDATA[<br>]]><![CDATA[<br>]]></td>
+                        <!--<td class="text-center" width="4%"></td>-->
+                    </tr>
+
+                    <tr>
+                        <td class="text-center" width="4%"></td>
+                        <!--<td style="text-align:center; border: 0px;">(....................................)</td>-->
+                        <td style="text-align:center; border: 0px; border-bottom: solid 1px;"><span t-field="o.signed_bast_name"/></td>
+                        <td class="text-center" width="4%"></td>
+                        <!--<td style="text-align:center; border: 0px;">(....................................)</td>-->
+                        <td style="text-align:center; border: 0px; border-bottom: solid 1px;"><span t-field="o.up"/></td>
+                        <td class="text-center" width="4%"></td>
+                        <td style="text-align:center; border: 0px; border-bottom: solid 1px;"><span t-field="o.signed_bast2_name"/></td>
+                        <td class="text-center" width="4%"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-center" width="4%"></td>
+                        <td style="text-align:center; border: 0px;"><span t-field="o.signed_bast_title"/></td>
+                        <td class="text-center" width="4%"></td>
+                        <td style="text-align:center; border: 0px;"><span t-field="o.job_title"/></td>
+                        <td class="text-center" width="4%"></td>
+                        <td style="text-align:center; border: 0px; background: white;"><span t-field="o.signed_bast2_title"/></td>
+                        <td class="text-center" width="4%"></td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="bast_tbd">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="sale_order_tbd.bast_document_tbd" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

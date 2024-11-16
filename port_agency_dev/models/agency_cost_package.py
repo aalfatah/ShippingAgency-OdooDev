@@ -8,9 +8,10 @@ class CostPackage(models.Model):
     _description = 'Cost Packages'
     _inherit = ['mail.thread']
 
-    sequence = fields.Integer("Number", required=True, tracking=True)
+    sequence = fields.Integer("Number", tracking=True)
     name = fields.Char("Work Package Name", required=True, tracking=True)
     active = fields.Boolean('Active', default=True, tracking=True)
+    product_id = fields.Many2one('product.product', string="Product", tracking=True)
 
     _sql_constraints = [
         ('port_unique', 'UNIQUE(name)', 'A work package must be unique!'),

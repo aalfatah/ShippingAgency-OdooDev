@@ -13,7 +13,8 @@ class Port(models.Model):
     _rec_name = 'complete_name'
     _parent_store = True
 
-    name = fields.Char('Port Name', required=True)
+    name = fields.Char('Port Name', required=True, tracking=True)
+    code = fields.Char("Port Code", tracking=True)
     complete_name = fields.Char('Complete Name', compute='_compute_complete_name', recursive=True, store=True)
     active = fields.Boolean('Active', default=True)
     company_id = fields.Many2one('res.company', string='Company', index=True, default=lambda self: self.env.company)

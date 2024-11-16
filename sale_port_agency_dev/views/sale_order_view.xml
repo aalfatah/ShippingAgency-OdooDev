@@ -1,0 +1,65 @@
+<odoo>
+    <record id="sot_view_order_form_tbd" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_preview_sale_order" position="before">
+                <button name="action_view_cost_structure"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-book"
+                    attrs="{'invisible': [('cost_structure_id', '=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Cost</span>
+                        <span class="o_stat_text">Structure</span>
+                    </div>
+                </button>
+            </button>
+
+            <!--<field name="partner_id" position="after">
+                <field name="perihal"/>
+                <field name="up"/>
+                <field name="job_title"/>
+            </field>-->
+
+            <field name="payment_term_id" position="after">
+                <label for="cost_structure_id"/>
+                <div class="o_row" name="cost_structure">
+                    <field name="cost_structure_id" options="{'no_create': True}"/>
+                    <button name="update_lines" type="object" string="Update Lines"
+                            attrs="{'invisible': [('cost_structure_id', '=', False)]}" class="oe_highlight"/>
+                </div>
+                <field name="vessel_ids" options="{'no_create': True}" widget="many2many_tags"/>
+            </field>
+
+            <field name="client_order_ref" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <field name="analytic_account_id" position="after">
+                <field name="client_order_ref"/>
+                <field name="po_date"/>
+                <field name="vo_no"/>
+            </field>
+
+            <xpath expr="//group[@name='sale_shipping']" position="attributes">
+                <attribute name="groups"></attribute><!-- Remove the res.group on the group and set it on the field directly-->
+                <attribute name="string">Delivery and Routes</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='sale_shipping']" position="inside">
+                <field name="last_port_id" options="{'no_create': True}"/>
+                <field name="load_port_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                <field name="discharge_port_ids" options="{'no_create': True}" widget="many2many_tags"/>
+            </xpath>
+
+            <group name="sale_reporting" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+
+            <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{"no_create": True}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
