@@ -7,6 +7,7 @@ import odoo.addons.decimal_precision as dp
 class CostItem(models.Model):
     _name = 'agency.cost.item'
     _description = 'Cost Item'
+    _order = 'cost_header_id, sequence'
     _inherit = ['mail.thread']
 
     sequence = fields.Integer("Number", tracking=True)
@@ -15,3 +16,7 @@ class CostItem(models.Model):
     cost_header_id = fields.Many2one('agency.cost.header', "Cost Header", ondelete="cascade")
     active = fields.Boolean('Active', default=True, tracking=True)
     cost_formula = fields.Text(string='Formula', default="result = 1")
+
+    _sql_constraints = [
+        ('item_code_unique', 'UNIQUE(code)', 'An item code must be unique!'),
+    ]

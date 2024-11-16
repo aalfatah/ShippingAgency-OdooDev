@@ -18,4 +18,11 @@ class SaleCostStructureLine(models.Model):
     header_id = fields.Many2one('agency.cost.header', string="Header")
     item_id = fields.Many2one('agency.cost.item', string="Item")
     code = fields.Char("Cost Code", related="item_id.code")
-    estimated_cost = fields.Float(string="Estimated Cost")
+    standard_cost = fields.Float(string="Standard Cost")
+    quantity = fields.Float(string="Quantity")
+    estimated_cost = fields.Float(string="Estimated Cost", compute='_compute_cost',  store=True)
+
+    @api.depends('standard_cost', 'quantity')
+    def _compute_cost(self):
+        for row in self:
+            row.estimated_cost = row.standard_cost * row.quantity

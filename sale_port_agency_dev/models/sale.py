@@ -26,7 +26,8 @@ class SaleOrder(models.Model):
 
     def write(self, vals):
         ret = super(SaleOrder, self).write(vals)
-        self.update_cost_structure()
+        if 'cost_structure_id' in vals:
+            self.update_cost_structure()
         return ret
 
     def update_cost_structure(self):
@@ -38,7 +39,7 @@ class SaleOrder(models.Model):
                 rem_fields = ['id', 'message_is_follower', 'message_follower_ids', 'message_partner_ids', 'message_ids',
                               'has_message', 'message_needaction', 'message_needaction_counter', 'message_has_error',
                               'message_has_error_counter', 'message_attachment_count', 'message_main_attachment_id',
-                              'website_message_ids', 'message_has_sms_error',
+                              'website_message_ids', 'message_has_sms_error', 'estimated_cost',
                               '__last_update', 'create_uid', 'create_date', 'write_uid', 'write_date']
                 for cost in rem_fields:
                     cost_structure_line_id.pop(cost)
