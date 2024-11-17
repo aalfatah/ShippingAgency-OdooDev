@@ -28,7 +28,7 @@ class CostStructure(models.Model):
         for s in self:
             s.grt = sum(s.vessel_ids.mapped('grt')) if s.vessel_ids else 0
 
-    @api.onchange('line_ids', 'line_ids.estimated_cost')
+    @api.onchange('line_ids')
     def _compute_total(self):
         for s in self:
             s.amount_total = sum(s.line_ids.mapped('estimated_cost')) if s.line_ids else 0
