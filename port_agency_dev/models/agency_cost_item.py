@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 import odoo.addons.decimal_precision as dp
+from odoo.exceptions import ValidationError
 
 
 class CostItem(models.Model):
@@ -20,3 +21,10 @@ class CostItem(models.Model):
     _sql_constraints = [
         ('item_code_unique', 'UNIQUE(code)', 'An item code must be unique!'),
     ]
+
+    @api.onchange('code')
+    def _onchange_code(self):
+        prohibited_chars = "!@#$%^&*()-+=[]{}<>,."
+        for char in self.code:
+            if char in prohibited_chars:
+                raise ValidationError(_("Cost item code tidak boleh ada character berikut -> %s." % prohibited_chars))

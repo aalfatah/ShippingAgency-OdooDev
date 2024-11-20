@@ -36,6 +36,7 @@ class CostStructureLine(models.Model):
                 local_dict = {'PARENT': row.cost_structure_id} | self.other_cost(row.sequence)
                 safe_eval(row.item_id.cost_formula, local_dict, mode="exec", nocopy=True)
                 row.standard_cost = ('result' in local_dict) and local_dict['result'] or 0
+                row._compute_estimated_cost()
 
     @api.depends('quantity')
     def _compute_estimated_cost(self):
