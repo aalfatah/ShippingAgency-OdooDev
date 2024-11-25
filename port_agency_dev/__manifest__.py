@@ -23,6 +23,7 @@
         'views/agency_cost_header_views.xml',
         'views/agency_cost_item_views.xml',
         'views/agency_cost_structure_views.xml',
+        'views/tracking_cost_structure_line_values.xml',
     ],
     'images': ['static/description/banner.png'],
     'license': 'LGPL-3',

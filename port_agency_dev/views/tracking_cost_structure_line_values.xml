@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="track_cost_structure_template">
+        <div>
+            <strong>Line '<t t-esc="line.name"/>' has been updated.</strong>
+        </div>
+        <ul>
+            <t t-if="'new_name' in data">
+                <li>
+                    Description: <t t-esc="line.name"/> -> <t t-esc="data.get('new_name')"/>
+                </li>
+            </t>
+            <t t-if="'standard_cost' in data">
+                <li>
+                    Standard Cost: <t t-esc="'{0:,.2f}'.format(line.standard_cost)"/> -> <t t-esc="'{0:,.2f}'.format(data.get('standard_cost'))"/>
+                </li>
+            </t>
+            <t t-if="'quantity' in data">
+                <li>
+                    Quantity: <t t-esc="'{0:,.2f}'.format(line.quantity)"/> -> <t t-esc="'{0:,.2f}'.format(data.get('quantity'))"/>
+                </li>
+            </t>
+        </ul>
+    </template>
+</odoo>

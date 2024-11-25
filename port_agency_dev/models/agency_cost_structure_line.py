@@ -17,9 +17,9 @@ class CostStructureLine(models.Model):
     header_id = fields.Many2one('agency.cost.header', string="Header")
     item_id = fields.Many2one('agency.cost.item', string="Item")
     code = fields.Char("Cost Code", related="item_id.code")
-    standard_cost = fields.Float(string="Standard Cost", compute='_compute_standard_cost')
+    standard_cost = fields.Float(string="Standard Cost", compute='compute_standard_cost')
     quantity = fields.Float(string="Quantity", default=1)
-    estimated_cost = fields.Float(string="Estimated Cost", compute='_compute_estimated_cost')
+    estimated_cost = fields.Float(string="Estimated Cost", compute='compute_estimated_cost')
 
     @api.depends('item_id')
     def _compute_name(self):
@@ -29,17 +29,17 @@ class CostStructureLine(models.Model):
             line.name = "%s - %s" % (line.item_id.name, line.header_id.name)
 
     @api.depends('item_id', 'cost_structure_id.grt')
-    def _compute_standard_cost(self):
+    def compute_standard_cost(self):
         for row in self:
             row.standard_cost = 0
             if row.item_id and row.item_id.cost_formula:
                 local_dict = {'PARENT': row.cost_structure_id} | self.other_cost(row.sequence)
                 safe_eval(row.item_id.cost_formula, local_dict, mode="exec", nocopy=True)
                 row.standard_cost = ('result' in local_dict) and local_dict['result'] or 0
-                row._compute_estimated_cost()
+                row.compute_estimated_cost()
 
     @api.depends('quantity')
-    def _compute_estimated_cost(self):
+    def compute_estimated_cost(self):
         for row in self:
             row.estimated_cost = row.standard_cost * row.quantity
 
@@ -52,3 +52,29 @@ class CostStructureLine(models.Model):
             except Exception as e:
                 continue
         return cost_dict
+
+    @api.model_create_multi
+    def create(self, vals):
+        lines = super(CostStructureLine, self).create(vals)
+        for line in lines:
+            msg = f"A new cost line with the name {line.name} has been added."
+            line.cost_structure_id.message_post(body=msg)
+
+    def write(self, vals):
+        if not ('estimated_cost' in vals and len(vals) == 1):
+            self._log_line_tracking(vals)
+        return super(CostStructureLine, self).write(vals)
+
+    def _log_line_tracking(self, vals):
+        template_id = 'port_agency_dev.track_cost_structure_template'
+        for line in self:
+            data = {}
+            data.update({'name': line.name})
+            if 'name' in vals:
+                data.update({'new_name': vals.get('name')})
+            if 'standard_cost' in vals:
+                data.update({'standard_cost': vals.get('standard_cost')})
+            if 'quantity' in vals:
+                data.update({'quantity': vals.get('quantity')})
+            if data:
+                line.cost_structure_id.message_post_with_view(template_id, values={'line': line, 'data': data})
