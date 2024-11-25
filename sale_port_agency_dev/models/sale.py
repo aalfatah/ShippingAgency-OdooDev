@@ -7,15 +7,26 @@ class SaleOrder(models.Model):
 
     cost_structure_id = fields.Many2one('agency.cost.structure', 'Cost Structure', tracking=True)
     sale_cost_structure_line_ids = fields.One2many('sale.cost.structure.line', 'sale_order_id', 'Cost Structure Lines')
-    vessel_ids = fields.Many2many('agency.vessel', string='Vessel', related='cost_structure_id.vessel_ids')
-    last_port_id = fields.Many2one('agency.port', 'Last Port', related='cost_structure_id.last_port_id')
-    load_port_ids = fields.Many2many('agency.port', 'Load Port', related='cost_structure_id.load_port_ids')
-    discharge_port_ids = fields.Many2many('agency.port', 'Discharge Port',
-                                          related='cost_structure_id.discharge_port_ids')
+    vessel_ids = fields.Many2many('agency.vessel', 'sale_order_vessel_rel', string='Vessel')
+    last_port_id = fields.Many2one('agency.port', string='Last Port')
+    load_port_ids = fields.Many2many('agency.port', 'sale_order_load_port_rel', string='Load Port')
+    discharge_port_ids = fields.Many2many('agency.port', 'sale_order_discharge_port_rel', string='Discharge Port')
 
     client_order_ref = fields.Char(string='No. PO', copy=False, tracking=True)
     po_date = fields.Date(string='Tanggal PO', tracking=True)
     vo_no = fields.Char(string='No. VO', tracking=True)
+
+    @api.onchange('cost_structure_id')
+    def _onchange_cost_structure_id(self):
+        self.vessel_ids = False
+        self.last_port_id = False
+        self.load_port_ids = False
+        self.discharge_port_ids = False
+        if self.cost_structure_id:
+            self.vessel_ids = [(6, 0, self.cost_structure_id.vessel_ids.ids)]
+            self.last_port_id = self.cost_structure_id.last_port_id.id
+            self.load_port_ids = [(6, 0, self.cost_structure_id.load_port_ids.ids)]
+            self.discharge_port_ids = [(6, 0, self.cost_structure_id.discharge_port_ids.ids)]
 
     def action_view_cost_structure(self):
         action = self.env['ir.actions.actions']._for_xml_id('sale_port_agency_dev.act_sale_open_cost_structure_view')
@@ -64,8 +75,10 @@ class SaleOrder(models.Model):
             packages = dict((data['package_id'][0], data['estimated_cost']) for data in res)
             line_ids = []
             for package_id, estimated_cost in packages.items():
+                package = self.env['agency.cost.package'].browse(package_id)
                 line_data = {
-                    'product_id': self.env['agency.cost.package'].browse(package_id).product_id.id,
+                    'product_id': package.product_id.id,
+                    'name': package.name,
                     'price_unit': estimated_cost,
                 }
                 line_ids.append((0, 0, line_data))
