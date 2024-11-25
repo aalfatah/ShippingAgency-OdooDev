@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class InsReportPartnerAgeing(models.AbstractModel):
     _name = 'report.account_dynamic_reports.partner_ageing'
+    _description = 'Partner Aging Report'
 
     @api.model
     def _get_report_values(self, docids, data=None):

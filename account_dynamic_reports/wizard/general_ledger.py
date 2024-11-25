@@ -39,6 +39,7 @@ FETCH_RANGE = 2000
 
 class InsGeneralLedger(models.TransientModel):
     _name = "ins.general.ledger"
+    _description = 'General Ledger'
 
     @api.onchange('date_range','financial_year')
     def onchange_date_range(self):
@@ -210,10 +211,10 @@ class InsGeneralLedger(models.TransientModel):
         string='Include Details', default=True
     )
 
-    @api.model
-    def create(self, vals):
-        ret = super(InsGeneralLedger, self).create(vals)
-        return ret
+    # @api.model
+    # def create(self, vals):
+    #     ret = super(InsGeneralLedger, self).create(vals)
+    #     return ret
 
     def write(self, vals):
 

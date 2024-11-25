@@ -327,12 +327,22 @@
         </t>
     </template>
 
-    <report id="action_print_trial_balance"
+    <!--<report id="action_print_trial_balance"
         model="ins.trial.balance"
         report_type="qweb-pdf"
         menu="False"
         string="Trial Balance"
         name="account_dynamic_reports.trial_balance"
         file="account_dynamic_reports.trial_balance"
-    />
+    />-->
+    <record id="action_print_trial_balance" model="ir.actions.report">
+        <field name="name">Trial Balance</field>
+        <field name="model">ins.trial.balance</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_dynamic_reports.trial_balance</field>
+        <field name="report_file">account_dynamic_reports.trial_balance</field>
+        <field name="print_report_name">'Trial Balance - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_ins_trial_balance"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

@@ -39,6 +39,7 @@ FETCH_RANGE = 2000
 
 class InsPartnerLedger(models.TransientModel):
     _name = "ins.partner.ledger"
+    _description = 'Partner Ledger'
 
     @api.onchange('date_range', 'financial_year')
     def onchange_date_range(self):
@@ -210,10 +211,10 @@ class InsPartnerLedger(models.TransientModel):
        'res.partner.category', string='Partner Tag',
     )
 
-    @api.model
-    def create(self, vals):
-        ret = super(InsPartnerLedger, self).create(vals)
-        return ret
+    # @api.model
+    # def create(self, vals):
+    #     ret = super(InsPartnerLedger, self).create(vals)
+    #     return ret
 
     def write(self, vals):
 

@@ -201,12 +201,22 @@
         </t>
     </template>
 
-    <report id="action_print_partner_ledger"
+    <!--<report id="action_print_partner_ledger"
         model="ins.partner.ledger"
         report_type="qweb-pdf"
         menu="False"
         string="Partner Ledger"
         name="account_dynamic_reports.partner_ledger"
         file="account_dynamic_reports.partner_ledger"
-    />
+    />-->
+    <record id="action_print_partner_ledger" model="ir.actions.report">
+        <field name="name">Partner Ledger</field>
+        <field name="model">ins.partner.ledger</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_dynamic_reports.partner_ledger</field>
+        <field name="report_file">account_dynamic_reports.partner_ledger</field>
+        <field name="print_report_name">'Partner Ledger - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_ins_partner_ledger"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

@@ -194,13 +194,22 @@
         </t>
     </template>
 
-    <report
+    <!--<report
         id="ins_financial_report_pdf"
         model="ins.financial.report"
         string="Financial reports"
         report_type="qweb-pdf"
         name="account_dynamic_reports.ins_report_financial"
         file="account_dynamic_reports.ins_report_financial"
-    />
-
+    />-->
+    <record id="ins_financial_report_pdf" model="ir.actions.report">
+        <field name="name">Financial Reports</field>
+        <field name="model">ins.financial.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_dynamic_reports.ins_report_financial</field>
+        <field name="report_file">account_dynamic_reports.ins_report_financial</field>
+        <field name="print_report_name">'Financial Reports - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_ins_financial_report"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

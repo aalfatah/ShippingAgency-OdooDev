@@ -201,12 +201,22 @@
         </t>
     </template>
 
-    <report id="action_print_general_ledger"
+    <!--<report id="action_print_general_ledger"
         model="ins.general.ledger"
         report_type="qweb-pdf"
         menu="False"
         string="General Ledger"
         name="account_dynamic_reports.general_ledger"
         file="account_dynamic_reports.general_ledger"
-    />
+    />-->
+    <record id="action_print_general_ledger" model="ir.actions.report">
+        <field name="name">General Ledger</field>
+        <field name="model">ins.general.ledger</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_dynamic_reports.general_ledger</field>
+        <field name="report_file">account_dynamic_reports.general_ledger</field>
+        <field name="print_report_name">'General Ledger - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_ins_general_ledger"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

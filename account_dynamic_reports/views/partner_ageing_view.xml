@@ -110,12 +110,22 @@
         </t>
     </template>
 
-    <report id="action_print_partner_ageing"
+    <!--<report id="action_print_partner_ageing"
         model="ins.partner.ageing"
         report_type="qweb-pdf"
         menu="False"
         string="Partner Ageing"
         name="account_dynamic_reports.partner_ageing"
         file="account_dynamic_reports.partner_ageing"
-    />
+    />-->
+    <record id="action_print_partner_ageing" model="ir.actions.report">
+        <field name="name">Partner Aging</field>
+        <field name="model">ins.partner.ageing</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_dynamic_reports.partner_ageing</field>
+        <field name="report_file">account_dynamic_reports.partner_ageing</field>
+        <field name="print_report_name">'Partner Aging - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_ins_partner_ageing"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

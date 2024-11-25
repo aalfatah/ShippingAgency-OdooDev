@@ -68,7 +68,7 @@ class ins_account_financial_report(models.Model):
     parent_id = fields.Many2one('ins.account.financial.report', 'Parent')
     children_ids = fields.One2many('ins.account.financial.report', 'parent_id', 'Account Report')
     sequence = fields.Integer('Sequence')
-    level = fields.Integer(compute='_get_level', string='Level', store=True)
+    level = fields.Integer(compute='_get_level', string='Level', store=True, recursive=True)
     type = fields.Selection([
         ('sum', 'View'),
         ('accounts', 'Accounts'),
@@ -134,6 +134,7 @@ class AccountAccount(models.Model):
 
 class CommonXlsxOut(models.TransientModel):
     _name = 'common.xlsx.out'
+    _description = 'Common Excel Output'
 
     filedata = fields.Binary('Download file', readonly=True)
     filename = fields.Char('Filename', size=64, readonly=True)

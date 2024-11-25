@@ -526,17 +526,17 @@ class InsFinancialReport(models.TransientModel):
     # analytic_tag_ids = fields.Many2many(
     #     'account.analytic.tag', string='Analytic Tags'
     # )
-    date_from_cmp = fields.Date(string='Start Date')
-    date_to_cmp = fields.Date(string='End Date')
+    date_from_cmp = fields.Date(string='Start Date Compare')
+    date_to_cmp = fields.Date(string='End Date Compare')
     filter_cmp = fields.Selection([('filter_no', 'No Filters'), ('filter_date', 'Date')], string='Filter by',
                                   required=True, default='filter_date')
     label_filter = fields.Char(string='Column Label', default='Comparison Period',
                                help="This label will be displayed on report to show the balance computed for the given comparison filter.")
 
-    @api.model
-    def create(self, vals):
-        ret = super(InsFinancialReport, self).create(vals)
-        return ret
+    # @api.model
+    # def create(self, vals):
+    #     ret = super(InsFinancialReport, self).create(vals)
+    #     return ret
 
     def write(self, vals):
 

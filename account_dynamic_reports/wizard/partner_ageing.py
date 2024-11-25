@@ -39,6 +39,7 @@ DATE_DICT = {
 
 class InsPartnerAgeing(models.TransientModel):
     _name = "ins.partner.ageing"
+    _description = 'Partner Aging'
 
     @api.onchange('partner_type')
     def onchange_partner_type(self):

@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class InsReportTrialBalance(models.AbstractModel):
     _name = 'report.account_dynamic_reports.trial_balance'
+    _description = 'Trial Balance Report'
 
     @api.model
     def _get_report_values(self, docids, data=None):

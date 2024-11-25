@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class InsReportGeneralLedger(models.AbstractModel):
     _name = 'report.account_dynamic_reports.general_ledger'
+    _description = 'General Ledger Report'
 
     @api.model
     def _get_report_values(self, docids, data=None):

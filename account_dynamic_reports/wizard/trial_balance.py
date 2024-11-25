@@ -39,6 +39,7 @@ DATE_DICT = {
 
 class InsTrialBalance(models.TransientModel):
     _name = "ins.trial.balance"
+    _description = 'Trial Balance'
 
     def _get_journals(self):
         return self.env['account.journal'].search([])
