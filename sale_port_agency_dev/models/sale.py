@@ -35,6 +35,13 @@ class SaleOrder(models.Model):
         action['views'] = tree_view
         return action
 
+    @api.model_create_multi
+    def create(self, vals):
+        sale = super(SaleOrder, self).create(vals)
+        if 'cost_structure_id' in vals[0]:
+            sale.update_cost_structure()
+        return sale
+
     def write(self, vals):
         ret = super(SaleOrder, self).write(vals)
         if 'cost_structure_id' in vals:
@@ -73,15 +80,22 @@ class SaleOrder(models.Model):
                 groupby=['package_id'],
             )
             packages = dict((data['package_id'][0], data['estimated_cost']) for data in res)
-            line_ids = []
+            lines = {}
             for package_id, estimated_cost in packages.items():
                 package = self.env['agency.cost.package'].browse(package_id)
-                line_data = {
-                    'product_id': package.product_id.id,
-                    'name': package.name,
-                    'price_unit': estimated_cost,
-                }
-                line_ids.append((0, 0, line_data))
+                if package.product_id.id not in lines:
+                    lines[package.product_id.id] = {'product_id': package.product_id.id,
+                                                    'name': package.name,
+                                                    'price_unit': estimated_cost,
+                                                    }
+                else:
+                    lines[package.product_id.id].update({
+                        'name': '%s, %s' % (lines[package.product_id.id]['name'], package.name),
+                        'price_unit': lines[package.product_id.id]['price_unit'] + estimated_cost
+                    })
+            line_ids = []
+            for product_id, line in lines.items():
+                line_ids.append((0, 0, line))
             self.order_line = line_ids
     # gr_no = fields.Char(string='GR No.', tracking=True) #, readonly=True, states={'draft': [('readonly', False)]}, tracking=True)
     # gr_date = fields.Date(string='GR Date', tracking=True) #, readonly=True, states={'draft': [('readonly', False)]}, tracking=True)
