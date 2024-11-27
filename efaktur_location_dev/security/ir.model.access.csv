@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_efaktur_kelurahan,access_efaktur_kelurahan,model_efaktur_kelurahan,efaktur_location_dev.group_account_efaktur,1,1,1,1
+access_efaktur_kota,access_efaktur_kota,model_efaktur_kota,efaktur_location_dev.group_account_efaktur,1,1,1,1
+access_efaktur_kecamatan,access_efaktur_kecamatan,model_efaktur_kecamatan,efaktur_location_dev.group_account_efaktur,1,1,1,1

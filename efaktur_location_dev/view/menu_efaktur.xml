@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_efaktur_configuration"
+                  name="E-Faktur"
+                  parent="account.menu_finance_configuration"
+                  groups="efaktur_location_dev.group_account_efaktur"
+                  sequence="100"/>
+    </data>
+</odoo>
