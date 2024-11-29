@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
+from datetime import datetime
 from odoo.exceptions import UserError
-from odoo.tools.safe_eval import safe_eval
 
 
 class SaleCostStructureLine(models.Model):
@@ -18,11 +18,31 @@ class SaleCostStructureLine(models.Model):
     header_id = fields.Many2one('agency.cost.header', string="Header")
     item_id = fields.Many2one('agency.cost.item', string="Item")
     code = fields.Char("Cost Code", related="item_id.code")
+    product_id = fields.Many2one("product.product", string="Product", related="item_id.product_id", store=True)
     standard_cost = fields.Float(string="Standard Cost")
     quantity = fields.Float(string="Quantity")
     estimated_cost = fields.Float(string="Estimated Cost", compute='_compute_cost',  store=True)
+    expense_id = fields.Many2one("hr.expense", string="Expense", readonly=True, ondelete="set null")
 
     @api.depends('standard_cost', 'quantity')
     def _compute_cost(self):
         for row in self:
             row.estimated_cost = row.standard_cost * row.quantity
+
+    def create_expense(self):
+        employee_id = self.env.user.employee_id
+        if employee_id:
+            expense_data = {
+                'product_id': self.product_id.id,
+                'name': self.name,
+                'total_amount': self.estimated_cost,
+                'employee_id': employee_id.id,
+                'payment_mode': 'company_account',
+                'reference': self.sale_order_id.name,
+                'date': datetime.now().date(),
+                'analytic_distribution': {self.sale_order_id.analytic_account_id.id: 100}
+            }
+            expense_id = self.env['hr.expense'].create(expense_data)
+            self.expense_id = expense_id.id
+        else:
+            raise UserError(_("Only user registered as employee who can create expense!"))
