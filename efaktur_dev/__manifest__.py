@@ -37,7 +37,7 @@ Manage
 		"view/product.xml",
 		"view/efaktur.xml",
 		"view/partner.xml",
-		"view/invoice.xml",
+		"view/account_move_views.xml",
 		"view/invoice_supplier.xml",
 
 	],

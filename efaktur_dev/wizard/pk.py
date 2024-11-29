@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 class EfakturPkWizard(models.TransientModel):
     _name = 'efaktur.efaktur_pk'
     _description = 'eFaktur PK Wizard'
-    
+
     def confirm_button(self):
         """
         export pk yang is_efaktur_exported = False

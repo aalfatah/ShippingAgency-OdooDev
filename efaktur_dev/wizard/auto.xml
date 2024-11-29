@@ -18,19 +18,19 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="eFaktur">
-                    <group colspan="4">
+                    <!--<group colspan="4">
                         <field name="start" />
                         <field name="end" />
-                    </group>
+                    </group>-->
 
                     <notebook colspan="4">
                         <page string="Invoices">
-                            <field name="invoice_ids"/>
+                            <field name="invoice_ids" domain="[('invoice_date', '!=', False),('efaktur_id', '=', False),('state', '=', 'posted'),('move_type','=','out_invoice')]"/>
                         </page>
                     </notebook>
 
                     <footer>
-                        <button string="Find Invoices" name="find_invoices" type="object" class="btn-primary"/>
+                        <!--<button string="Find Invoices" name="find_invoices" type="object" class="btn-primary"/>-->
                         <button string="Fill Nomor Seri Faktur Pajak" name="confirm_button" type="object" class="btn-primary"/>
                         <button string="Cancel" class="btn-default" special="cancel" />
                     </footer>
