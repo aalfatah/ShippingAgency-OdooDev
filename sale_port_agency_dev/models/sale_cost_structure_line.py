@@ -23,6 +23,7 @@ class SaleCostStructureLine(models.Model):
     quantity = fields.Float(string="Quantity")
     estimated_cost = fields.Float(string="Estimated Cost", compute='_compute_cost',  store=True)
     expense_id = fields.Many2one("hr.expense", string="Expense", readonly=True, ondelete="set null")
+    attachment_url = fields.Char("Attachment")
 
     @api.depends('standard_cost', 'quantity')
     def _compute_cost(self):
@@ -33,6 +34,7 @@ class SaleCostStructureLine(models.Model):
         employee_id = self.env.user.employee_id
         if employee_id:
             expense_data = {
+                'sale_structure_line_id': self.id,
                 'product_id': self.product_id.id,
                 'name': self.name,
                 'total_amount': self.estimated_cost,
@@ -40,7 +42,7 @@ class SaleCostStructureLine(models.Model):
                 'payment_mode': 'company_account',
                 'reference': self.sale_order_id.name,
                 'date': datetime.now().date(),
-                'analytic_distribution': {self.sale_order_id.analytic_account_id.id: 100}
+                'analytic_distribution': {self.sale_order_id.analytic_account_id.id: 100},
             }
             expense_id = self.env['hr.expense'].create(expense_data)
             self.expense_id = expense_id.id

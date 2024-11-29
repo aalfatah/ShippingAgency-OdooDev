@@ -7,7 +7,7 @@
             <field name="type">tree</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <tree string="Cost Structure" create="0" editable="bottom" delete="0">
+                <tree string="Cost Structure" create="1" editable="bottom" delete="0">
                     <field name="sequence" widget="handle" invisible="1"/>
                     <field name="display_type" invisible="1"/>
                     <field name="package_id" options="{'no_create': True}" readonly="1"/>
@@ -15,6 +15,7 @@
                     <field name="item_id" options="{'no_create': True}" readonly="1"/>
                     <field name="code" readonly="1" optional="hide"/>
                     <field name="name" readonly="1" optional="show"/>
+                    <field name="attachment_url" widget="url" optional="hide"/>
                     <field name="product_id" readonly="1" optional="hide"/>
                     <field name="standard_cost" readonly="1"/>
                     <field name="quantity" attrs="{'readonly': [('expense_id', '!=', False)]}"/>

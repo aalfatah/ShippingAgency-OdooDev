@@ -9,6 +9,7 @@
         "security/ir.model.access.csv",
         "views/sale_order_view.xml",
         "views/sale_cost_structure_views.xml",
+        "views/hr_expense_view.xml",
         # "reports/sale_order_quotation.xml",
         # "reports/sale_order_bast.xml",
     ],
