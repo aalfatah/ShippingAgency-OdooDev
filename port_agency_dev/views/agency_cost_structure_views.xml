@@ -63,6 +63,7 @@
                                         <field name="item_id" options="{'no_create': True}" domain="[('cost_header_id', '=', header_id)]"/>
                                         <field name="code"/>
                                         <field name="name"/>
+                                        <field name="product_id"/>
                                         <field name="standard_cost"/>
                                         <field name="quantity"/>
                                         <field name="estimated_cost"/>

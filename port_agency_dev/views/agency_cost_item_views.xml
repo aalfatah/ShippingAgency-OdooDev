@@ -9,9 +9,10 @@
             <field name="arch" type="xml">
                 <tree string="Cost Code" editable="bottom">
                     <field name="sequence" widget="handle"/>
-                    <field name="cost_header_id"/>
+                    <field name="cost_header_id" options="{'no_create': True}"/>
                     <field name="name"/>
                     <field name="code"/>
+                    <field name="product_id" options="{'no_create': True}"/>
                     <field name="cost_formula"/>
                 </tree>
             </field>
@@ -31,6 +32,7 @@
                                 <field name="code"/>
                             </group>
                             <group>
+                                <field name="product_id" options="{'no_create': True}"/>
                                 <field name="cost_formula"/>
                             </group>
                         </group>
@@ -57,6 +59,7 @@
                     <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
                     <group expand="0" string="Group By">
                         <filter string="Cost Header" name="group_cost_header" context="{'group_by':'cost_header_id'}"/>
+                        <filter string="Product" name="group_product" context="{'group_by':'product_id'}"/>
                     </group>
                 </search>
             </field>

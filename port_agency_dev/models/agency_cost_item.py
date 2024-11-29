@@ -17,6 +17,7 @@ class CostItem(models.Model):
     cost_header_id = fields.Many2one('agency.cost.header', "Cost Header", ondelete="cascade")
     active = fields.Boolean('Active', default=True, tracking=True)
     cost_formula = fields.Text(string='Formula', default="result = 1")
+    product_id = fields.Many2one('product.product', string="Product", tracking=True)
 
     _sql_constraints = [
         ('item_code_unique', 'UNIQUE(code)', 'An item code must be unique!'),

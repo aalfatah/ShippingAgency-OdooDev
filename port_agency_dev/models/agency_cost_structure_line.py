@@ -17,6 +17,7 @@ class CostStructureLine(models.Model):
     header_id = fields.Many2one('agency.cost.header', string="Header")
     item_id = fields.Many2one('agency.cost.item', string="Item")
     code = fields.Char("Cost Code", related="item_id.code")
+    product_id = fields.Many2one("product.product", string="Product", related="item_id.product_id")
     standard_cost = fields.Float(string="Standard Cost", compute='compute_standard_cost')
     quantity = fields.Float(string="Quantity", default=1)
     estimated_cost = fields.Float(string="Estimated Cost", compute='compute_estimated_cost')
