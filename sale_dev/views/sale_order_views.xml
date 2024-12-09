@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_tree_dev" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="commitment_date" position="before">
+                <field name="start_date" widget="date" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_dev" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="commitment_date" position="before">
+                <field name="start_date" widget="date" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_form_dev" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale_shipping']/label" position="before">
+                <label for="start_date" string="Start Date"/>
+                <div name="start_date_div" class="o_row">
+                    <field name="start_date"/>
+                    <!--<span name="expected_date_span" class="text-muted">Expected: <field name="expected_date" class="oe_inline" widget="date"/></span>-->
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_form_quote_dev" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_management.sale_order_form_quote"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

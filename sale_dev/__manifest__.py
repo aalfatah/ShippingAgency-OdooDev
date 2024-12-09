@@ -5,8 +5,9 @@
     "author": "Dev Team,",
     "website": "https://dev.com",
     "license": "LGPL-3",
-    "depends": ["sale", "account_dev"],
+    "depends": ["sale", "sale_management", "account_dev"],
     "data": [
+        "views/sale_order_views.xml"
     ],
     "installable": True,
 }
