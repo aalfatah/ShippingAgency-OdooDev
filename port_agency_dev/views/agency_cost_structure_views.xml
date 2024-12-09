@@ -67,6 +67,7 @@
                                         <field name="standard_cost"/>
                                         <field name="quantity"/>
                                         <field name="estimated_cost"/>
+                                        <field name="allow_expense" widget="boolean_toggle"/>
                                     </tree>
                                 </field>
                                 <group class="oe_subtotal_footer oe_right">

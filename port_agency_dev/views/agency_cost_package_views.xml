@@ -12,6 +12,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="product_id" options="{'no_create': True}"/>
+                    <field name="allow_expense" widget="boolean_toggle"/>
                 </tree>
             </field>
         </record>

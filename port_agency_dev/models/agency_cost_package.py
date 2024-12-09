@@ -12,6 +12,7 @@ class CostPackage(models.Model):
     name = fields.Char("Work Package Name", required=True, tracking=True)
     active = fields.Boolean('Active', default=True, tracking=True)
     product_id = fields.Many2one('product.product', string="Product", tracking=True)
+    allow_expense = fields.Boolean('Allow Expense', default=True, tracking=True)
 
     _sql_constraints = [
         ('port_unique', 'UNIQUE(name)', 'A work package must be unique!'),

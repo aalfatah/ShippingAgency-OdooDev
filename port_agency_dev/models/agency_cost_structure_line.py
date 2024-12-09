@@ -21,6 +21,12 @@ class CostStructureLine(models.Model):
     standard_cost = fields.Float(string="Standard Cost", compute='compute_standard_cost')
     quantity = fields.Float(string="Quantity", default=1)
     estimated_cost = fields.Float(string="Estimated Cost", compute='compute_estimated_cost')
+    allow_expense = fields.Boolean('Allow Expense')
+
+    @api.onchange('item_id', 'package_id')
+    def _set_allow_expense(self):
+        for line in self:
+            line.allow_expense = line.package_id.allow_expense
 
     @api.depends('item_id')
     def _compute_name(self):
