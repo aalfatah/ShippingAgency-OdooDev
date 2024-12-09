@@ -66,6 +66,7 @@ class SaleOrder(models.Model):
                     'package_id': cost_structure_line_id.get('package_id') and cost_structure_line_id['package_id'][0],
                     'header_id': cost_structure_line_id.get('header_id') and cost_structure_line_id['header_id'][0],
                     'item_id': cost_structure_line_id.get('item_id') and cost_structure_line_id['item_id'][0],
+                    'product_id': cost_structure_line_id.get('product_id') and cost_structure_line_id['product_id'][0],
                 })
                 self.env['sale.cost.structure.line'].create(cost_structure_line_id | {'sale_order_id': self.id})
                 # sale_cost_structure_line_ids.append((0, 0, cost_structure_line_id | {'sale_order_id': self.id}))

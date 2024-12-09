@@ -20,9 +20,10 @@
                     <field name="standard_cost" readonly="1"/>
                     <field name="quantity" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
                     <field name="estimated_cost"/>
+                    <field name="allow_expense" widget="boolean_toggle"/>
                     <field name="expense_id" options="{'no_create': True}" optional="show"/>
                     <button name="create_expense" class="oe_stat_button" type="object" icon="fa-money" title="expense"
-                            attrs="{'invisible': ['|', ('expense_id', '!=', False), ('estimated_cost', '&lt;=', 1)]}"/>
+                            attrs="{'invisible': ['|', '|', ('allow_expense', '!=', True), ('expense_id', '!=', False), ('estimated_cost', '&lt;=', 1)]}"/>
                 </tree>
             </field>
         </record>
@@ -72,7 +73,7 @@
             <field name="state">code</field>
             <field name="code">
                 for r in records:
-                    if not r.expense_id and r.estimated_cost > 0:
+                    if r.allow_expense and   not r.expense_id and r.estimated_cost > 0:
                         r.create_expense()
             </field>
         </record>

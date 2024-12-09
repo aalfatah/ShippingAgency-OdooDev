@@ -24,6 +24,7 @@ class SaleCostStructureLine(models.Model):
     estimated_cost = fields.Float(string="Estimated Cost", compute='_compute_cost',  store=True)
     expense_id = fields.Many2one("hr.expense", string="Expense", readonly=True, ondelete="set null")
     attachment_url = fields.Char("Attachment")
+    allow_expense = fields.Boolean('Allow Expense')
 
     @api.depends('standard_cost', 'quantity')
     def _compute_cost(self):
