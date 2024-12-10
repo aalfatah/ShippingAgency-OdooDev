@@ -69,14 +69,12 @@ class SaleOrder(models.Model):
                     'product_id': cost_structure_line_id.get('product_id') and cost_structure_line_id['product_id'][0],
                 })
                 self.env['sale.cost.structure.line'].create(cost_structure_line_id | {'sale_order_id': self.id})
-                # sale_cost_structure_line_ids.append((0, 0, cost_structure_line_id | {'sale_order_id': self.id}))
-            # self.sale_cost_structure_line_ids = sale_cost_structure_line_ids
 
     def update_lines(self):
-        self.update({'order_line': False,})
+        self.update({'order_line': False})
         if self.sale_cost_structure_line_ids:
             res = self.sale_cost_structure_line_ids.read_group(
-                domain=[('estimated_cost', '!=', 0)],
+                domain=[('sale_order_id', '=', self.id), ('estimated_cost', '!=', 0)],
                 fields=['package_id', 'estimated_cost'],
                 groupby=['package_id'],
             )
