@@ -7,7 +7,7 @@
         <field name="page_height">0</field>
         <field name="page_width">0</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">21</field>
+        <field name="margin_top">23</field>
         <field name="margin_bottom">20</field>
         <field name="margin_left">10</field>
         <field name="margin_right">10</field>
@@ -21,8 +21,8 @@
         string="Cetak Invoice"
         model="account.move"
         report_type="qweb-pdf"
-        file="account_tbd.bill_payment_request"
-        name="account_tbd.bill_payment_request"
+        file="account_dev_bill_sale.bill_payment_request"
+        name="account_dev_bill_sale.bill_payment_request"
         paperformat="sale_order_tbd.paperformat_quotation"/>-->
 
     <record id="print_customer_invoice" model="ir.actions.report">
@@ -44,9 +44,9 @@
         <div class="header">
             <div class="row col-12 mb4" style="font-size:12px; padding-bottom: 5px;">
                 <div class="col-1">
-                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 75px;" alt="Logo" align="left"/>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 70px;" alt="Logo" align="left"/>
                 </div>
-                <div class="col-6" name="company_address" style="margin-left: 10px;">
+                <div class="col-6" name="company_address" style="margin-left: 15px;">
                     <span t-field="company.partner_id" style="font-weight: bold;"/><br/> <!--t-options='{"widget": "contact", "fields": ["vat", "address", "name"], "no_marker": true}'/>-->
                     <span t-field="company.partner_id.street"/><br/>
                     <span t-esc="'%s %s - %s, %s' % (company.partner_id.city, company.partner_id.state_id.name, company.partner_id.zip, company.partner_id.country_id.name)"/><br/>
@@ -108,13 +108,13 @@
 
     <template id="html_container">
         <t t-set="body_classname" t-value="'container'"/>
-        <t t-call="account_tbd.report_layout">
+        <t t-call="account_dev_bill_sale.report_layout">
             <t t-raw="0"/>
         </t>
     </template>
 
     <template id="basic_layout">
-        <t t-call="account_tbd.html_container">
+        <t t-call="account_dev_bill_sale.html_container">
             <t t-if="not o" t-set="o" t-value="doc"/>
 
             <t t-if="not company">
@@ -138,7 +138,7 @@
 
     <template id="bill_payment_request_template">
         <!--<t t-call="web.external_layout">-->
-        <t t-call="account_tbd.basic_layout">
+        <t t-call="account_dev_bill_sale.basic_layout">
             <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
             <div class="page" style="font-size: 12px; font-family: 'Gideon Roman', sans-serif;">
@@ -152,7 +152,7 @@
 
                 <table style="width:100%; font-size:12px;" >
                     <tr>
-                        <td style="text-align:center"><h2><strong>INVOICE</strong></h2><!--<![CDATA[<br>]]><![CDATA[<br>]]>--></td>
+                        <td style="text-align:center"><h2><strong>PAYMENT REQUEST</strong></h2><!--<![CDATA[<br>]]><![CDATA[<br>]]>--></td>
                     </tr>
                     <tr>
                         <td style="text-align:center"><h5><strong><span t-esc="'No. %s' % o.name"/></strong></h5><!--<![CDATA[<br>]]><![CDATA[<br>]]>--></td>
@@ -183,36 +183,37 @@
 
                 <table style="width:100%; font-size:12px;">
                     <tr>
-                        <td style="width:23%;">Nomor Pelanggan</td>
+                        <td style="width:23%;">Termin Pembayaran</td>
                         <td style="width:2%;">:</td>
-                        <td style="width:25%;"><span t-field="o.partner_id.id"/></td>
+                        <td style="width:25%;"><span t-field="o.invoice_payment_term_id"/></td>
                         <td style="width:23%;">Tanggal Invoice</td>
                         <td style="width:2%;">:</td>
                         <td style="width:25%;"><span t-esc="o.date_id()"/></td>
                     </tr>
                     <tr>
-                        <td>Nomor Pesanan</td>
+                        <td colspan="3"/>
+                        <!--<td>Nomor Pesanan</td>
                         <td>:</td>
-                        <td><span t-field="o.ref"/></td>
+                        <td><span t-field="o.ref"/></td>-->
                         <td>Tanggal Jatuh Tempo</td>
                         <td>:</td>
                         <td><span t-esc="o.due_date_id()"/></td>
                     </tr>
-                    <tr>
-                        <td>Mata Uang</td>
+                    <!--<tr>
+                        <td>Termin Pembayaran</td>
                         <td>:</td>
-                        <td><span>IDR</span></td>
-                        <!-- <td>Tanggal Pesanan</td>
+                        <td><span t-field="o.invoice_payment_term_id"/></td>
+                        &lt;!&ndash; <td>Tanggal Pesanan</td>
                         <td>:</td>
-                        <td><span t-field="o.number"/></td> -->
-                        <!--<td></td>
+                        <td><span t-field="o.number"/></td> &ndash;&gt;
+                        &lt;!&ndash;<td></td>
                         <td>:</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
-                        <td></td>-->
+                        <td></td>&ndash;&gt;
                         <td>Nomor Faktur Pajak</td>
                         <td>:</td>
                         <t t-if="o.partner_id.npwp is not False">
@@ -221,7 +222,7 @@
                         <t t-if="o.partner_id.npwp is False">
                             <td>070.<span t-field="o.efaktur_id"/></td>
                         </t>
-                    </tr>
+                    </tr>-->
                 </table>
 
                 <![CDATA[<br>]]>
@@ -229,12 +230,12 @@
                 <table style="width:100%; font-size:12px; table-layout:auto;">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width:5%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">NO</th>
-                            <th class="text-center" style="width:46%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">DESKRIPSI</th>
-                            <th class="text-center" style="width:8%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">KUANTITAS</th>
-                            <th class="text-center" style="width:5%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">SATUAN</th>
-                            <th class="text-center" style="width:18%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">HARGA PER UNIT</th>
-                            <th class="text-center" style="width:18%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">JUMLAH</th>
+                            <th class="text-center" style="width:5%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">No.</th>
+                            <th class="text-center" style="width:10%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">Nama Akun</th>
+                            <th class="text-center" style="width:35%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">Nama Kapal</th>
+                            <th class="text-center" style="width:15%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">No. Proforma</th>
+                            <th class="text-center" style="width:20%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">Tanggal Kegiatan</th>
+                            <th class="text-center" style="width:15%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">Jumlah</th>
                         </tr>
                     </thead>
 
@@ -244,30 +245,32 @@
                             <t t-set="urutan" t-value="urutan+1"/>
                             <tr>
                                 <td class="text-center" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><t t-esc="urutan"/></td>
+                                <td class="text-left" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-esc="l.account_id.code"/></td>
                                 <td class="text-left" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.name"/></td>
-                                <td class="text-right" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-esc="'{:,.0f}'.format(l.quantity)"/></td>
-                                <td class="text-center" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.product_uom_id"/></td>
+                                <td class="text-left" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.sale_id"/></td>
+                                <td class="text-left" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.work_period"/></td>
+                                <td style="text-align:right; border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-esc="'{:,.0f}'.format(l.price_subtotal)"/></td>
+                                <!--<td class="text-center" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.product_uom_id"/></td>
                                 <td class="text-right" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.price_unit" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
-                                <td class="text-right" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.price_subtotal" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
+                                <td class="text-right" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="l.price_subtotal" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>-->
                             </tr>
                         </t>
                     </tbody>
 
                     <tr>
-                        <td style="border:0px;"></td>
-                        <td style="border:0px;"></td>
-                        <td style="border:0px;"></td>
-                        <td style="border:0px;"></td>
+                        <td style="border:0px;" colspan="4"></td>
                         <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong>Sub Total</strong></td>
-                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
+                        <!--<td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>-->
+                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong><span t-esc="'{:,.0f}'.format(o.amount_untaxed)"/></strong></td>
                     </tr>
-                    <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                    <!--<t t-foreach="o.amount_by_group" t-as="amount_by_group">
                         <tr style="">
                             <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and o.amount_untaxed == amount_by_group[2]">
+                                <td style="border:0px;" colspan="4"></td>
+                                &lt;!&ndash;<td style="border:0px;"></td>
                                 <td style="border:0px;"></td>
                                 <td style="border:0px;"></td>
-                                <td style="border:0px;"></td>
-                                <td style="border:0px;"></td>
+                                <td style="border:0px;"></td>&ndash;&gt;
                                 <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20">
                                     <span class="text-nowrap" t-esc="amount_by_group[0]"/>
                                 </td>
@@ -276,15 +279,16 @@
                                 </td>
                             </t>
                             <t t-else="">
+                                <td style="border:0px;" colspan="4"></td>
+                                &lt;!&ndash;<td style="border:0px;"></td>
                                 <td style="border:0px;"></td>
                                 <td style="border:0px;"></td>
-                                <td style="border:0px;"></td>
-                                <td style="border:0px;"></td>
+                                <td style="border:0px;"></td>&ndash;&gt;
                                 <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20">
                                     <span t-esc="amount_by_group[0]"/>
-                                    <!--<span class="text-nowrap"> on
+                                    &lt;!&ndash;<span class="text-nowrap"> on
                                         <t t-esc="amount_by_group[4]"/>
-                                    </span>-->
+                                    </span>&ndash;&gt;
                                 </td>
                                 <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20">
                                     <span class="text-nowrap" t-esc="amount_by_group[3]"/>
@@ -293,16 +297,18 @@
                         </tr>
                     </t>
                     <tr>
+                        <td style="border:0px;" colspan="4"></td>
+                        &lt;!&ndash;<td style="border:0px;"></td>
                         <td style="border:0px;"></td>
                         <td style="border:0px;"></td>
-                        <td style="border:0px;"></td>
-                        <td style="border:0px;"></td>
+                        <td style="border:0px;"></td>&ndash;&gt;
                         <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong>GRAND TOTAL</strong></td>
                         <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
-                    </tr>
+                    </tr>-->
             </table>
 
             <!--<![CDATA[<br>]]>-->
+<!--
 
             <table style="width:100%; font-size:10px; page-break-inside: avoid;">
                 <tr>
@@ -328,11 +334,12 @@
                     <td colspan="3"/>
                     <td style="padding-top: 70px; text-align:center; font-size:12px; font-weight: bold;">
                         <span t-field="o.signed_invoice_approval1_id.name"/><![CDATA[<br>]]><span t-esc="'' if not o.signed_invoice_approval1_id else o.get_employee(o.signed_invoice_approval1_id.id).job_title" style="text-align:center;"/>
-                        <!--<span t-field="o.approver1_id"/>-->
+                        &lt;!&ndash;<span t-field="o.approver1_id"/>&ndash;&gt;
                     </td>
                 </tr>
             </table>
 
+-->
             <!--<![CDATA[<br>]]>
             <![CDATA[<br>]]>-->
 
