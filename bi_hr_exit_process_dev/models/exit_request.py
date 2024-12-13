@@ -145,7 +145,8 @@ class exit_request(models.Model):
 				n -= integer
 		return result
 
-	@api.model_create_multi
+	# @api.model_create_multi
+	@api.model
 	def create(self, vals):
 		last_date = vals['last_date']
 		tanggal = datetime.strptime(last_date, '%Y-%m-%d')
@@ -154,7 +155,7 @@ class exit_request(models.Model):
 		rom_month = self.convert_to_roman(int(month))
 
 		if vals.get('name', _('New')) == _('New'):
-			seq = self.env['ir.sequence'].next_by_code('hr.employeeresignation.seq') or _('New')
+			seq = self.env['ir.sequence'].next_by_code('exit.number.seq') or _('New')
 			if vals['resignation_type'] and vals['last_date']:
 				sequence = seq.replace('format', vals['resignation_type'] + '/' + rom_month + '/' + year)
 			else:
