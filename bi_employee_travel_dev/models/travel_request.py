@@ -65,6 +65,15 @@ class TravelRequest(models.Model):
     reservation = fields.Selection(selection=[('company', 'Company'), ('employee', 'Employee')], string="Reservation",
                                    compute="_get_reservation", store=True)
     description = fields.Char(string="Description")
+    company_id = fields.Many2one(comodel_name='res.company', string='Company', compute='_compute_company_id',
+                                 store=True)
+
+    @api.depends('employee_id')
+    def _compute_company_id(self):
+        for travel in self:
+            company_id = self.env.company
+            if company_id != travel.company_id:
+                travel.company_id = company_id
 
     @api.onchange('employee_id')
     def onchange_employee(self):
