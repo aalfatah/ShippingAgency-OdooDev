@@ -273,7 +273,7 @@ class TravelRequest(models.Model):
 
         return
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         if self.env['ir.config_parameter'].sudo().get_param('disallow_multi_travel', default=False) == 'True':
             if len(self.env['travel.request'].search(

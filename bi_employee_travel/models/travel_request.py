@@ -87,8 +87,7 @@ class TravelRequest(models.Model):
         if self.available_departure_date > self.available_return_date:
             raise Warning(_('Available Departure Date should be after the Available Return Date!!'))
 
-    # @api.model
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         # seq = self.env['ir.sequence'].next_by_code('travel.request') or '/'
         # vals['name'] = seq
