@@ -9,6 +9,15 @@
             <xpath expr="//field[@name='confirm_by']" position='replace'></xpath>
             <xpath expr="//field[@name='approve_by']" position='replace'></xpath>
             <xpath expr="//field[@name='approve_date']" position='replace'></xpath>
+            <xpath expr="//field[@name='department_id']" position='replace'/>
+            <xpath expr="//field[@name='job_id']" position='replace'>
+                <field name="travel_type_id" attrs="{'readonly':[('state','!=','draft')]}"
+                       options="{'no_create': True}"/>
+                <field name="travel_purpose" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="departure_date" readonly="1"/>
+                <field name="return_date" readonly="1"/>
+            </xpath>
+
             <xpath expr="//button[@name='action_create_expense']" position='replace'>
                 <button name="action_create_expense" string="Create Expenses" type="object" class="oe_highlight"
                         attrs="{'invisible': ['|',('state','!=','returned'),('expense_ids','=',[])]}"/>
@@ -24,43 +33,15 @@
 
             <xpath expr="//field[@name='employee_id']" position='replace'>
                 <field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
-                <field name="travel_type_id" attrs="{'readonly':[('state','!=','draft')]}"
-                       options="{'no_create': True}"/>
-                <field name="travel_purpose" attrs="{'readonly':[('state','!=','draft')]}"/>
-                <!--<field name="claimable" invisible="1"/>
-                <field name="claim_to_customer" attrs="{'invisible':[('claimable', '=', False)]}"/>-->
-                <field name="customer_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"
-                       readonly="1" force_save="1"/>
-                <field name="area_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"
-                       readonly="1" force_save="1"/>
-                <!--<field name="show_leave" invisible="1"/>-->
-                <field name="mail_reminder" invisible="1"/>
-            </xpath>
-
-            <xpath expr="//field[@name='department_id']" position='before'>
                 <field name="department_manager_id" attrs="{'readonly':[('state','!=','draft')]}"
                        options="{'no_create': True}" readonly="1" force_save="1"/>
-            </xpath>
-
-            <xpath expr="//field[@name='department_id']" position='attributes'>
-                <attribute name='readonly'>1</attribute>
-                <attribute name='force_save'>1</attribute>
-            </xpath>
-
-            <xpath expr="//field[@name='job_id']" position='attributes'>
-                <attribute name='readonly'>1</attribute>
-                <attribute name='force_save'>1</attribute>
-            </xpath>
-
-            <xpath expr="//field[@name='job_id']" position='after'>
-                <field name="departure_date" readonly="1"/>
-                <field name="return_date" readonly="1"/>
-            </xpath>
-
-            <xpath expr="//field[@name='department_id']" position='after'>
-                <field name="area_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"
-                       readonly="1" force_save="1"/>
-                <!--<field name="sub_area_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}" readonly="1" force_save="1"/>-->
+                <field name="department_id" readonly="1" force_save="1"/>
+                <field name="job_id" readonly="1" force_save="1"/>
+                <!--<field name="customer_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"
+                       readonly="1" force_save="1"/>-->
+                <field name="area_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
+                <!--<field name="show_leave" invisible="1"/>-->
+                <field name="mail_reminder" invisible="1"/>
             </xpath>
 
             <xpath expr="//notebook/page[2]/group[2]/group[2]" position='inside'>
