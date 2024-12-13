@@ -17,20 +17,29 @@ class Employee(models.Model):
         result = []
         for row in self:
             if row.nrp:
-                name = row.nrp + ' - ' + row.name
+                name = row.name + ' - ' + row.nrp
             else:
                 name = row.name
             result.append((row.id, name))
         return result
 
     @api.model
-    def name_search(self, name, args=None, operator="ilike", limit=100):
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
         args = args or []
         domain = []
         if name:
             domain = ["|", ("name", operator, name), ("nrp", operator, name)]
-        employee = self.search(domain + args, limit=limit)
-        return employee.name_get()
+        return self._search(domain + args, limit=limit, access_rights_uid=name_get_uid)
+
+    @api.model
+    def search(self, args, offset=0, limit=80, order='id', count=False):
+        """Override to be able to search old_value_char in mail.tracking.value"""
+        dotted_field = 'message_ids.tracking_value_ids.old_value_char'
+        if any(filter(lambda arg: dotted_field in arg, args)):
+            self = self.sudo()
+        if len(args) == 3 and (args[1][0] == 'name' or args[2][0] == 'name'):
+            args = ['|'] + args + [['nrp', 'ilike', args[1][2]]]
+        return super().search(args, offset=offset, limit=limit, order=order, count=count)
 
     def update_contact(self, vals):
         if self.address_home_id:

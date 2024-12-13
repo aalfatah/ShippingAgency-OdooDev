@@ -4,7 +4,7 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_tree"/>
         <field name="arch" type="xml">
-            <field name="name" position="before">
+            <field name="name" position="after">
                 <field name="nrp" />
             </field>
         </field>
@@ -14,8 +14,8 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
         <field name="arch" type="xml">
-            <field name="name" position="before">
-                <field name="nrp" />
+            <field name="name" position="after">
+                <field name="nrp" style="padding-left: 5px;"/>
             </field>
         </field>
     </record>
