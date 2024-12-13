@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--<record id="transfer_document_tax_status_new_period" model="employee.transfer.document">
+            <field name="transfer_type">tax</field>
+            <field name="name">TAX NEW PERIOD</field>
+        </record>-->
+        <!--<record id="transfer_document_tax_status_employee" model="employee.transfer.document">
+            <field name="transfer_type">tax</field>
+            <field name="name">TAX EMPLOYEE</field>
+        </record>-->
+
+        <record id="transfer_document_department" model="employee.transfer.document">
+            <field name="transfer_type">organization</field>
+            <field name="name">DEPARTMENT</field>
+        </record>
+
+        <record id="transfer_document_temporary_duty" model="employee.transfer.document">
+            <field name="transfer_type">area</field>
+            <field name="name">TEMPORARY DUTY</field>
+        </record>
+        <record id="transfer_document_mutasi" model="employee.transfer.document">
+            <field name="transfer_type">area</field>
+            <field name="name">MUTASI</field>
+        </record>
+        <record id="transfer_document_rotasi" model="employee.transfer.document">
+            <field name="transfer_type">area</field>
+            <field name="name">ROTASI</field>
+        </record>
+
+        <record id="transfer_document_promosi" model="employee.transfer.document">
+            <field name="transfer_type">level</field>
+            <field name="name">PROMOSI</field>
+        </record>
+        <record id="document_type_demosi" model="employee.transfer.document">
+            <field name="transfer_type">level</field>
+            <field name="name">DEMOSI</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <record id="employee_transfer_dev_tree" model="ir.ui.view">
+            <field name="name">Employee Transfer Tree</field>
+            <field name="model">employee.transfer</field>
+            <field name="inherit_id" ref="hr_employee_transfer.employee_transfer_tree"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="transfer_type"/>
+                    <field name="document_type"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_transfer_dev" model="ir.ui.view">
+            <field name="name">Employee Transfer</field>
+            <field name="model">employee.transfer</field>
+            <field name="inherit_id" ref="hr_employee_transfer.employee_transfer"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="attributes">
+                    <attribute name='required'>1</attribute>
+                </field>
+                <field name="date" position="replace">
+                    <field name="date" attrs="{'readonly' : [('state', '!=', 'draft')] }" required="1"/>
+                </field>
+                <button name="transfer" position="replace">
+                    <button name="transfer" string="Post" class="oe_highlight" type="object" states="draft" groups="hr.group_hr_manager"/>
+                    <button name="set_to_draft" string="Set to Draft" type="object" states="cancel" groups="hr.group_hr_manager"/>
+                </button>
+                <xpath expr="//field[@name='responsible']" position="replace">
+                    <field name="transfer_type" required="1"/>
+                    <field name="document_type" options="{'no_create': True}" required="1"/>
+                </xpath>
+                <!--<xpath expr="//group[1]" position="after">
+                    <group name='remarks'>
+                        <field name="remarks"/>
+                    </group>
+                </xpath>-->
+                <xpath expr="//notebook/page[1]" position="before">
+                    <page string="Transfer Info" name="transfer_info">
+                        <group>
+                            <group string="Last Status" name="previous">
+                                <field name="department_id_prev" force_save="1"/>
+                                <field name="job_id_prev" force_save="1"/>
+                                <field name="area_id_prev" force_save="1"/>
+                            </group>
+                            <group  string="New Status" name="transfer_to">
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="area_id"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_employee_transfer.action_employee_transfer" model="ir.actions.act_window">
+            <field name="name">Status Alteration</field>
+        </record>
+
+        <menuitem id="hr_employee_transfer.menu_employee_transfer"
+            name="Status Alteration"
+            parent="hr.menu_hr_root"
+            sequence="15"
+            action="hr_employee_transfer.action_employee_transfer"
+            groups="hr.group_hr_manager,hr.group_hr_user"/>
+    </data>
+</odoo>

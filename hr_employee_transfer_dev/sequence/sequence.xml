@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate='0'>
+		<record id="ir_seq_employee_transfer" model="ir.sequence">
+			<field name="name">Employee Transfer</field>
+			<field name="code">employee.transfer.seq</field>
+			<field name="prefix">BSS/</field>
+			<field name="padding">4</field>
+			<field name="suffix">/transfer</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+	</data>
+</openerp>
+

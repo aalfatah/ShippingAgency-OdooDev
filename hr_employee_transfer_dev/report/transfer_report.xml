@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_employee_transfer">
+        <t t-call="web.html_container">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <center><strong><h3>Employee Status Alteration</h3></strong></center>
+                            <table class="table" style="margin-top:30px;">
+                                <tbody>
+                                   <tr>
+                                       <td style="border:0px!important;">
+                                            <strong>Employee</strong>
+                                       </td>
+                                       <td style="border:0px!important;">
+                                            : <span t-field="doc.employee_id"/>
+                                       </td>
+                                       <td style="border:0px!important;">
+                                            <strong>Transfer Type</strong>
+                                       </td>
+                                       <td style="border:0px!important;">
+                                            : <span t-field="doc.transfer_type"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td style="border:0px!important;">
+                                           <strong>Date</strong>
+                                       </td>
+                                       <td style="border:0px!important;">
+                                           : <span t-field="doc.date"/>
+                                       </td>
+                                       <td style="border:0px!important;">
+                                           <strong>Document Type</strong>
+                                       </td>
+                                       <td style="border:0px!important;">
+                                           : <span t-field="doc.document_type"/>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td style="border:0px!important;">
+                                           
+                                       </td>
+                                       <td style="border:0px!important;">
+                                           
+                                       </td>
+                                       <td style="border:0px!important;">
+                                           <strong>Responsible</strong>
+                                       </td>
+                                       <td style="border:0px!important;">
+                                           : <span t-field="doc.responsible"/>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td style="border:0px!important;">
+                                           <strong>Remarks</strong>
+                                       </td>
+                                       <td style="border:0px!important;" colspan="3">
+                                           : <span t-field="doc.remarks"/>
+                                       </td>
+                                       
+                                   </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered">
+                               <tbody>
+                                    <tr>
+                                        <td colspan='2'>
+                                            <h5><strong>Last Status</strong></h5>
+                                        </td>
+                                        <td colspan='2'>
+                                            <h5><strong>New Status</strong></h5>
+                                        </td>
+                                    </tr>
+                                   <tr t-if="doc.transfer_type == 'area'">
+                                       <td>
+                                            <strong>Area</strong>
+                                       </td>
+                                       <td>
+                                            <span t-field="doc.area_id_prev"/>
+                                       </td>
+                                       <td>
+                                            <strong>Area</strong>
+                                       </td>
+                                       <td>
+                                            <span t-field="doc.area_id"/>
+                                       </td>
+                                    </tr>
+                                    <tr t-if="doc.transfer_type == 'area'">
+                                       <td>
+                                           <strong>Sub-Area</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.sub_are_id_prev"/>
+                                       </td>
+                                       <td>
+                                           <strong>Sub-Area</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.sub_area_id"/>
+                                       </td>
+                                   </tr>
+
+                                   <tr t-if="doc.transfer_type == 'level'">
+                                       <td>
+                                           <strong>Job Position</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.job_id_prev"/>
+                                       </td>
+                                       <td>
+                                           <strong>Job Position</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.job_id"/>
+                                       </td>
+                                   </tr>
+
+
+                                   <tr t-if="doc.transfer_type == 'organization'">
+                                       <td>
+                                           <strong>Department</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.department_id_prev"/>
+                                       </td>
+                                       <td>
+                                           <strong>Department</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.department_id"/>
+                                       </td>
+                                   </tr>
+
+                                   <tr t-if="doc.transfer_type == 'tax'">
+                                       <td>
+                                           <strong>Tax Status</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.tax_status_prev"/>
+                                       </td>
+                                       <td>
+                                           <strong>Tax Status</strong>
+                                       </td>
+                                       <td>
+                                           <span t-field="doc.tax_status"/>
+                                       </td>
+                                   </tr>
+
+                                   
+                                </tbody>
+                            </table>
+                            <div>
+                                Note :
+                            </div>
+                            <div>
+                                <span t-field="doc.note"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="action_report_employee_transfer"
+        model="employee.transfer"
+        string="Status Alteration"
+        report_type="qweb-pdf"
+        name="hr_employee_transfer_dev.report_employee_transfer"
+        file="hr_employee_transfer_dev.report_employee_transfer"
+        />
+</odoo>

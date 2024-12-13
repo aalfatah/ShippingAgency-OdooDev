@@ -1,0 +1,118 @@
+<odoo>
+	<record id="employee_tax_status_tree" model="ir.ui.view">
+	    <field name="name">Employee Tax Status Tree</field>
+	    <field name="model">employee.tax.status</field>
+	    <field name="arch" type="xml">
+	        <tree string="Employee Tax Status">
+	            <field name="name"/>
+	            <field name="date"/>
+	            <field name="remarks"/>
+	            <field name="state"/>
+	        </tree>
+	    </field>
+	</record>
+
+	<record id="employee_tax_status_form" model="ir.ui.view">
+	    <field name="name">Employee Tax Status Form</field>
+	    <field name="model">employee.tax.status</field>
+	    <field name="arch" type="xml">
+	        <form string="Employee Tax Status">
+	        	<header>
+	        		<button name="action_post" string="Post" type="object" states="draft" class="btn-primary"/>
+	        		<button name="action_populate" string="Populate" type="object" states="draft" class="btn-secondary"/>
+	        		<button name="action_cancel" string="Cancel" type="object" states="done" class="btn-secondary"/>
+	        		<button name="action_set_to_Draft" string="Set to Draft" type="object" states="cancel" class="btn-secondary"/>
+	        		<button name="action_export_to_excel" string="export to excel" type="object" class="btn-secondary"/>
+	        		<field name="state" widget="statusbar" statusbar_visible="draft,done" />
+                </header>
+	        	<sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_tax_change"
+                                class="oe_stat_button"
+                                icon="fa-text-width"
+                                type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="tax_change_count" nolabel="1"/></span>
+                                <span class="o_stat_text">Total Change</span>
+                            </div>
+                        </button>
+                    </div>
+		        	<group>
+		        		<group>
+				            <field name="name"/>
+				            <field name="date"/>
+				            <field name="remarks"/>
+				        </group>
+				        <group>
+							<field name="tax_change_count"/>
+				            <field name="tax_change_only"/>
+						</group>
+				    </group>
+				    <notebook>
+				    	<page string="Tax Status Line" attrs="{'invisible':[('tax_change_only','=',True)]}">
+				    		<field name="line_ids">
+				    			<tree editable="bottom" decoration-warning="tax_status_prev != tax_status" decoration-muted="tax_status_prev == tax_status">
+				    				<field name="employee_id"/>
+				    				<field name="family_status"/>
+				    				<field name="tax_status_prev"/>
+				    				<field name="tax_status"/>
+				    				<field name="updated" invisible="1"/>
+				    			</tree>
+				    			<form>
+				    				<group>
+				    					<field name="employee_id"/>
+				    					<field name="family_status"/>
+				    					<field name="tax_status_prev"/>
+				    					<field name="tax_status"/>
+				    				</group>
+				    			</form>
+				    		</field>
+				    	</page>
+				    	<page string="Tax Status Line" attrs="{'invisible':[('tax_change_only','=',False)]}">
+				    		<field name="line_all_ids">
+				    			<tree editable="bottom" decoration-warning="tax_status_prev != tax_status" decoration-muted="tax_status_prev == tax_status">
+				    				<field name="employee_id"/>
+				    				<field name="family_status"/>
+				    				<field name="tax_status_prev"/>
+				    				<field name="tax_status"/>
+				    				<field name="updated" invisible="1"/>
+				    			</tree>
+				    			<form>
+				    				<group>
+				    					<field name="employee_id"/>
+				    					<field name="family_status"/>
+				    					<field name="tax_status_prev"/>
+				    					<field name="tax_status"/>
+				    				</group>
+				    			</form>
+				    		</field>
+				    	</page>
+				    </notebook>
+				</sheet>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="action_employee_tax_status" model="ir.actions.act_window">
+	    <field name="name">Employee Tax Status</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">employee.tax.status</field>
+	    <field name="view_mode">tree,form</field>
+	    <field name="view_id" eval="False"/>
+	    <field name="domain">[]</field>
+	    <field name="help" type="html">
+	        <p class="oe_view_nocontent_create">
+	            Click to create a new Employee Tax Status.
+	        </p>
+	    </field>
+	</record>
+
+	<menuitem id="menu_employee_tax_status"
+            name="Update Tax Status"
+            parent="hr_dev.menu_hr_operations_dev"
+            sequence="2"
+            action="action_employee_tax_status"
+            groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+
+</odoo>
