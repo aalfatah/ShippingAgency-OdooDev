@@ -31,9 +31,17 @@ class SaleCostStructureLine(models.Model):
         for row in self:
             row.estimated_cost = row.standard_cost * row.quantity
 
+    def validate_cost_line(self):
+        if self.sale_order_id.state != 'sale':
+            raise UserError(_("%s belum di confirm atau SO di locked!" % self.sale_order_id.name))
+        if not self.attachment_url:
+            raise UserError(_("%s belum belum ada attachment!" % self.name))
+        return True
+
     def create_expense(self):
         employee_id = self.env.user.employee_id
         if employee_id:
+            self.validate_cost_line()
             expense_data = {
                 'sale_structure_line_id': self.id,
                 'product_id': self.product_id.id,
