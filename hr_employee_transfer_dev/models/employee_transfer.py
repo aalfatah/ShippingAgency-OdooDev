@@ -37,8 +37,8 @@ class EmployeeTransferDev(models.Model):
     job_id = fields.Many2one('hr.job', 'Job Position')
     area_id_prev = fields.Many2one('res.area', string='Area', readonly="1")
     area_id = fields.Many2one('res.area', string='Area')
-    # sub_are_id_prev = fields.Many2one('hr.employee.area.sub', string='Sub-Area', readonly="1")
-    # sub_area_id = fields.Many2one('hr.employee.area.sub', string='Sub-Area')
+    parent_id_prev = fields.Many2one('hr.employee', string='Manager', readonly="1")
+    parent_id = fields.Many2one('hr.employee', string='Manager')
     # tax_status_prev = fields.Many2one('hr.payroll.ptkp', string='Tax Status', readonly="1")
     # tax_status = fields.Many2one('hr.payroll.ptkp', string='Tax Status')
 
@@ -50,12 +50,14 @@ class EmployeeTransferDev(models.Model):
     def onchange_employee_id(self):
         if self.employee_id:
             employee = self.env['hr.employee'].browse(self.employee_id.id)
-            self.department_id_prev = employee.department_id
-            self.job_id_prev = employee.job_id
-            self.area_id_prev = employee.area_id
-            self.department_id = employee.department_id
-            self.job_id = employee.job_id
-            self.area_id = employee.area_id
+            self.department_id_prev = employee.department_id.id
+            self.job_id_prev = employee.job_id.id
+            self.area_id_prev = employee.area_id.id
+            self.parent_id_prev = employee.parent_id.id
+            self.department_id = employee.department_id.id
+            self.job_id = employee.job_id.id
+            self.area_id = employee.area_id.id
+            self.parent_id = employee.parent_id.id
 
     @api.model
     def _get_state(self):
@@ -65,18 +67,23 @@ class EmployeeTransferDev(models.Model):
         val = {}
         remark_string = ''
         if self.department_id_prev != self.department_id:
-            val = {'department_id': self.department_id.id}
+            val.update({'department_id': self.department_id.id})
             remark_string += 'Department : ' + str(self.department_id_prev.name) + ' to ' + str(self.department_id.name)
         
         if self.job_id_prev != self.job_id:
-            val = {'job_id': self.job_id}
+            val.update({'job_id': self.job_id.id})
             remark_string += ', ' if remark_string else ''
             remark_string += 'Job Position : ' + str(self.job_id_prev.name) + ' to ' + str(self.job_id.name)
 
         if self.area_id_prev != self.area_id:
-            val = {'area_id': self.area_id}
+            val.update({'area_id': self.area_id.id})
             remark_string += ', ' if remark_string else ''
             remark_string += 'Area : ' + str(self.area_id_prev.name) + ' to ' + str(self.area_id.name)
+
+        if self.parent_id_prev != self.parent_id:
+            val.update({'parent_id': self.parent_id.id})
+            remark_string += ', ' if remark_string else ''
+            remark_string += 'Manager : ' + str(self.parent_id_prev.name) + ' to ' + str(self.parent_id.name)
 
         self.remarks = remark_string
 
@@ -92,11 +99,10 @@ class EmployeeTransferDev(models.Model):
                     'department_id': self.department_id_prev.id,
                     'job_id': self.job_id_prev.id,
                     'area_id': self.area_id_prev.id,
+                    'parent_id': self.parent_id_prev.id,
                 }
-
         self.remarks = remark_string
         obj_emp.write(emp)
-
         self.state = 'cancel'
 
     def set_to_draft(self):
