@@ -15,6 +15,7 @@ Modify journal view show secure_sequence_id field
     'data': [
         'views/account_move_views.xml',
         'reports/payment_request.xml',
+        'reports/invoice_report.xml',
     ],
     'demo': [
     ],
