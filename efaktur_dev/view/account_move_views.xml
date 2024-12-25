@@ -6,9 +6,9 @@
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field" position="after">
+                <!--<xpath expr="//field" position="after">
                     <field name="efaktur_id" domain="[('is_used','=',False)]"/>
-                </xpath>
+                </xpath>-->
                 <xpath expr="//page[@id='other_tab']" position="before">
                     <page string="E-Faktur" >
                         <group>
