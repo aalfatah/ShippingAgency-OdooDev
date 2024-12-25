@@ -35,6 +35,7 @@
                     <field name="start_date"/>
                     <!--<span name="expected_date_span" class="text-muted">Expected: <field name="expected_date" class="oe_inline" widget="date"/></span>-->
                 </div>
+                <field name="loading_date"/>
             </xpath>
 
             <group name="utm_link" position="attributes">

@@ -9,6 +9,7 @@ class SaleOrder(models.Model):
 
     customer_contact = fields.Char("Contact")
     start_date = fields.Date(string="Start Date", copy=False)
+    loading_date = fields.Date(string="Loading Date", copy=False)
     commodity = fields.Char(string="Commodity")
     cargo = fields.Integer(string="Cargo")
     grt = fields.Integer(string="GRT")
