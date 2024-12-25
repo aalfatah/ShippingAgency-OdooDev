@@ -7,7 +7,8 @@
     "license": "LGPL-3",
     "depends": ["sale", "sale_management", "account_dev"],
     "data": [
-        "views/sale_order_views.xml"
+        "views/sale_order_views.xml",
+        "reports/epda_report.xml"
     ],
     "installable": True,
 }

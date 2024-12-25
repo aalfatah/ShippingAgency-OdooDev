@@ -25,6 +25,10 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <group name="partner_details" position="inside">
+                <field name="customer_contact"/>
+            </group>
+
             <xpath expr="//group[@name='sale_shipping']/label" position="before">
                 <label for="start_date" string="Start Date"/>
                 <div name="start_date_div" class="o_row">
@@ -32,6 +36,19 @@
                     <!--<span name="expected_date_span" class="text-muted">Expected: <field name="expected_date" class="oe_inline" widget="date"/></span>-->
                 </div>
             </xpath>
+
+            <group name="utm_link" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+
+            <group name="sale_reporting" position="inside">
+                <group colspan="2" class="mt-0">
+                    <field name="commodity"/>
+                    <field name="cargo"/>
+                    <field name="grt"/>
+                    <field name="flag"/>
+                </group>
+            </group>
         </field>
     </record>
 
