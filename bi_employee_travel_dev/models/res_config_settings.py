@@ -10,7 +10,8 @@ class ResConfigSettings(models.TransientModel):
     disallow_multi_travel = fields.Boolean(string="Disallow Multiple Travel")
     pemberi_tugas_id = fields.Many2many('hr.employee', 'employee_pemberi_tugas', 'employee_id', 'pemberi_tugas',
                                         string='Pemberi Tugas')
-    # mengetahui_id = fields.Many2many('hr.employee','employee_mengetahui','employee_id','mengetahui', string='Mengetahui')
+    mengetahui_id = fields.Many2many('hr.employee', 'employee_mengetahui', 'employee_id', 'mengetahui',
+                                     string='Mengetahui')
     declaration_reminder_1 = fields.Integer(string="First Reminder")
     declaration_reminder_2 = fields.Integer(string="Second Reminder")
     declaration_reminder_3 = fields.Integer(string="Third Reminder")
@@ -22,7 +23,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameters = self.env['ir.config_parameter']
         config_parameters.set_param("disallow_multi_travel", self.disallow_multi_travel)
         config_parameters.set_param("pemberi_tugas_id", self.pemberi_tugas_id.ids)
-        # config_parameters.set_param("mengetahui_id", self.mengetahui_id.ids)
+        config_parameters.set_param("mengetahui_id", self.mengetahui_id.ids)
         config_parameters.set_param('declaration_reminder_1', self.declaration_reminder_1)
         config_parameters.set_param('declaration_reminder_2', self.declaration_reminder_2)
         config_parameters.set_param('declaration_reminder_3', self.declaration_reminder_3)
@@ -38,8 +39,8 @@ class ResConfigSettings(models.TransientModel):
         pemberi_tugas_ids = params.get_param('pemberi_tugas_id', default=False)
         res.update(pemberi_tugas_id=[(6, 0, literal_eval(pemberi_tugas_ids))] if pemberi_tugas_ids else False, )
 
-        # mengetahui_ids = params.get_param('mengetahui_id', default=False)
-        # res.update(mengetahui_id=[(6, 0, literal_eval(mengetahui_ids))] if mengetahui_ids else False, )
+        mengetahui_ids = params.get_param('mengetahui_id', default=False)
+        res.update(mengetahui_id=[(6, 0, literal_eval(mengetahui_ids))] if mengetahui_ids else False, )
 
         res.update(declaration_reminder_1=int(params.get_param('declaration_reminder_1')))
         res.update(declaration_reminder_2=int(params.get_param('declaration_reminder_2')))

@@ -31,24 +31,24 @@
                             <div class="o_setting_right_pane">
                                 <label for="pemberi_tugas_id"/>
                                 <div class="content-group">
-                                    <field name="pemberi_tugas_id" nolabel="1" widget="many2many_tags"/>
+                                    <field name="pemberi_tugas_id" nolabel="1" widget="many2many_tags" options="{'no_create': True}"/>
                                 </div>
                                 <div class="text-muted">
                                     Employee Pemberi Tugas
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_right_pane">
                                 <label for="mengetahui_id"/>
                                 <div class="content-group">
-                                    <field name="mengetahui_id" nolabel="1" widget="many2many_tags"/>
+                                    <field name="mengetahui_id" nolabel="1" widget="many2many_tags" options="{'no_create': True}"/>
                                 </div>
                                 <div class="text-muted">
                                     Employee Mengetahui
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
 
                     <h2>Declaration Reminder</h2>
@@ -121,5 +121,4 @@
         sequence="0"
         action="travel_config_settings_action"
         groups="bi_employee_travel.hr_travel_manager_id"/>
-
 </odoo>

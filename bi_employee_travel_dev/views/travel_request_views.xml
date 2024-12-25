@@ -308,9 +308,9 @@
                         <group>
                             <field name="employee_id_pemberi_tugas" options="{'no_create': True}"/>
                         </group>
-                        <!--<group>
+                        <group>
                             <field name="employee_id_approver" options="{'no_create': True}"/>
-                        </group>-->
+                        </group>
                     </group>
                     <group>
                         <group>
