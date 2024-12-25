@@ -16,6 +16,14 @@ class SaleOrder(models.Model):
     po_date = fields.Date(string='Tanggal PO', tracking=True)
     vo_no = fields.Char(string='No. VO', tracking=True)
 
+    remaining_cost_to_expense = fields.Float('To Expense', compute='_remaining_cost_to_expense')
+
+    def _remaining_cost_to_expense(self):
+        for order in self:
+            order.remaining_cost_to_expense = sum(order.sale_cost_structure_line_ids.filtered(
+                                                  lambda c: c.allow_expense and not c.expense_id)
+                                                  .mapped('estimated_cost'))
+
     @api.onchange('cost_structure_id')
     def _onchange_cost_structure_id(self):
         self.vessel_ids = False

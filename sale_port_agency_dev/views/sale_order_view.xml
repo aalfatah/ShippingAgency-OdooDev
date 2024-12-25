@@ -53,13 +53,19 @@
                 <field name="discharge_port_ids" options="{'no_create': True}" widget="many2many_tags"/>
             </xpath>
 
-            <group name="sale_reporting" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </group>
-
             <xpath expr="//tree/field[@name='product_id']" position="attributes">
                 <attribute name="options">{"no_create": True}</attribute>
             </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree_expense_dev" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="remaining_cost_to_expense" optional="hide"/>
+            </field>
         </field>
     </record>
 </odoo>
