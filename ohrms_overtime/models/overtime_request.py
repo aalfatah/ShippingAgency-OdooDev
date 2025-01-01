@@ -231,17 +231,16 @@ class HrOverTime(models.Model):
                 raise ValidationError(_(
                     'You can not have 2 Overtime requests that overlaps on same day!'))
 
-    @api.model_create_multi
+    # @api.model_create_multi
+    @api.model
     def create(self, values):
         seq = self.env['ir.sequence'].next_by_code('hr.overtime') or '/'
         values['name'] = seq
         return super(HrOverTime, self.sudo()).create(values)
 
     def unlink(self):
-        for overtime in self.filtered(
-                lambda overtime: overtime.state != 'draft'):
-            raise UserError(
-                _('You cannot delete TIL request which is not in draft state.'))
+        for overtime in self.filtered(lambda o: o.state != 'draft'):
+            raise UserError(_('You cannot delete TIL request which is not in draft state.'))
         return super(HrOverTime, self).unlink()
 
     @api.onchange('date_from', 'date_to', 'employee_id')
