@@ -60,8 +60,12 @@ class CostStructureLine(models.Model):
                 continue
         return cost_dict
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
+        item_id = self.env['agency.cost.item'].browse(vals['item_id'])
+        item_id = self.env['agency.cost.item'].search([('cost_header_id', '=', vals['header_id']),
+                                                       ('name', '=', item_id.name)])
+        vals['item_id'] = item_id.id
         lines = super(CostStructureLine, self).create(vals)
         for line in lines:
             msg = f"A new cost line with the name {line.name} has been added."

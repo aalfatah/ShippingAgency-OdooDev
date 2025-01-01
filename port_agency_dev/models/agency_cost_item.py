@@ -13,7 +13,7 @@ class CostItem(models.Model):
 
     sequence = fields.Integer("Number", tracking=True)
     name = fields.Char("Cost Item", required=True, tracking=True)
-    code = fields.Char("Cost Code", required=True, tracking=True)
+    code = fields.Char("Cost Code", required=False, tracking=True, copy=False)
     cost_header_id = fields.Many2one('agency.cost.header', "Cost Header", ondelete="cascade")
     active = fields.Boolean('Active', default=True, tracking=True)
     cost_formula = fields.Text(string='Formula', default="result = 1")
@@ -26,6 +26,7 @@ class CostItem(models.Model):
     @api.onchange('code')
     def _onchange_code(self):
         prohibited_chars = "!@#$%^&*()-+=[]{}<>,."
-        for char in self.code:
-            if char in prohibited_chars:
-                raise ValidationError(_("Cost item code tidak boleh ada character berikut -> %s." % prohibited_chars))
+        if self.code:
+            for char in self.code:
+                if char in prohibited_chars:
+                    raise ValidationError(_("Cost item code tidak boleh ada character berikut -> %s." % prohibited_chars))

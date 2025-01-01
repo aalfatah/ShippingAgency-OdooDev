@@ -8,3 +8,4 @@ access_agency_cost_header,access_agency_cost_header,model_agency_cost_header,,1,
 access_agency_cost_package,access_agency_cost_package,model_agency_cost_package,,1,1,1,1
 access_agency_cost_structure,access_agency_cost_structure,model_agency_cost_structure,,1,1,1,1
 access_agency_cost_structure_line,access_agency_cost_structure_line,model_agency_cost_structure_line,,1,1,1,1
+access_add_cost_header,access_add_cost_header,model_add_cost_header,,1,1,1,1

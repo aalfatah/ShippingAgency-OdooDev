@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_add_cost_header_wizard" model="ir.ui.view">
+            <field name="name">add.cost.header.form</field>
+            <field name="model">add.cost.header</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Add Cost Header">
+                    <sheet>
+                        <!--<group>
+                            <group>
+                                <field name="name" select="1"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>-->
+                        <tree  editable="bottom">
+                            <field name="cost_header_ids">
+                                <!--<tree string="Cost Item" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="code" required="1"/>
+                                    <field name="product_id" options="{'no_create': True}"/>
+                                    <field name="cost_formula"/>
+                                </tree>-->
+                            </field>
+                        </tree>
+                    </sheet>
+                    <footer>
+                        <button name="add_cost_header" string="Select" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -23,6 +23,24 @@ class CostStructure(models.Model):
     amount_total = fields.Float(string="Total", compute='_compute_total')
     line_ids = fields.One2many('agency.cost.structure.line', 'cost_structure_id', 'Lines', copy=True)
 
+    def action_cost_item_product(self):
+        wizard = self.env.ref("port_agency_dev.view_add_cost_header_wizard")
+        return {
+            "name": _("Add Cost Header"),
+            "type": "ir.actions.act_window",
+            "view_mode": "form",
+            "res_model": "add.cost.header",
+            "views": [(wizard.id, "form")],
+            "view_id": wizard.id,
+            "target": "new",
+            "context": {
+                "default_cost_structure_id": self.id,
+                # "default_res_model": self._name,
+                # "default_review_ids": reviews.ids,
+                # "default_validate_reject": validate_reject,
+            },
+        }
+
     @api.onchange('vessel_ids')
     def _get_vessel_grt(self):
         for s in self:

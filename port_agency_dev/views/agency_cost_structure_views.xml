@@ -13,9 +13,9 @@
                     <field name="last_port_id" optional="show"/>
                     <field name="load_port_ids" widget="many2many_tags" optional="show"/>
                     <field name="discharge_port_ids" widget="many2many_tags" optional="show"/>
-                    <field name="vessel_ids" widget="many2many_tags" optional="show"/>
-                    <field name="grt"/>
-                    <field name="capacity"/>
+                    <field name="vessel_ids" widget="many2many_tags" optional="hide"/>
+                    <field name="grt" optional="hide"/>
+                    <field name="capacity" optional="hide"/>
                     <field name="amount_total"/>
                 </tree>
             </field>
@@ -29,6 +29,9 @@
             <field name="arch" type="xml">
                 <form string="Cost Structure">
                     <sheet>
+                        <header>
+                            <button name="action_cost_item_product" string="Add Header Cost" class="oe_highlight" type="object"/>
+                        </header>
                         <div class="oe_title">
                             <h1>
                                 <field name="name" placeholder="Cost structure code"/>
@@ -37,14 +40,14 @@
                         <group>
                             <group>
                                 <field name="sequence" invisible="1"/>
-                                <field name="vessel_ids" widget="many2many_tags" options="{'no_create': True}"/>
-                                <field name="grt"/>
-                                <field name="capacity"/>
-                            </group>
-                            <group>
                                 <field name="last_port_id" options="{'no_create': True}"/>
                                 <field name="load_port_ids" widget="many2many_tags" options="{'no_create': True}"/>
                                 <field name="discharge_port_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="vessel_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="grt"/>
+                                <field name="capacity"/>
                             </group>
                         </group>
                         <notebook>
