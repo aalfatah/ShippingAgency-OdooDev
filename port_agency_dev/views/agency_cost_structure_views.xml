@@ -61,12 +61,12 @@
                                         </control>
                                         <field name="sequence" widget="handle"/>
                                         <field name="display_type" invisible="1"/>
-                                        <field name="package_id" options="{'no_create': True}"/>
-                                        <field name="header_id" options="{'no_create': True}"/>
+                                        <field name="package_id" options="{'no_create': True}" optional="show"/>
+                                        <field name="header_id" options="{'no_create': True}" optional="show"/>
                                         <field name="item_id" options="{'no_create': True}" domain="[('cost_header_id', '=', header_id)]"/>
-                                        <field name="code"/>
+                                        <field name="code" optional="hide"/>
                                         <field name="name"/>
-                                        <field name="product_id"/>
+                                        <field name="product_id" optional="show"/>
                                         <field name="standard_cost"/>
                                         <field name="quantity"/>
                                         <field name="estimated_cost"/>

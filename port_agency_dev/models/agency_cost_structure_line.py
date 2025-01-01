@@ -60,12 +60,16 @@ class CostStructureLine(models.Model):
                 continue
         return cost_dict
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
-        item_id = self.env['agency.cost.item'].browse(vals['item_id'])
-        item_id = self.env['agency.cost.item'].search([('cost_header_id', '=', vals['header_id']),
-                                                       ('name', '=', item_id.name)])
-        vals['item_id'] = item_id.id
+        for val in vals:
+            item_id = self.env['agency.cost.item'].browse(val['item_id'])
+            header_id = self.env['agency.cost.header'].browse(val['header_id'])
+            item = self.env['agency.cost.item'].search([('cost_header_id', '=', header_id.id),
+                                                        ('name', '=', item_id.name)])
+            if not item:
+                raise UserError(_("Tidak ada cost item %s di cost header %s!" % (item_id.name, header_id.name)))
+            val['item_id'] = item.id
         lines = super(CostStructureLine, self).create(vals)
         for line in lines:
             msg = f"A new cost line with the name {line.name} has been added."
