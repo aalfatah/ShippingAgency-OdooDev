@@ -66,7 +66,8 @@ class HrOverTime(models.Model):
     def _get_duration_type(self):
         return [('hours', 'Hour'), ('days', 'Day'), ('period', 'Period')]
 
-    @api.model_create_multi
+    # @api.model_create_multi
+    @api.model
     def create(self, values):
         if 'contract_id' not in values:
             values['contract_id'] = self.env['hr.employee'].browse(values['employee_id']).contract_id.id
@@ -148,7 +149,8 @@ class HrOverTime(models.Model):
                 else:
                     rate += line.hrs_amount * (hours - (0 if rate == 0 else line.from_hrs))
 
-            row.rate_hours = round(rate, 2)
+            row.rate_hours = rate
+            # row.rate_hours = round(rate, 2)
             # row.rate_hours = int(rate * 100) / 100
 
     def cancel(self):
@@ -242,7 +244,8 @@ class HrOverTime(models.Model):
                 self._get_rate_hours()
                 if self.overtime_type_id.rule_line_ids and self.duration_type in ('hours','period'):
                     if self.contract_id.over_hour:
-                        cash_amount = round(self.contract_id.over_hour * self.rate_hours, -2)
+                        # cash_amount = round(self.contract_id.over_hour * self.rate_hours, -2)
+                        cash_amount = self.contract_id.over_hour * self.rate_hours
                     else:
                         raise UserError(_("Hour Overtime Needs Hour Wage in Employee Contract."))
                 elif self.overtime_type_id.rule_line_ids and self.duration_type == 'days':
