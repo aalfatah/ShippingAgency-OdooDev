@@ -16,7 +16,14 @@ class SaleOrder(models.Model):
     po_date = fields.Date(string='Tanggal PO', tracking=True)
     vo_no = fields.Char(string='No. VO', tracking=True)
 
+    grt = fields.Float('GRT', compute='_get_vessel_grt', tracking=True)
+
     remaining_cost_to_expense = fields.Float('To Expense', compute='_remaining_cost_to_expense')
+
+    @api.onchange('vessel_ids')
+    def _get_vessel_grt(self):
+        for s in self:
+            s.grt = sum(s.vessel_ids.mapped('grt')) if s.vessel_ids else 0
 
     def _remaining_cost_to_expense(self):
         for order in self:
