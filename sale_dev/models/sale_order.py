@@ -11,6 +11,6 @@ class SaleOrder(models.Model):
     start_date = fields.Date(string="Start Date", copy=False)
     loading_date = fields.Date(string="Loading Date", copy=False)
     commodity = fields.Char(string="Commodity")
-    cargo = fields.Integer(string="Cargo")
-    grt = fields.Integer(string="GRT")
+    cargo = fields.Float(string="Cargo")
+    grt = fields.Float(string="GRT")
     flag = fields.Char(string="Flag")
