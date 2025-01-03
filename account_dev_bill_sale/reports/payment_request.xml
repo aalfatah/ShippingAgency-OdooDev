@@ -142,6 +142,10 @@
             <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
             <div class="page" style="font-size: 12px; font-family: 'Gideon Roman', sans-serif;">
+                <style>
+                    table {border: 0px;}
+                    td {background-color: white; border: 0px solid transparent;}
+                </style>
                 <div class="oe_structure"/>
 
                 <!--<table>
@@ -258,7 +262,7 @@
                     </tbody>
 
                     <tr>
-                        <td style="border:0px; padding-top: 5px;" colspan="4" rowspan="4">
+                        <td style="padding-top: 5px;" colspan="4" rowspan="4">
                             <div class="row" style="padding-top: 5px; padding-right: 5px;">
                                 <div style="width: 12%;">Terbilang :</div>
                                 <div style="width: 88%;"><t t-esc="'%s' % o.total_amount_in_words()"/></div>
