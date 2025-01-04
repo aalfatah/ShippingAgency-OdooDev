@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <record id="ins_partner_ageing_wizard_dev" model="ir.ui.view">
+            <field name="model">ins.partner.ageing</field>
+            <field name="inherit_id" ref="account_dynamic_reports.ins_partner_ageing_wizard"/>
+            <field name="arch" type="xml">
+                <field name="include_details" position="after">
+                    <field name="down_payment"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>
