@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_payment_voucher" model="report.paperformat">
+        <field name="name">Payment Voucher</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="print_payment_voucher" model="ir.actions.report">
+        <field name="name">Payment Voucher</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_dev.payment_voucher</field>
+        <field name="report_file">account_dev.payment_voucher</field>
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_payment_voucher"/>
+    </record>
+
+    <template id="payment_voucher_document">
+        <t t-call="web.external_layout">
+            <style>
+                table           { border-spacing: 0px!important; width:100%; }
+                table.border    { border-spacing: 1px solid black!important; width:100%; }
+                tr.border       { border-spacing: 1px solid black!important; width:100%; }
+                .myborder       { padding: 10px; border: 1px solid black; background-color: white; width: 100px; text-align: center; valign: middle; }
+                td.content      { padding: 0px; text-align: left; border: 0px solid black; height: 35px;}
+                th              { border-top: 1px solid black; border-bottom: 1px solid black; }
+            </style>
+            <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
+            <div class="page" style="font-size: 14px; font-family: 'Gideon Roman', sans-serif;">
+            <!--<div class="page" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">-->
+
+                <!--<table>
+                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo" style="max-height:70px"/>
+                </table>
+
+                <![CDATA[<br>]]>
+                <![CDATA[<br>]]>-->
+
+                <h3 class="text-center" t-if="o.is_internal_transfer">INTERNAL TRANSFER</h3>
+                <h3 class="text-center" t-if="not o.is_internal_transfer and o.payment_type == 'outbound'">PAYMENT VOUCHER</h3>
+                <h3 class="text-center" t-if="not o.is_internal_transfer and o.payment_type == 'inbound'">RECEIVE VOUCHER</h3>
+                <h5 class="text-center"><span t-esc="'No. %s' % o.name" style="font-weight: bold;"/></h5>
+                <!--<![CDATA[<br>]]>-->
+
+                <!--<table>
+                    <tr>
+                        <td><strong><span t-field="o.name"/></strong></td>
+                    </tr>
+                </table>-->
+
+                <![CDATA[<br>]]>
+
+                <table>
+                    <tr>
+                        <td style="width: 16%;">
+                            <t><strong>Payment Type</strong></t>
+                        </td>
+                        <td style="width: 34%;">
+                            <t>: <span t-field="o.payment_type"/></t>
+                        </td>
+                        <td style="width: 19%;">
+                            <t><strong>Payment Date</strong></t>
+                        </td>
+                        <td style="width: 31%;">
+                            <t>: <span t-field="o.date" t-options="{'widget': 'date', 'format': 'dd-MMM-yyyy'}"/></t>
+                        </td>
+                    </tr>
+                <!--</table>
+
+                <![CDATA[<br>]]>
+
+                <table>-->
+                    <tr>
+                        <td>
+                            <t t-if="o.is_internal_transfer"><strong>Payment Journal</strong></t>
+                            <t t-else=""><strong><span t-field="o.partner_type"/></strong></t>
+                        </td>
+                        <td>
+                            <t t-if="o.is_internal_transfer">: <span t-field="o.journal_id.name"/></t>
+                            <t t-else="">: <span t-field="o.partner_id.name"/></t>
+                        </td>
+                        <td>
+                            <t><strong>Memo</strong></t>
+                        </td>
+                        <td>
+                            <t>: <span t-field="o.ref"/></t>
+                            <![CDATA[<br>]]>
+                        </td>
+                    </tr>
+                <!--</table>
+
+                <![CDATA[<br>]]>
+
+                <table>-->
+                    <tr>
+                        <td>
+                            <t t-if="o.is_internal_transfer"><strong>Transfer To</strong></t>
+                            <t t-else=""><strong>Payment Journal</strong></t>
+                        </td>
+                        <td>
+                            <t t-if="o.is_internal_transfer">: <span t-field="o.destination_journal_id.name"/></t>
+                            <t t-else="">: <span t-field="o.journal_id.name"/></t>
+
+                        </td>
+                        <td>
+                            <t><strong>Payment Transaction</strong></t>
+                        </td>
+                        <td>
+                            <t>: <span t-field="o.payment_transaction_id.reference"/></t>
+                            <![CDATA[<br>]]>
+                        </td>
+                    </tr>
+                <!--</table>
+
+                <table>-->
+                    <tr class="content">
+                        <![CDATA[<br>]]>
+                        <td>
+                            <t><strong>Payment Amount</strong></t>
+                        </td>
+                        <td>
+                            <t>: <span t-field="o.amount"/></t>
+                        </td>
+                    </tr>
+                </table>
+
+                <![CDATA[<br>]]>
+                <table class="myborder" style="width:100%; margin-top: 30px;">
+                    <thead>
+                        <tr class="myborder">
+                            <td class="myborder">Prepaid By</td>
+                            <td class="myborder">Approved By</td>
+                            <td class="myborder">Approved By</td>
+                            <t t-if="o.is_internal_transfer">
+                                <td class="myborder">Approval</td>
+                            </t>
+                            <t t-else="">
+                                <td class="myborder">Received By</td>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tr class="myborder" height="100px">
+                        <td class="myborder"></td>
+                        <td class="myborder"></td>
+                        <td class="myborder"></td>
+                        <t t-if="o.is_internal_transfer">
+                            <td class="myborder"/>
+                        </t>
+                        <t t-else="">
+                            <td class="myborder"/>
+                        </t>
+                    </tr>
+                    <tr class="myborder" height="25px">
+                        <td class="myborder"><!--<span t-esc="o.payment_transfer_prepared_id.name or o.create_uid.name"/>--></td>
+                        <td class="myborder"><!--<span t-field="o.bill_signed1_id"/>--></td>
+                        <td class="myborder"><!--<span t-field="o.bill_signed2_id"/>--></td>
+                        <t t-if="o.is_internal_transfer">
+                            <td/>
+                        </t>
+                        <t t-else="">
+                            <td class="myborder"><!--<span t-field="o.payment_transfer_received_by"/>--></td>
+                        </t>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="payment_voucher">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="account_dev.payment_voucher_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>
