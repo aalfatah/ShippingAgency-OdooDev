@@ -22,6 +22,15 @@
 			<field name="name" position="attributes">
 				<attribute name="attrs">{'readonly': [('is_travel', '!=', False)]}</attribute>
 			</field>
+			<field name="employee_id" position="attributes">
+				<attribute name="options">{'no_create': True}</attribute>
+			</field>
+			<field name="user_id" position="attributes">
+				<attribute name="options">{'no_create': True}</attribute>
+			</field>
+			<field name="advance_sheet_id" position="attributes">
+				<attribute name="options">{'no_create': True}</attribute>
+			</field>
 			<xpath expr="//tree/field[@name='reference']" position="after">
 				<field name="travel_id" optional="hide"/>
 				<field name="travel_expense_id" optional="hide"/>
