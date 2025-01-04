@@ -68,7 +68,11 @@ class CostStructureLine(models.Model):
             item = self.env['agency.cost.item'].search([('cost_header_id', '=', header_id.id),
                                                         ('name', '=', item_id.name)])
             if not item:
-                raise UserError(_("Tidak ada cost item %s di cost header %s!" % (item_id.name, header_id.name)))
+                raise UserError(_("%s. Tidak ada cost item %s di cost header %s!" % (val['sequence'], item_id.name,
+                                                                                     header_id.name)))
+            if len(item) > 1:
+                raise UserError(_("%s. Multiple cost item %s di cost header %s!" % (val['sequence'], item_id.name,
+                                                                                    header_id.name)))
             val['item_id'] = item.id
         lines = super(CostStructureLine, self).create(vals)
         for line in lines:
