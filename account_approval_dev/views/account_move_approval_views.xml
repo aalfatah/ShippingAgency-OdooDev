@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_approval_tree_view_dev" model="ir.ui.view">
+            <field name="name">Account Approval</field>
+            <field name="model">account.move.approval</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="limit"/>
+                    <field name="journal_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="approver" options="{'no_open': True, 'no_create': True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_approval_action_dev" model="ir.actions.act_window">
+            <field name="name">Account Approval</field>
+            <field name="res_model">account.move.approval</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create new Account Approval.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="account_approval_menu_dev" name="Account Approval"
+                  parent="account.menu_finance_configuration"
+                  groups="account.group_account_manager"
+                  action="account_approval_action_dev" sequence="500"/>
+
+    </data>
+</odoo>
