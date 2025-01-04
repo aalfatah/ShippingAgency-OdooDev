@@ -45,7 +45,7 @@
             <field name="inherit_id" ref="account.res_partner_view_search"/>
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='customer']" position="before">
-                   <filter string="Employee" name="employee" domain="[('employee_ids','!=', False)]"/>
+                   <filter string="Employee" name="filter_employee" domain="[('employee','=', True)]"/>
                 </xpath>
             </field>
         </record>
