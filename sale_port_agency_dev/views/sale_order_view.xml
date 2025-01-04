@@ -25,9 +25,9 @@
             <field name="payment_term_id" position="after">
                 <label for="cost_structure_id"/>
                 <div class="o_row" name="cost_structure">
-                    <field name="cost_structure_id" options="{'no_create': True}"/>
+                    <field name="cost_structure_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create': True}"/>
                     <button name="update_lines" type="object" string="Update Lines"
-                            attrs="{'invisible': [('cost_structure_id', '=', False)]}" class="oe_highlight"/>
+                            attrs="{'invisible': ['|', ('cost_structure_id', '=', False), ('state', '!=', 'draft')]}" class="oe_highlight"/>
                 </div>
                 <field name="vessel_ids" options="{'no_create': True}" widget="many2many_tags"/>
             </field>
