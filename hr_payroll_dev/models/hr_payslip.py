@@ -269,6 +269,12 @@ class HrPayslip(models.Model):
                 slip.pay_proportional = 0
                 slip.rapel_proportional = 0
 
+    def get_date_indonesia(self, date):
+        tanggal = date.day
+        bulan = date.strftime('%B')
+        tahun = date.year
+        return "%s %s %s" % (tanggal, bulan, tahun)
+
 
 class HrPayslipLine(models.Model):
     _inherit = 'hr.payslip.line'

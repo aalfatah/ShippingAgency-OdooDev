@@ -29,6 +29,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='appears_on_payslip']" position="after">
                     <field name="bold_on_payslip"/>
+                    <field name="show_zero_on_payslip"/>
                 </xpath>
             </field>
         </record>

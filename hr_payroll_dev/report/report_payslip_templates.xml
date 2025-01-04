@@ -1,125 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<template id="report_payslip">
-    <t t-call="web.html_container">
-        <t t-foreach="docs" t-as="o">
-            <t t-call="web.external_layout">
-                <div class="page" t-attf-style="background-image: url(&quot;/hr_payroll_dev/static/src/img/confidential.png&quot;); background-size: cover; background-position: 70% 20%;">
-                    <h2>Pay Slip - <span t-field="o.number"/></h2>
-                    <p t-field="o.name"/>
+<template id="report_payslip" inherit_id="hr_payroll_community.report_payslip">
+    <xpath expr="//div[hasclass('page')]" position="replace">
+        <!--<div class="page" t-attf-style="background-image: url(&quot;/hr_payroll_dev/static/src/img/confidential.png&quot;); background-size: cover; background-position: 70% 20%;">-->
+        <div class="page">
+            <style>
+                table {border: 0px;}
+                td {background-color: white; border: 0px solid transparent;}
+            </style>
+            <h2>Pay Slip - <span t-field="o.number"/></h2>
+            <p t-field="o.name"/>
 
-                    <table class="table table-sm table-bordered">
-                        <tr>
-                            <td><strong>Name</strong></td>
-                            <td><span t-field="o.employee_id.name"/></td>
-                            <td><strong>Job Position</strong></td>
-                            <td><span t-field="o.employee_id.job_id"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>NRP</strong></td>
-                            <td><span t-field="o.employee_id.nrp"/></td>
-                            <td><strong>PTKP</strong></td>
-                            <td><span t-field="o.employee_id.ptkp_id"/></td>
-                        </tr>
-                        <!--<tr>
-                            <td><strong>Address</strong></td>
-                            <td colspan="3">
-                                <div t-field="o.employee_id.address_home_id"
-                                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
-                            </td>
-                        </tr>-->
-                        <!--<tr>
-                            <td><strong>Email</strong></td>
-                            <td><span t-field="o.employee_id.work_email"/></td>
-                            <td><strong>Reference</strong></td>
-                            <td><span t-field="o.number"/></td>
-                        </tr>-->
-                        <!--<tr>
-                            <td><strong>Identification No</strong></td>
-                            <td><span t-field="o.employee_id.identification_id"/></td>
-                            <td><strong>Bank Account</strong></td>
-                            <td><span t-field="o.employee_id.bank_account_id"/></td>
-                        </tr>-->
-                        <tr>
-                            <td><strong>Date From</strong></td>
-                            <td><span t-field="o.date_from"/></td>
-                            <td><strong>Date To</strong></td>
-                            <td><span t-field="o.date_to"/></td>
-                        </tr>
-                    </table>
-                    <br/>
-                    <span><strong>Salary Detail:</strong></span>
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th style="text-align:right;">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
-                                <t t-if="line.total != 0">
-                                    <t t-if="line.bold_on_payslip">
-                                        <td style="text-align:right;">
-                                            <strong><span t-field="line.name"/></strong>
-                                        </td>
-                                    </t>
-                                    <t t-else="">
-                                        <td>
-                                            <span t-field="line.name"/>
-                                        </td>
-                                    </t>
-                                    <td style="text-align:right;">
-                                        <t t-if="line.bold_on_payslip">
-                                            <strong><span t-esc="line.total" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></strong>
-                                        </t>
-                                        <t t-else="">
-                                            <span t-esc="line.total" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
-                                        </t>
-                                    </td>
+<!--
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td><span t-field="o.employee_id.name"/></td>
+                    <td><strong>Job Position</strong></td>
+                    <td><span t-field="o.employee_id.job_id"/></td>
+                </tr>
+                <tr>
+                    <td><strong>NRP</strong></td>
+                    <td><span t-field="o.employee_id.nrp"/></td>
+                    <td><strong>PTKP</strong></td>
+                    <td><span t-field="o.employee_id.ptkp_id"/></td>
+                </tr>
+                <tr>
+                    <td><strong>Date From</strong></td>
+                    <td><span t-field="o.date_from"/></td>
+                    <td><strong>Date To</strong></td>
+                    <td><span t-field="o.date_to"/></td>
+                </tr>
+            </table>
+-->
+
+            <table class="table table-striped table-sm table-borderless">
+                <tr>
+                    <td style="width: 18%;"><strong>Name</strong></td>
+                    <td style="width: 28%;">:<span t-field="o.employee_id.name" style="padding-left: 1rem;"/></td>
+                    <td style="width: 22%;"><strong>NPWP</strong></td>
+                    <td style="width: 32%;">:<span t-esc="o.npwp" style="padding-left: 1rem;"/></td>
+                </tr>
+                <tr>
+                    <td><strong>NRP</strong></td>
+                    <td>:<span t-field="o.employee_id.nrp" style="padding-left: 1rem;"/></td>
+                    <td><strong>BPJS Kesehatan</strong></td>
+                    <td>:<span t-esc="o.employee_id.bpjsks_no" style="padding-left: 1rem;"/></td>
+                </tr>
+                <tr>
+                    <td><strong>Job Position</strong></td>
+                    <td>:<span t-field="o.employee_id.job_id" style="padding-left: 1rem;"/></td>
+                    <td><strong>BPJS Ketenagakerjaan</strong></td>
+                    <td>:<span t-esc="o.employee_id.bpjstk_no" style="padding-left: 1rem;"/></td>
+                </tr>
+                <tr>
+                    <td><strong>Unit Kerja</strong></td>
+                    <td>:<span t-esc="dict(o.employee_id.fields_get(allfields=['unit_kerja'])['unit_kerja']['selection'])[o.employee_id.unit_kerja]" style="padding-left: 1rem;"/></td>
+                    <td><strong>Status PTKP</strong></td>
+                    <td>:<span t-field="o.ptkp_id.name" style="padding-left: 1rem;"/></td>
+                </tr>
+                <tr>
+                    <td><strong>Area</strong></td>
+                    <td>:<span t-esc="o.employee_id.area_id.name" style="padding-left: 1rem;"/></td>
+                    <td><strong>Rekening</strong></td>
+                    <td>:<span t-esc="'%s - %s' % (o.employee_id.bank_account_id.bank_id.name, o.employee_id.bank_account_id.acc_number)" style="padding-left: 1rem;"/></td>
+                </tr>
+                <tr>
+                    <td><strong>Awal Kontrak</strong></td>
+                    <td>:<span t-esc="o.get_date_indonesia(o.contract_id.first_contract_date)" style="padding-left: 1rem;"/></td>
+                    <td></td>
+                    <td><span t-esc="'%s' % (o.employee_id.bank_account_id.acc_holder_name or '')" style="padding-left: 1.2rem;"/></td>
+                </tr>
+            </table>
+
+            <br/>
+            <!--<span><strong>Salary Detail:</strong></span>-->
+
+<!--
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th style="text-align:right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                        <t t-if="line.total != 0">
+                            <t t-if="line.bold_on_payslip">
+                                <td style="text-align:right;">
+                                    <strong><span t-field="line.name"/></strong>
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td>
+                                    <span t-field="line.name"/>
+                                </td>
+                            </t>
+                            <td style="text-align:right;">
+                                <t t-if="line.bold_on_payslip">
+                                    <strong><span t-esc="line.total" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></strong>
                                 </t>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <span><strong>Terbilang :</strong></span>
-                    <p>
-                        <span t-field="o.terbilang"/>
-                    </p>
-                    <br/>
-                    <span><strong>Other Information:</strong></span>
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th style="text-align:center;">Description</th>
-                                <!--<th style="text-align:center;">Code</th>-->
-                                <th style="text-align:center;">Number of Days</th>
-                                <th style="text-align:center;">Number of Hours</th>
-                                <th style="text-align:center;">Remaining Days</th>
-                                <!--<th style="text-align:center;">Contract</th>-->
-                                <th style="text-align:center;">Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr t-foreach="o.worked_days_line_ids" t-as="line_work">
-                                <td><span t-field="line_work.name"/></td>
-                                <!--<td><span t-field="line_work.code"/></td>-->
-                                <td style="text-align:right;"><t t-esc="'{0:,.0f}'.format(line_work.number_of_days) if line_work.number_of_days > 0 else ''"/></td>
-                                <td style="text-align:right;"><t t-esc="'{0:,.2f}'.format(line_work.number_of_hours) if line_work.number_of_hours > 0 else ''"/></td>
-                                <td style="text-align:right;"><t t-esc="'{0:,.0f}'.format(line_work.remaining_days) if line_work.remaining_days > 0 else ''"/></td>
-                                <td style="text-align:right;"><t t-esc="'{0:,.0f}'.format(line_work.quantity) if line_work.quantity > 0 else ''"/></td>
-                                <!--<td><span t-field="line_work.contract_id.name"/></td>-->
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="text-right" style="padding-bottom:50px;"><strong>Authorized signature</strong></p>
+                                <t t-else="">
+                                    <span t-esc="line.total" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                </t>
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+            </table>
+-->
 
-                    <span><strong>Note :</strong></span>
-                    <p>
-                        BILAMANA DALAM WAKTU 15 HARI TERHITUNG SEJAK TANGGAL PENGIRIMAN TIDAK ADA SANGGAHAN, MAKA PEKERJA DIANGGAP TELAH MENYETUJUI DAN SLIP INI DIANGGAP SAH
-                    </p>
-                </div>
+            <t t-set="total_income" t-value="0"/>
+            <t t-set="total_deduction" t-value="0"/>
+            <table style="width:100%; font-size: 14px;">
+                <tbody>
+                    <tr/>
+                    <tr>
+                        <td style="width:48%;padding:0px; vertical-align:top;">
+                            <table style="width:100%;float:left;margin-bottom:0px!important;">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Penghasilan</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </td>
+                        <td style="width:4%;padding:0px;"/>
+                        <td style="width:48%;padding:0px; vertical-align:top;">
+                            <table style="width:100%;float-left;margin-bottom:0px!important;">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="text-align: center;">Potongan</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:48%;padding:0px; vertical-align:top; padding-top: 5px; padding-bottom: 5px;">
+                            <table style="width: 100%; float:left; margin-bottom: 0px!important;">
+                                <tbody>
+                                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                        <t t-if="line.total > 0 or line.salary_rule_id.show_zero_on_payslip">
+                                            <t t-if="line.category_id.code == 'BASIC' or line.category_id.code == 'ALW' or line.category_id.code == 'ALWIRR' or line.category_id.code == 'ALWX'">
+                                                <t t-if="line.bold_on_payslip">
+                                                    <td style="text-align: left; width: 75%">
+                                                        <strong><span t-field="line.name"/></strong>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td style="text-align: left; width: 75%">
+                                                        <span t-field="line.name"/>
+                                                    </td>
+                                                </t>
+                                                <td style="text-align: right;t widh: 5%">Rp.</td>
+                                                <td style="text-align:right; width: 20%">
+                                                    <t t-if="line.bold_on_payslip">
+                                                        <!--<strong><span t-esc="line.total" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></strong>-->
+                                                        <strong><span t-esc="'{:,.0f}'.format(line.total)"/></strong>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <!--<span t-esc="line.total" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>-->
+                                                        <span t-esc="'{:,.0f}'.format(line.total)"/>
+                                                    </t>
+                                                </td>
+                                                <t t-set="total_income" t-value="total_income + line.total"/>
+                                            </t>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="width:4%;padding:0px;"/>
+                        <td style="width:48%;padding:0px; vertical-align:top; padding-top: 5px; padding-bottom: 5px;">
+                            <table style="width:100%;float-left;margin-bottom:0px!important;">
+                                <tbody>
+                                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                        <t t-if="line.total > 0 or line.salary_rule_id.show_zero_on_payslip">
+                                            <t t-if="line.category_id.code == 'DED'">
+                                                <t t-if="line.bold_on_payslip">
+                                                    <td style="text-align: left; width: 75%">
+                                                        <strong><span t-field="line.name"/></strong>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td style="text-align: left; width: 75%">
+                                                        <span t-field="line.name"/>
+                                                    </td>
+                                                </t>
+                                                <td style="text-align: right; width: 5%">Rp.</td>
+                                                <td style="text-align: right; width: 20%">
+                                                    <t t-if="line.bold_on_payslip">
+                                                        <strong><span t-esc="'{:,.0f}'.format(line.total)"/></strong>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="'{:,.0f}'.format(line.total)"/>
+                                                    </t>
+                                                </td>
+                                                <t t-set="total_deduction" t-value="total_deduction + line.total"/>
+                                            </t>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:48%;padding:0px; vertical-align:top;">
+                            <table style="width:100%;float:left;margin-bottom:0px!important;">
+                                <tfooter>
+                                    <tr class="footer">
+                                        <td style="vertical-align: middle; width: 75%">TOTAL INCOME</td>
+                                        <td style="vertical-align: middle; text-align: right; width: 5%">Rp.</td>
+                                        <td style="vertical-align: middle; text-align: right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_income)"/></td>
+                                    </tr>
+                                </tfooter>
+                            </table>
+                        </td>
+                        <td style="width:4%;padding:0px;"/>
+                        <td style="width:48%;padding:0px; vertical-align:top;">
+                            <table style="width:100%;float-left;margin-bottom:0px!important;">
+                                <tfooter>
+                                    <tr class="footer">
+                                        <td style="vertical-align: middle; width: 75%">TOTAL DEDUCTION</td>
+                                        <td style="vertical-align: middle; text-align: right; width: 5%">Rp.</td>
+                                        <td style="vertical-align: middle; text-align:right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_deduction)"/></td>
+                                    </tr>
+                                </tfooter>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px;" colspan="3">
+                            <table style="width: 100%; float-left; margin-bottom: 0px!important;">
+                                <tfooter>
+                                    <tr>
+                                        <th style="text-align: left; width: 75%">TAKE HOME PAY</th>
+                                        <th style="vertical-align: middle; text-align: right; width: 5%">Rp.</th>
+                                        <th style="text-align: right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_income - total_deduction)"/></th>
+                                    </tr>
+                                </tfooter>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                <t t-if="line.category_id.code != 'DEDHNR' and line.category_id.code != 'DED' and line.category_id.code == 'NET'">
+                    <t t-if="line.bold_on_payslip">
+
+                        <table class="table-sm" style="width: 100%; float-left; font-size: 14px;">
+                            <tr>
+                                <td style="width:25%;"><strong><span t-field="line.name"/></strong></td>
+                                <td style="width:25%;text-align:right;"><strong><span t-esc="line.total" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></strong></td>
+                                <td style="width:25%;"></td>
+                                <td style="width:25%;"></td>
+                            </tr>
+                        </table><br/>
+                    </t>
+                </t>
             </t>
-        </t>
-    </t>
+
+            <div style="margin-top: 10px;"><strong>Terbilang :</strong><br/>
+                <p>
+                    <span style="font-size: 14px;" t-field="o.terbilang"/>
+                </p>
+            </div>
+            <br/>
+
+            <table style="width:100%; font-size: 14px;">
+                <tbody>
+                    <tr/>
+                    <tr>
+                        <td style="width:48%;padding:0px; vertical-align:top;">
+                            <table style="width:100%;float:left;margin-bottom:0px!important;">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2"/>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </td>
+                        <td style="width:4%;padding:0px;"/>
+                        <td style="width:48%;padding:0px; vertical-align:top;">
+                            <table style="width:100%;float-left;margin-bottom:0px!important;">
+                                <thead>
+                                    <tr>
+                                        <td colspan="2" style="text-align: left;">Benefit</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:48%;padding:0px; vertical-align:top; padding-top: 5px; padding-bottom: 5px;"/>
+                        <td style="width:4%;padding:0px;"/>
+                        <td style="width:48%;padding:0px; vertical-align:top; padding-top: 5px; padding-bottom: 5px;">
+                            <table style="width:100%;float-left;margin-bottom:0px!important;">
+                                <tbody>
+                                    <tr t-foreach="o.line_ids.filtered(lambda line: line.category_id.code == 'BPJS')" t-as="line">
+                                        <!--<t t-if="line.total > 0 or line.salary_rule_id.show_zero_on_payslip">-->
+                                            <!--<t t-if="line.category_id.code == 'DED'">-->
+                                                <t t-if="line.bold_on_payslip">
+                                                    <td style="text-align: left; width: 75%">
+                                                        <strong><span t-field="line.name"/></strong>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td style="text-align: left; width: 75%">
+                                                        <span t-field="line.name"/>
+                                                    </td>
+                                                </t>
+                                                <td style="text-align: right; width: 5%">Rp.</td>
+                                                <td style="text-align: right; width: 20%">
+                                                    <t t-if="line.bold_on_payslip">
+                                                        <strong><span t-esc="'{:,.0f}'.format(line.total)"/></strong>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="'{:,.0f}'.format(line.total)"/>
+                                                    </t>
+                                                </td>
+                                                <!--<t t-set="total_deduction" t-value="total_deduction + line.total"/>-->
+                                            <!--</t>-->
+                                        <!--</t>-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+<!--
+            <span><strong>Other Information:</strong></span>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">Description</th>
+                        &lt;!&ndash;<th style="text-align:center;">Code</th>&ndash;&gt;
+                        <th style="text-align:center;">Number of Days</th>
+                        <th style="text-align:center;">Number of Hours</th>
+                        <th style="text-align:center;">Remaining Days</th>
+                        &lt;!&ndash;<th style="text-align:center;">Contract</th>&ndash;&gt;
+                        <th style="text-align:center;">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.worked_days_line_ids" t-as="line_work">
+                        <td><span t-field="line_work.name"/></td>
+                        &lt;!&ndash;<td><span t-field="line_work.code"/></td>&ndash;&gt;
+                        <td style="text-align:right;"><t t-esc="'{0:,.0f}'.format(line_work.number_of_days) if line_work.number_of_days > 0 else ''"/></td>
+                        <td style="text-align:right;"><t t-esc="'{0:,.2f}'.format(line_work.number_of_hours) if line_work.number_of_hours > 0 else ''"/></td>
+                        <td style="text-align:right;"><t t-esc="'{0:,.0f}'.format(line_work.remaining_days) if line_work.remaining_days > 0 else ''"/></td>
+                        <td style="text-align:right;"><t t-esc="'{0:,.0f}'.format(line_work.quantity) if line_work.quantity > 0 else ''"/></td>
+                        &lt;!&ndash;<td><span t-field="line_work.contract_id.name"/></td>&ndash;&gt;
+                    </tr>
+                </tbody>
+            </table>
+-->
+            <div class="text-right" style="padding-top: 20px;"><strong>Meila</strong></div>
+            <div class="text-right">HC</div>
+
+<!--
+            <span><strong>Note :</strong></span>
+            <p>
+                BILAMANA DALAM WAKTU 15 HARI TERHITUNG SEJAK TANGGAL PENGIRIMAN TIDAK ADA SANGGAHAN, MAKA PEKERJA DIANGGAP TELAH MENYETUJUI DAN SLIP INI DIANGGAP SAH
+            </p>
+-->
+        </div>
+    </xpath>
 </template>
 </odoo>
