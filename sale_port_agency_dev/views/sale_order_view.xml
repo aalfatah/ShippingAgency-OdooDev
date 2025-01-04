@@ -63,6 +63,30 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_tree"/>
         <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="vessel_ids" widget="many2many_tags" optional="hide"/>
+                <field name="last_port_id" optional="hide"/>
+                <field name="load_port_ids" widget="many2many_tags" optional="hide"/>
+                <field name="discharge_port_ids" widget="many2many_tags" optional="hide"/>
+                <field name="client_order_ref" optional="hide"/>
+            </field>
+            <field name="state" position="before">
+                <field name="remaining_cost_to_expense" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_with_onboarding_dev" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="vessel_ids" widget="many2many_tags" optional="hide"/>
+                <field name="last_port_id" optional="hide"/>
+                <field name="load_port_ids" widget="many2many_tags" optional="hide"/>
+                <field name="discharge_port_ids" widget="many2many_tags" optional="hide"/>
+                <field name="client_order_ref" optional="hide"/>
+            </field>
             <field name="state" position="before">
                 <field name="remaining_cost_to_expense" optional="hide"/>
             </field>
