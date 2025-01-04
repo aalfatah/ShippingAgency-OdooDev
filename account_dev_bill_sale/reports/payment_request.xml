@@ -262,12 +262,7 @@
                     </tbody>
 
                     <tr>
-                        <td style="padding-top: 5px;" colspan="4" rowspan="4">
-                            <div class="row" style="padding-top: 5px; padding-right: 5px;">
-                                <div style="width: 12%;">Terbilang :</div>
-                                <div style="width: 88%;"><t t-esc="'%s' % o.total_amount_in_words()"/></div>
-                            </div>
-                        </td>
+                        <td style="padding-top: 5px;" colspan="4"/>
                         <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong>Sub Total</strong></td>
                         <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong></td>
                         <!--<td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong><span t-esc="'{:,.0f}'.format(o.amount_untaxed)"/></strong></td>-->
@@ -276,52 +271,61 @@
                     <t t-set="tax_totals" t-value="o.tax_totals"/>
                     <t t-foreach="tax_totals['groups_by_subtotal']['Untaxed Amount']" t-as="amount_by_group">
                         <tr>
+                            <td style="padding-top: 5px;" colspan="4"/>
                             <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-esc="amount_by_group['tax_group_name']"/></strong></td>
                             <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-esc="amount_by_group['formatted_tax_group_amount']"/></strong></td>
                         </tr>
                     </t>
 
                     <tr>
-                        <!--<td style="border:0px;" colspan="4"></td>-->
-                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong>Total</strong></td>
-                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong></td>
+                        <td style="border:0px;" colspan="4">
+                            <div class="row" style="padding-top: 5px; padding-right: 5px; ">
+                                <div style="width: 12%;"><b>Terbilang :</b></div>
+                                <div style="width: 88%;"><i><t t-esc="'%s' % o.total_amount_in_words()"/></i></div>
+                            </div>
+                        </td>
+                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong>Total</strong></td>
+                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong></td>
                         <!--<td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong><span t-esc="'{:,.0f}'.format(o.amount_residual)"/></strong></td>-->
+                    </tr>
+
+                    <tr>
+                        <td style="border: 0px; height: 20px; padding-top: 10px;" colspan="4"><div style="width: 12%;"><b>Keterangan</b></div></td>
+                        <td colspan="2"/>
+                    </tr>
+                    <tr>
+                        <td style="border: 0px; width: 100%" colspan="4"><t t-esc="o.narration"/></td>
+                        <td colspan="2"/>
                     </tr>
             </table>
 
-            <!--<![CDATA[<br>]]>-->
-<!--
+            <![CDATA[<br>]]>
 
-            <table style="width:100%; font-size:10px; page-break-inside: avoid;">
+            <table style="width:100%; page-break-inside: avoid;">
                 <tr>
-                    <td colspan="4">KETENTUAN UMUM : </td>
+                    <td style="text-align: center">Submitted by,</td>
+                    <td style="text-align: center">Verified by,</td>
+                    <td style="text-align: center">Approved by,</td>
                 </tr>
                 <tr>
-                    <td style="width:2%">1.</td>
-                    <td style="width:55%; text-align:justify;">Jumlah uang yang tercantum dalam faktur adalah sesuai dengan pesanan yang kami terima dan merupakan hutang sah wajib dibayar kepada PT Dian Pandu Pratama</td>
-                    <td style="width:43%" colspan="2"></td>
+                    <td style="text-align: center; height: 80px"></td>
+                    <td style="text-align: center"></td>
+                    <td style="text-align: center"></td>
                 </tr>
                 <tr>
-                    <td>2.</td>
-                    <td style="text-align:justify">Pembayaran dengan transfer harus mencantumkan nomor dan nama pelanggan pada berita transfer</td>
-                    <td style="width:8%"></td>
-                    <td style="text-align:center; font-size:12px;"><strong><span t-field="o.company_id.city"/>, <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></strong></td>
+                    <td style="text-align: center">( <span t-field="o.create_uid.name"/> )</td>
+                    <td style="text-align: center">( <span t-field="o.bill_signed1_id.name"/> )</td>
+                    <td style="text-align: center">( <span t-field="o.bill_signed2_id.name"/> )</td>
                 </tr>
-                <tr>
-                    <td>3.</td>
-                    <td style="text-align:justify">Pembayaran dengan transfer ditujukan a/n. PT Dian Pandu Pratama :<![CDATA[<br>]]>IDR ke Bank Permata Cabang JABABEKA, No. Rekening : 0975.2690.35</td>
-                    <td colspan="2"></td>
-                </tr>
-                <tr>
+                <!--<tr>
                     <td colspan="3"/>
                     <td style="padding-top: 70px; text-align:center; font-size:12px; font-weight: bold;">
                         <span t-field="o.signed_invoice_approval1_id.name"/><![CDATA[<br>]]><span t-esc="'' if not o.signed_invoice_approval1_id else o.get_employee(o.signed_invoice_approval1_id.id).job_title" style="text-align:center;"/>
                         &lt;!&ndash;<span t-field="o.approver1_id"/>&ndash;&gt;
                     </td>
-                </tr>
+                </tr>-->
             </table>
 
--->
             <!--<![CDATA[<br>]]>
             <![CDATA[<br>]]>-->
 
