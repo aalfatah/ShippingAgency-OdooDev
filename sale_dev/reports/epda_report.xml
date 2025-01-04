@@ -33,6 +33,10 @@
             <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
                 <div class="page" style="font-size: 12px; font-family: 'Gideon Roman', sans-serif;">
+                    <style>
+                        table {border: 0px;}
+                        td {background-color: white; border: 0px solid transparent;}
+                    </style>
                     <!--<div class="oe_structure"/>
                     <table class="pull-left" style="border: 0px;">
                         <tr>
@@ -55,77 +59,77 @@
                     </div>
 
                     <div style="border: 0px; padding: 10px;">
-                        <table style="border: 0px;" width="100%">
+                        <table style="background: white; width: 100%">
                             <tr>
-                                <td style="border: 0px; background: white; width: 18%;">Date</td>
-                                <td style="border: 0px; background: white; width: 2%;">:</td>
-                                <td style="border: 0px; background: white; width: 41%;"><span t-esc='o.date_order' t-options='{"widget": "date"}'/></td>
-                                <td style="border: 0px; background: white; width: 22%;">EPDA NO.</td>
-                                <td style="border: 0px; background: white; width: 2%;">:</td>
-                                <td style="border: 0px; background: white; width: 15%;"><span t-field='o.name'/></td>
+                                <td style="width: 18%;">Date</td>
+                                <td style="width: 2%;">:</td>
+                                <td style="width: 41%;"><span t-esc='o.date_order' t-options='{"widget": "date"}'/></td>
+                                <td style="width: 22%;">EPDA NO.</td>
+                                <td style="width: 2%;">:</td>
+                                <td style="width: 15%;"><span t-field='o.name'/></td>
                             </tr>
                             <tr>
-                                <td style="border: 0px; background: white;">To</td>
-                                <td style="border: 0px; background: white;">:</td>
-                                <td style="border: 0px; background: white;"><span t-field='o.partner_id'/></td>
+                                <td>To</td>
+                                <td>:</td>
+                                <td><span t-field='o.partner_id'/></td>
                             </tr>
                             <tr>
-                                <td style="border: 0px; background: white;">Kind Attention</td>
-                                <td style="border: 0px; background: white;">:</td>
-                                <td style="border: 0px; background: white;"><span t-field='o.customer_contact'/></td>
+                                <td>Kind Attention</td>
+                                <td>:</td>
+                                <td><span t-field='o.customer_contact'/></td>
                             </tr>
                             <tr>
-                                <td style="border: 0px; background: white;">From</td>
-                                <td style="border: 0px; background: white;">:</td>
-                                <td style="border: 0px; background: white;"><span t-field='o.company_id'/></td>
+                                <td>From</td>
+                                <td>:</td>
+                                <td><span t-field='o.company_id'/></td>
                             </tr>
                         </table>
                         <div style="border: 0px; padding: 10px; margin-top: 10px; background-color: #061145; color: white;">
-                            <table style="border: 0px;" width="100%">
+                            <table style="width: 100%">
                                 <tr>
-                                    <td style="border: 0px; width: 18%; background-color: #061145; color: white;">VESSEL'S NAME</td>
-                                    <td style="border: 0px; width: 2%; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; width: 41%; background-color: #061145; color: white;"><span t-field='o.vessel_ids'/></td>
-                                    <td style="border: 0px; width: 23%; background-color: #061145; color: white;">VOYAGE NO.</td>
-                                    <td style="border: 0px; width: 2%; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; width: 14%; background-color: #061145; color: white;"><span t-field='o.vo_no'/></td>
+                                    <td style="width: 18%; background-color: #061145; color: white;">VESSEL'S NAME</td>
+                                    <td style="width: 2%; background-color: #061145; color: white;">:</td>
+                                    <td style="width: 41%; background-color: #061145; color: white;"><span t-field='o.vessel_ids'/></td>
+                                    <td style="width: 23%; background-color: #061145; color: white;">VOYAGE NO.</td>
+                                    <td style="width: 2%; background-color: #061145; color: white;">:</td>
+                                    <td style="width: 14%; background-color: #061145; color: white;"><span t-field='o.vo_no'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 0px; background-color: #061145; color: white;">LAST PORT</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-esc='o.last_port_id.name'/></td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">COMMODITY / CARGO</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-esc="'%s / %s MT' % (o.commodity, o.cargo)"/></td>
+                                    <td style="background-color: #061145; color: white;">LAST PORT</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-esc='o.last_port_id.name'/></td>
+                                    <td style="background-color: #061145; color: white;">COMMODITY / CARGO</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-esc="'%s / %s MT' % (o.commodity, o.cargo)"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 0px; background-color: #061145; color: white;">LOADING PORT</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.load_port_ids])"/></td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">FLAG</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-field='o.flag'/></td>
+                                    <td style="background-color: #061145; color: white;">LOADING PORT</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.load_port_ids])"/></td>
+                                    <td style="background-color: #061145; color: white;">FLAG</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-field='o.flag'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 0px; background-color: #061145; color: white;">DISCH PORT</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.discharge_port_ids])"/></td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">ETA</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-esc='o.start_date' t-options='{"widget": "date"}'/></td>
+                                    <td style="background-color: #061145; color: white;">DISCH PORT</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.discharge_port_ids])"/></td>
+                                    <td style="background-color: #061145; color: white;">ETA</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-esc='o.start_date' t-options='{"widget": "date"}'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 0px; background-color: #061145; color: white;">GRT</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-esc="'%s GRT' % o.grt"/></td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">ETD</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;">:</td>
-                                    <td style="border: 0px; background-color: #061145; color: white;"><span t-esc='o.commitment_date' t-options='{"widget": "date"}'/></td>
+                                    <td style="background-color: #061145; color: white;">GRT</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-esc="'%s GRT' % o.grt"/></td>
+                                    <td style="background-color: #061145; color: white;">ETD</td>
+                                    <td style="background-color: #061145; color: white;">:</td>
+                                    <td style="background-color: #061145; color: white;"><span t-esc='o.commitment_date' t-options='{"widget": "date"}'/></td>
                                 </tr>
                             </table>
                         </div>
                         <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
-                            <table style="border: 0px;" width="100%">
+                            <table style="width: 100%">
                                 <t t-set="header" t-value=""/>
                                 <t t-foreach="o.cost_structure_id.line_ids.filtered(lambda l: l.item_id)" t-as="line">
                                     <t t-if="header != line.header_id">
@@ -133,23 +137,42 @@
                                             <td colspan="3" style="height: 20px; vertical-align: bottom;"/>
                                         </t>
                                         <tr>
-                                            <td colspan="3" style="border: 0px; width: 100%;"><span t-field='line.header_id'/></td>
+                                            <td colspan="3" style="width: 100%;"><span t-field='line.header_id'/></td>
                                         </tr>
                                     </t>
                                     <tr>
-                                        <td style="border: 0px; width: 65%; padding-left: 10px;"><span t-field='line.item_id'/></td>
-                                        <td style="border: 0px; width: 5%;">:</td>
-                                        <td style="border: 0px; width: 30%; text-align: right;"><span t-esc='line.estimated_cost' t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                        <td style="width: 65%; padding-left: 10px;"><span t-field='line.item_id'/></td>
+                                        <td style="width: 5%;">:</td>
+                                        <td style="width: 30%; text-align: right;"><span t-esc='line.estimated_cost' t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
                                         <!--<td style="border: 0px; width: 23%;">VOYAGE NO.</td>
                                         <td style="border: 0px; width: 2%;">:</td>
                                         <td style="border: 0px; width: 14%;"><span t-field='o.name'/></td>-->
                                     </tr>
                                     <t t-set="header" t-value="line.header_id"/>
                                 </t>
+                                <t t-if="any(o.order_line.filtered(lambda l: l.product_id.name != 'PORT AGENCY'))">
+                                    <tr><td colspan="3" style="height: 20px; vertical-align: bottom;"/><tr>
+                                    </tr><td colspan="3" style="width: 100%;">Additional Cost</td></tr>
+                                    <t t-foreach="o.order_line.filtered(lambda l: l.product_id.name != 'PORT AGENCY')" t-as="line">
+                                        <tr>
+                                            <td style="width: 65%; padding-left: 10px;"><span t-field='line.name'/></td>
+                                            <td style="width: 5%;">:</td>
+                                            <td style="width: 30%; text-align: right;"><span t-esc='line.price_subtotal' t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+
+                                            <!--&lt;!&ndash;<td width="5px" style="border-right: solid 0px;"/>&ndash;&gt;
+                                            <td style="border-right: solid 1px; height: 20px; padding-left: 5px;"><span t-field="l.name"/></td>
+                                            <td class="text-center" style="border: 0px; border-right: solid 1px; height: 20px;"><span t-esc="'{:,.0f}'.format(l.product_uom_qty)"/></td>
+                                            <td class="text-center" style="border: 0px; border-right: solid 1px; height: 20px;"><span t-field="l.product_uom"/></td>
+                                            <td class="text-right" style="border-right: solid 1px; padding-right: 5px;"><span t-field="l.price_unit" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
+                                            <td class="text-right" style="border-right: solid 1px; padding-right: 5px;"><span t-field="l.price_subtotal" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></td>
+                                            &lt;!&ndash; <td class="text-right"><span t-esc="'{:,.0f}'.format(l.price_subtotal)"/></td> &ndash;&gt;-->
+                                        </tr>
+                                    </t>
+                                </t>
                             </table>
                         </div>
                         <div style="border: 0px; padding: 0px; margin-top: 5px;">
-                            <table style="border: 0px; width: 100%;"> <!--background-color: #F1F1F1; color: #454748;">-->
+                            <table style="width: 100%;"> <!--background-color: #F1F1F1; color: #454748;">-->
                                 <!--<thead>
                                     <tr style="background-color:#893b74 !important; border-color: #fff; color:#fff !important; border: solid 1px; height: 20px;">
                                         <th class="text-center" style="border-right: solid 1px; height: 20px;">NO</th>
@@ -178,11 +201,8 @@
                                     </t>
                                 </tbody>-->
 
-                                <tr style="border: 0px;">
-                                    <td style="border: 0px;"></td>
-                                    <td style="border: 0px;"></td>
-                                    <td style="border: 0px;"></td>
-                                    <td style="border: 0px;"></td>
+                                <tr>
+                                    <td colspan="4"></td>
                                     <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;"><strong>Sub Total</strong></td>
                                     <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;">
                                         <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/>
@@ -191,7 +211,7 @@
                                 <t t-set="tax_totals" t-value="o.tax_totals"/>
                                 <t t-foreach="tax_totals['groups_by_subtotal']['Untaxed Amount']" t-as="amount_by_group">
                                     <tr>
-                                        <td style="border: 0px;" colspan="4"></td>
+                                        <td colspan="4"></td>
                                         <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15">
                                             <strong><span t-esc="amount_by_group['tax_group_name']"/></strong>
                                         </td>
@@ -201,77 +221,78 @@
                                     </tr>
                                 </t>
                                 <tr style="border: 0px;">
-                                    <td style="border: 0px;" colspan="4"><strong>Advance payment must be paid before vessel's arrival in full amount to :</strong></td>
+                                    <td colspan="4"><strong>Advance payment must be paid before vessel's arrival in full amount to :</strong></td>
                                     <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px; height: 20px;"><strong>Grand Total</strong></td>
                                     <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px; height: 20px;">
                                         <strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong>
                                     </td>
                                 </tr>
                                 <tr height="25px">
-                                    <td style="border: 0px; padding-left: 10px;">Bank Details</td>
-                                    <td style="border: 0px;">:</td>
-                                    <td style="border: 0px; padding-left: 5px;">BANK MANDIRI ( KCP Cikarang - Jababeka )</td>
+                                    <td style="padding-left: 10px;">Bank Details</td>
+                                    <td>:</td>
+                                    <td style="padding-left: 5px;">BANK MANDIRI ( KCP Cikarang - Jababeka )</td>
                                 </tr>
                                 <tr height="25px">
-                                    <td style="border: 0px; padding-left: 10px;">Account Bank</td>
-                                    <td style="border: 0px;">:</td>
-                                    <td style="border: 0px; padding-left: 5px;">156-00-3453333-3</td>
+                                    <td style="padding-left: 10px;">Account Bank</td>
+                                    <td>:</td>
+                                    <td style="padding-left: 5px;">156-00-3453333-3</td>
                                 </tr>
                                 <tr height="25px">
-                                    <td style="border: 0px; padding-left: 10px;">Beneficiary Name</td>
-                                    <td style="border: 0px;">:</td>
-                                    <td style="border: 0px; padding-left: 5px;">PT BARITO SAMUDRA SEJAHTERA</td>
+                                    <td style="padding-left: 10px;">Beneficiary Name</td>
+                                    <td>:</td>
+                                    <td style="padding-left: 5px;">PT BARITO SAMUDRA SEJAHTERA</td>
                                 </tr>
                             </table>
                         </div>
                         <![CDATA[<br>]]>
                         <div><strong>Thanks for your inquiry. Should you have any other questions or inquiries, please do not hesitate to call us.</strong></div>
-                        <table style="border: 0px;" width="100%">
+                        <table style="width: 100%">
                             <tr height="25px">
-                                <td style="border: 0px; background: white;" colspan="6">Best Regards,</td>
+                                <td colspan="6">Best Regards,</td>
                             </tr>
                             <tr height="25px">
-                                <td style="border: 0px; background: white;" colspan="3">FAT Division - Nurmiati (Mrs.)</td>
-                                <td style="border: 0px; background: white;" colspan="3">Operational Agency - Rotun (Mr.)</td>
+                                <td colspan="3">FAT Division - Nurmiati (Mrs.)</td>
+                                <td colspan="3">Operational Agency - Rotun (Mr.)</td>
                             </tr>
                             <tr height="25px">
-                                <td style="border: 0px; background: white; width: 18%;">Mobile</td>
-                                <td style="border: 0px; background: white; width: 2%;">:</td>
-                                <td style="border: 0px; background: white; width: 41%;">62877-1637-7616</td>
-                                <td style="border: 0px; background: white; width: 22%;">Mobile</td>
-                                <td style="border: 0px; background: white; width: 2%;">:</td>
-                                <td style="border: 0px; background: white; width: 15%;">62822-5105-4106</td>
+                                <td style="width: 18%;">Mobile</td>
+                                <td style="width: 2%;">:</td>
+                                <td style="width: 41%;">62877-1637-7616</td>
+                                <td style="width: 22%;">Mobile</td>
+                                <td style="width: 2%;">:</td>
+                                <td style="width: 15%;">62822-5105-4106</td>
                             </tr>
                             <tr height="25px">
-                                <td style="border: 0px; background: white; width: 18%;">E-mail</td>
-                                <td style="border: 0px; background: white; width: 2%;">:</td>
-                                <td style="border: 0px; background: white; width: 41%;">nurmiati@baritosamudra.co.id</td>
-                                <td style="border: 0px; background: white; width: 22%;">E-mail</td>
-                                <td style="border: 0px; background: white; width: 2%;">:</td>
-                                <td style="border: 0px; background: white; width: 15%;"> rotun@baritosamudra.co.id</td>
+                                <td style="width: 18%;">E-mail</td>
+                                <td style="width: 2%;">:</td>
+                                <td style="width: 41%;">nurmiati@baritosamudra.co.id</td>
+                                <td style="width: 22%;">E-mail</td>
+                                <td style="width: 2%;">:</td>
+                                <td style="width: 15%;"> rotun@baritosamudra.co.id</td>
                             </tr>
                         </table>
-                        <div style="margin-top: 10px; border-top: 1px solid black; width: 100%;"/>
-                        <table style="margin-top: 10px; border: 0px;" width="100%">
-                            <tr height="25px">
-                                <td style="border: 0px; background: white;" colspan="6"><strong>EPDA CONFIRMATION / APPROVAL BY CUSTOMER</strong></td>
-                            </tr>
-                            <tr height="25px">
-                                <td style="border: 0px; background: white;" colspan="6">We hereby confirm that PT. Barito Samudra Sejahtera has been appointed as our agent for handling our vessel calling  to the above mentioned ports based on the above EPDA.</td>
-                            </tr>
-                            <tr>
-                                <td style="border: 0px; width: 17%; padding-top: 30px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
-                                <td style="border: 0px; width: 1px; padding-left: 3px;">,</td>
-                                <td style="border: 0px; width: 32%;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
-                                <td style="border: 0px; width: 50%;" colspan="3"></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 0px; width: 17%; padding-top: 100px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
-                                <td style="border: 0px; width: 1px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
-                                <td style="border: 0px; width: 32%;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
-                                <td style="border: 0px; width: 50%;" colspan="3"></td>
-                            </tr>
-                        </table>
+                        <div style="margin-top: 10px; border-top: 1px solid black; width: 100%; page-break-inside: avoid;">
+                            <table style="margin-top: 10px; width: 100%">
+                                <tr height="25px">
+                                    <td colspan="6"><strong>EPDA CONFIRMATION / APPROVAL BY CUSTOMER</strong></td>
+                                </tr>
+                                <tr height="25px">
+                                    <td colspan="6">We hereby confirm that PT. Barito Samudra Sejahtera has been appointed as our agent for handling our vessel calling  to the above mentioned ports based on the above EPDA.</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 17%; padding-top: 30px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                                    <td style="width: 1px; padding-left: 3px;">,</td>
+                                    <td style="width: 32%;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                                    <td style="width: 50%;" colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 17%; padding-top: 100px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                                    <td style="width: 1px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                                    <td style="width: 32%;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                                    <td style="width: 50%;" colspan="3"></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
 
                     <!--<table style="border: 0px;">
