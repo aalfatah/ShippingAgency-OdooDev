@@ -11,7 +11,7 @@ Invoicing & Payments
 Modify journal view show secure_sequence_id field
     """,
     'category': 'Accounting/Accounting',
-    'depends': ['account'],
+    'depends': ['account', 'partner_manual_rank'],
     'data': [
         'views/account_move_views.xml',
     ],

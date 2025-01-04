@@ -8,6 +8,10 @@
                 <xpath expr="//field[@name='to_check']" position="after">
                     <field name="down_payment"/>
                 </xpath>
+                <field name="partner_id" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                    <attribute name="domain">[('is_supplier', '=', True)]</attribute>
+                </field>
             </field>
         </record>
 
@@ -18,6 +22,17 @@
                 <xpath expr="//field[@name='amount_untaxed_signed']" position="before">
                     <field name="down_payment" optional="show"/>
                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter_dev" model="ir.ui.view">
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <filter name="to_check" position="before">
+                    <filter string="Down Payment" name="filter_down_payment" domain="[('down_payment', '=', True)]"/>
+                    <separator/>
+                </filter>
             </field>
         </record>
     </data>
