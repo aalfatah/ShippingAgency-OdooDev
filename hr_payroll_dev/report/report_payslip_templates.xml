@@ -6,8 +6,8 @@
         <div class="page">
             <style>
                 table {border: 0px;}
-                td {background-color: white; border: 0px solid transparent;}
-                th {border: 0px solid transparent;}
+                td {background-color: white; border: 0px solid transparent; padding-left: 10px; padding-right: 10px;}
+                th {border: 0px solid transparent; height: 25px; padding-top: 10px; padding-left: 10px; padding-right: 10px;}
             </style>
             <h2>Pay Slip - <span t-field="o.number"/></h2>
             <p t-field="o.name"/>
@@ -208,37 +208,37 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width:48%;padding:0px; vertical-align:top;">
+                        <td style="width: 48%; padding: 0px; vertical-align: top;">
                             <table style="width:100%;float:left;margin-bottom:0px!important;">
                                 <tfooter>
                                     <tr class="footer">
-                                        <td style="vertical-align: middle; width: 75%">TOTAL INCOME</td>
-                                        <td style="vertical-align: middle; text-align: right; width: 5%">Rp.</td>
-                                        <td style="vertical-align: middle; text-align: right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_income)"/></td>
+                                        <th style="text-align: left; width: 75%"><strong>Total Penghasilan</strong></th>
+                                        <th style="text-align: right; width: 5%">Rp.</th>
+                                        <th style="text-align: right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_income)"/></th>
                                     </tr>
                                 </tfooter>
                             </table>
                         </td>
-                        <td style="width:4%;padding:0px;"/>
-                        <td style="width:48%;padding:0px; vertical-align:top;">
+                        <td style="width: 4%; padding: 0px;"/>
+                        <td style="width: 48%; padding: 0px; vertical-align: top;">
                             <table style="width:100%;float-left;margin-bottom:0px!important;">
                                 <tfooter>
                                     <tr class="footer">
-                                        <td style="vertical-align: middle; width: 75%">TOTAL DEDUCTION</td>
-                                        <td style="vertical-align: middle; text-align: right; width: 5%">Rp.</td>
-                                        <td style="vertical-align: middle; text-align:right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_deduction)"/></td>
+                                        <th style="text-align: left; width: 75%"><strong>Total Potongan</strong></th>
+                                        <th style="text-align: right; width: 5%">Rp.</th>
+                                        <th style="text-align:right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_deduction)"/></th>
                                     </tr>
                                 </tfooter>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding-top: 20px;" colspan="3">
-                            <table style="width: 100%; float-left; margin-bottom: 0px!important;">
+                        <td style="padding: 0px;" colspan="3">
+                            <table style="width: 100%; float-left; margin-bottom: 0px!important; margin-top: 10px;">
                                 <tfooter>
                                     <tr>
-                                        <th style="text-align: left; width: 75%">TAKE HOME PAY</th>
-                                        <th style="vertical-align: middle; text-align: right; width: 5%">Rp.</th>
+                                        <th style="text-align: left; width: 75%"><strong>TAKE HOME PAY</strong></th>
+                                        <th style="text-align: right; width: 5%">Rp.</th>
                                         <th style="text-align: right; width: 20%"><t t-esc="'%s' % '{:,.0f}'.format(total_income - total_deduction)"/></th>
                                     </tr>
                                 </tfooter>
@@ -279,7 +279,7 @@
                             <table style="width:100%;float:left;margin-bottom:0px!important;">
                                 <thead>
                                     <tr>
-                                        <th colspan="2"/>
+                                        <td colspan="2"/>
                                     </tr>
                                 </thead>
                             </table>
@@ -289,7 +289,7 @@
                             <table style="width:100%;float-left;margin-bottom:0px!important;">
                                 <thead>
                                     <tr>
-                                        <td colspan="2" style="text-align: left;">Benefit</td>
+                                        <th colspan="2" style="text-align: left;">Benefit</th>
                                     </tr>
                                 </thead>
                             </table>
