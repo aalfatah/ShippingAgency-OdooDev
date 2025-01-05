@@ -7,6 +7,7 @@
             <style>
                 table {border: 0px;}
                 td {background-color: white; border: 0px solid transparent;}
+                th {border: 0px solid transparent;}
             </style>
             <h2>Pay Slip - <span t-field="o.number"/></h2>
             <p t-field="o.name"/>
