@@ -20,7 +20,7 @@ class CostItem(models.Model):
     product_id = fields.Many2one('product.product', string="Product", tracking=True)
 
     _sql_constraints = [
-        ('item_code_unique', 'UNIQUE(code)', 'An item code must be unique!'),
+        ('item_name_unique', 'UNIQUE(name)', 'An item name must be unique!'),
     ]
 
     @api.onchange('code')

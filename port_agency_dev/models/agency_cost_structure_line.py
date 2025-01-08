@@ -18,10 +18,19 @@ class CostStructureLine(models.Model):
     item_id = fields.Many2one('agency.cost.item', string="Item")
     code = fields.Char("Cost Code", related="item_id.code")
     product_id = fields.Many2one("product.product", string="Product", related="item_id.product_id")
-    standard_cost = fields.Float(string="Standard Cost", compute='compute_standard_cost')
+    standard_cost = fields.Float(string="Standard Cost")
     quantity = fields.Float(string="Quantity", default=1)
     estimated_cost = fields.Float(string="Estimated Cost", compute='compute_estimated_cost')
     allow_expense = fields.Boolean('Allow Expense')
+
+    @api.onchange('item_id')
+    def _onchange_item_id(self):
+        self.standard_cost = 0
+        if self.item_id and self.item_id.cost_formula:
+            local_dict = {'PARENT': self.cost_structure_id} | self.other_cost(self.sequence)
+            safe_eval(self.item_id.cost_formula, local_dict, mode="exec", nocopy=True)
+            self.standard_cost = ('result' in local_dict) and local_dict['result'] or 0
+            self.compute_estimated_cost()
 
     @api.onchange('item_id', 'package_id')
     def _set_allow_expense(self):
@@ -35,17 +44,7 @@ class CostStructureLine(models.Model):
                 continue
             line.name = "%s - %s" % (line.item_id.name, line.header_id.name)
 
-    @api.depends('item_id', 'cost_structure_id.grt')
-    def compute_standard_cost(self):
-        for row in self:
-            row.standard_cost = 0
-            if row.item_id and row.item_id.cost_formula:
-                local_dict = {'PARENT': row.cost_structure_id} | self.other_cost(row.sequence)
-                safe_eval(row.item_id.cost_formula, local_dict, mode="exec", nocopy=True)
-                row.standard_cost = ('result' in local_dict) and local_dict['result'] or 0
-                row.compute_estimated_cost()
-
-    @api.depends('quantity')
+    @api.depends('quantity', 'standard_cost')
     def compute_estimated_cost(self):
         for row in self:
             row.estimated_cost = row.standard_cost * row.quantity

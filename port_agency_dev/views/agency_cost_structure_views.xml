@@ -67,7 +67,7 @@
                                         <field name="code" optional="hide"/>
                                         <field name="name"/>
                                         <field name="product_id" optional="show"/>
-                                        <field name="standard_cost"/>
+                                        <field name="standard_cost" readonly="0"/>
                                         <field name="quantity"/>
                                         <field name="estimated_cost"/>
                                         <field name="allow_expense" widget="boolean_toggle"/>
