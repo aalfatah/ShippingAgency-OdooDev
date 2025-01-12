@@ -4,6 +4,9 @@
 	    <field name="model">hr.expense</field>
 	    <field name="inherit_id" ref="hr_expense_advance_clearing.hr_expense_view_form"/>
 	    <field name="arch" type="xml">
+			<button name="action_split_wizard" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</button>
 			<field name="account_id" position="after">
 				<field name="employee_id" invisible="1"/>
 				<field name="av_line_id" options="{'no_create': True}" domain="[('employee_id', '=', employee_id)]"/>
@@ -11,6 +14,63 @@
 			<field name="product_id" position="attributes">
 				<attribute name="options">{'no_create': True}</attribute>
 			</field>
+
+			<field name="unit_amount" position="replace"/>
+			<field name="product_uom_category_id" position="after">
+				<field name="unit_amount" required="1" force_save="1" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" class="oe_inline"/> <!--attrs="{'invisible': [('product_has_cost', '=', False)], 'readonly': ['|', ('sheet_is_editable', '=', False), ('product_has_cost', '=', True)]}"/>-->
+			</field>
+			<!--<field name="product_uom_category_id" position="attributes">
+				<attribute name="invisible" invisible="1"/>
+			</field>-->
+			<xpath expr="//field[@name='quantity']/../.." position="replace"/>
+			<label for="quantity" position="replace">
+				<label for="quantity"/>
+				<div>
+					<div class="o_row">
+						<field name="quantity" class="oe_inline" attrs="{'readonly': [('sheet_is_editable', '=', False)]}"/>
+						<field name="product_uom_id" required="1" force_save="1" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom"/>
+					</div>
+				</div>
+			</label>
+			<xpath expr="//field[@name='tax_ids']/../.." position="replace"/>
+			<label for="tax_ids" position="replace"/>
+			<xpath expr="//field[@name='total_amount']/.." position="replace"/>
+			<label for="total_amount" position="replace">
+				<label for="tax_ids"/>
+				<div class="d-flex o_row">
+					<div class="oe_inline">
+						<field name="tax_ids" force_save="1"
+							widget="many2many_tags" class="oe_inline"
+							attrs="{'readonly': [('is_editable', '=', False)]}"
+							context="{'default_company_id': company_id, 'default_type_tax_use': 'purchase', 'default_price_include': 1}"
+							options="{'no_create': True}"/>
+					</div>
+					<div class="d-flex pt-2">
+						<span class="oe_inline o_form_label ms-1 me-1"> ( </span>
+						<field name="amount_tax" class="oe_inline"/>
+						<span class="oe_inline o_form_label ms-1 me-3"> ) </span>
+					</div>
+					<!--<div class="d-flex pt-2">
+						<span class="oe_inline o_form_label ms-1 me-1"> ( </span>
+						<field name="amount_tax_company" class="ps-0"/>
+						<span class="oe_inline o_form_label ms-1 me-3"> ) </span>
+					</div>-->
+				</div>
+				<label for="total_amount" string="Total"/>
+				<div class="o_row">
+					<field name="total_amount" widget='monetary' options="{'currency_field': 'currency_id'}" readonly="True" force_save="True" class="oe_inline"/> <!--attrs="{'readonly': [('sheet_is_editable', '=', False)]}"-->
+					<field name="currency_id" groups="base.group_multi_currency"/>
+				</div>
+			</label>
+			<xpath expr="//group/div/field[@name='total_amount_company']/.." position="replace"/>
+			<label for="total_amount_company" position="replace"/>
+			<!--<label for="total_amount_company" position="replace">
+				<label for="total_amount_company"/>
+				<div class="o_row">
+					<field name="total_amount_company" widget='monetary' options="{'currency_field': 'company_currency_id'}" class="oe_inline"/>
+					&lt;!&ndash;<field name="label_convert_rate" class="ps-0"/>&ndash;&gt;
+				</div>
+			</label>-->
 			<field name="reference" position="attributes">
 				<attribute name="groups"/>
 			</field>

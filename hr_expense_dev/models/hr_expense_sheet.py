@@ -43,7 +43,7 @@ class ExpenseSheet(models.Model):
     #         emp = self.env['hr.employee'].sudo().search([('id', '=', self.employee_id.id)])
     #         emp.write({'marital': 'married'})
     #     return res
-    #
+
     # def action_cancel(self):
     #     if self.benefit_type_id.update_marital_status:
     #         emp = self.env['hr.employee'].sudo().search([('id','=',self.employee_id.id)])
