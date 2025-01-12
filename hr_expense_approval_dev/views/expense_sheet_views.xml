@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_expense_sheet_form_approval_dev" model="ir.ui.view">
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="approval" string="Approval">
+                        <group>
+                            <group>
+                                <!--<field name="expense_request_domain" invisible="1"/>
+                                <field name="expense_approval1_domain" invisible="1"/>
+                                <field name="expense_approval2_domain" invisible="1"/>-->
+                                <!--<field name="expense_request_ids" invisible="1"/>-->
+                                <field name="expense_approval1_ids" invisible="1"/>
+                                <field name="expense_approval2_ids" invisible="1"/>
+                                <!--<field name="request_signed_id" options="{'no_create': True, 'no_open': True}" domain="[('id', 'in', expense_request_ids)]"/>-->
+                                <field name="expense_signed1_id" options="{'no_create': True, 'no_open': True}" domain="[('id', 'in', expense_approval1_ids)]"/>
+                                <field name="expense_signed2_id" options="{'no_create': True, 'no_open': True}" domain="[('id', 'in', expense_approval2_ids)]"/>
+<!--                                <field name="expense_signed1_title" invisible="1"/>-->
+<!--                                <field name="expense_signed2_title" invisible="1"/>-->
+<!--                                <field name="approver1_id" options="{'no_create': True, 'no_open': True}"/>-->
+<!--                                <field name="approver2_id" options="{'no_create': True, 'no_open': True}"/>-->
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

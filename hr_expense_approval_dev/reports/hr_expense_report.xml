@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_expense_sheet_dev" inherit_id="hr_expense.report_expense_sheet">
+        <xpath expr="//div[hasclass('page')]/h2" position="before">
+            <style>
+                table {border: 0px;}
+                td {background-color: white; border: 0px solid transparent;}
+            </style>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/p" position="replace">
+            <table style="width:100%; margin-top: 30px;">
+                <thead>
+                    <tr>
+                        <td style="text-align: center;">Submitted by,</td>
+                        <td style="text-align: center;">Verified by,</td>
+                        <td style="text-align: center;">Approved by,</td>
+                        <!--<t t-if="o.is_internal_transfer">
+                            <td>Approval</td>
+                        </t>
+                        <t t-else="">
+                            <td>Received By</td>
+                        </t>-->
+                    </tr>
+                </thead>
+                <tr height="100px">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <!--<t t-if="o.is_internal_transfer">
+                        <td/>
+                    </t>
+                    <t t-else="">
+                        <td/>
+                    </t>-->
+                </tr>
+                <tr height="25px">
+                    <td style="text-align: center;">( <span t-esc="o.create_uid.name"/> )</td>
+                    <td style="text-align: center;">( <span t-field="o.expense_signed1_id.name"/> )</td>
+                    <td style="text-align: center;">( <span t-field="o.expense_signed2_id.name"/> )</td>
+                    <!--<t t-if="o.is_internal_transfer">
+                        <td/>
+                    </t>
+                    <t t-else="">
+                        <td>&lt;!&ndash;<span t-field="o.payment_transfer_received_by"/>&ndash;&gt;</td>
+                    </t>-->
+                </tr>
+            </table>
+        </xpath>
+    </template>
+</odoo>

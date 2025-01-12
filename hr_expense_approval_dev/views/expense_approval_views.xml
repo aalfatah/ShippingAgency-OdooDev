@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="expense_approval_tree_view_dev" model="ir.ui.view">
+            <field name="name">Expense Approval</field>
+            <field name="model">hr.expense.sheet.approval</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="limit"/>
+                    <field name="approver" options="{'no_open': True, 'no_create': True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="expense_approval_action_dev" model="ir.actions.act_window">
+            <field name="name">Expense Approval</field>
+            <field name="res_model">hr.expense.sheet.approval</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create new Expense Approval.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="expense_approval_menu_dev" name="Expense Approval"
+                  parent="hr_expense.menu_hr_expense_configuration"
+                  groups="hr_expense.group_hr_expense_manager"
+                  action="expense_approval_action_dev" sequence="200"/>
+    </data>
+</odoo>
