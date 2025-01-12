@@ -13,7 +13,7 @@
         "security/security.xml",
         "views/account_move_views.xml",
         "views/account_move_approval_views.xml",
-        # "views/account_payment_views.xml",
+        "views/account_payment_views.xml",
         # "views/approval_title_view.xml",
     ],
     "license": "LGPL-3",

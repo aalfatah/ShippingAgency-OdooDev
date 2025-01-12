@@ -6,17 +6,17 @@
             <field name="inherit_id" ref="account.view_account_payment_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet/group" position="inside">
-                    <group name="signed"> <!--attrs="{'invisible': [('is_internal_transfer', '=', False)]}">-->
-                        <field name="payment_transfer_prepared_domain" invisible="1"/>
-                        <field name="payment_transfer_approver1_domain" invisible="1"/>
-                        <field name="payment_transfer_approver2_domain" invisible="1"/>
-                        <!--<field name="payment_transfer_prepared_id" options="{'no_create': True, 'no_open': True}" domain="payment_transfer_prepared_domain" invisible="1"/>
-                        <field name="payment_transfer_approver1_id" options="{'no_create': True, 'no_open': True}" domain="payment_transfer_approver1_domain"/>
-                        <field name="payment_transfer_approver2_id" options="{'no_create': True, 'no_open': True}" domain="payment_transfer_approver2_domain"/>-->
+                    <group name="signed" string="Approval"> <!--attrs="{'invisible': [('is_internal_transfer', '=', False)]}">-->
+                        <!--<field name="payment_transfer_prepared_domain" invisible="1"/>-->
+                        <field name="payment_approval1_ids" invisible="1"/>
+                        <field name="payment_approval2_ids" invisible="1"/>
+                        <!--<field name="payment_transfer_prepared_id" options="{'no_create': True, 'no_open': True}" domain="payment_transfer_prepared_domain" invisible="1"/>-->
+                        <field name="payment_transfer_approver1_id" options="{'no_create': True, 'no_open': True}" domain="[('id', 'in', payment_approval1_ids)]"/>
+                        <field name="payment_transfer_approver2_id" options="{'no_create': True, 'no_open': True}" domain="[('id', 'in', payment_approval2_ids)]"/>
 
-                        <field name="approver1_id" options="{'no_create': True, 'no_open': True}"/>
+                        <!--<field name="approver1_id" options="{'no_create': True, 'no_open': True}"/>
                         <field name="approver2_id" options="{'no_create': True, 'no_open': True}"/>
-                        <field name="payment_transfer_received_by"/>
+                        <field name="payment_transfer_received_by"/>-->
                     </group>
                 </xpath>
             </field>

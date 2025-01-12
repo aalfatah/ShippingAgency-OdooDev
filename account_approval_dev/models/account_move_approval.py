@@ -9,8 +9,8 @@ class AccountMoveApproval(models.Model):
 							 ('bill_approver1', 'Bill Reviewer'),
 							 ('bill_approver2', 'Bill Approver'),
 							 # ('transfer_prepared', 'Transfer Prepared By'),
-							 # ('transfer_approver1', 'Transfer Approver 1'),
-							 # ('transfer_approver2', 'Transfer Approver 2'),
+							 ('transfer_approver1', 'Payment Reviewer'),
+							 ('transfer_approver2', 'Payment Approver'),
 							 # ('move_approver1', 'Journal Approver 1'),
 							 # ('move_approver2', 'Journal Approver 2'),
 							 ], required=True)

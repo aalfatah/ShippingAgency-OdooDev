@@ -23,16 +23,15 @@
             <field name="name">Payment Transfer Prepared</field>
             <field name="category_id" ref="base.module_category_accounting_accounting"/>
         </record>
-
+-->
         <record id="group_account_payment_transfer_approved1_signed" model="res.groups">
-            <field name="name">Payment Transfer Approved 1</field>
+            <field name="name">Payment Transfer Approval 1</field>
             <field name="category_id" ref="base.module_category_accounting_accounting"/>
         </record>
 
         <record id="group_account_payment_transfer_approved2_signed" model="res.groups">
-            <field name="name">Payment Transfer Approved 2</field>
+            <field name="name">Payment Transfer Approval 2</field>
             <field name="category_id" ref="base.module_category_accounting_accounting"/>
         </record>
--->
     </data>
 </odoo>
