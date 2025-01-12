@@ -32,18 +32,18 @@
     <template id="payment_voucher_document">
         <t t-call="web.external_layout">
             <style>
-                table           { border-spacing: 0px!important; width:100%; }
+                table           { border: 0px; border-spacing: 0px!important; width:100%; }
                 table.border    { border-spacing: 1px solid black!important; width:100%; }
                 tr.border       { border-spacing: 1px solid black!important; width:100%; }
                 .myborder       { padding: 10px; border: 1px solid black; background-color: white; width: 100px; text-align: center; valign: middle; }
                 td.content      { padding: 0px; text-align: left; border: 0px solid black; height: 35px;}
                 th              { border-top: 1px solid black; border-bottom: 1px solid black; }
+                td              { background-color: white; border: 0px solid transparent;}
             </style>
             <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
             <div class="page" style="font-size: 14px; font-family: 'Gideon Roman', sans-serif;">
             <!--<div class="page" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">-->
-
                 <!--<table>
                     <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo" style="max-height:70px"/>
                 </table>
@@ -65,26 +65,13 @@
 
                 <![CDATA[<br>]]>
 
-                <table>
+                <table style="background: white; width: 100%">
                     <tr>
-                        <td style="width: 16%;">
-                            <t><strong>Payment Type</strong></t>
-                        </td>
-                        <td style="width: 34%;">
-                            <t>: <span t-field="o.payment_type"/></t>
-                        </td>
-                        <td style="width: 19%;">
-                            <t><strong>Payment Date</strong></t>
-                        </td>
-                        <td style="width: 31%;">
-                            <t>: <span t-field="o.date" t-options="{'widget': 'date', 'format': 'dd-MMM-yyyy'}"/></t>
-                        </td>
+                        <td style="width: 16%;"><t><strong>Payment Type</strong></t></td>
+                        <td style="width: 34%;"><t>: <span t-field="o.payment_type"/></t></td>
+                        <td style="width: 19%;"><t><strong>Payment Date</strong></t></td>
+                        <td style="width: 31%;"><t>: <span t-field="o.date" t-options="{'widget': 'date', 'format': 'dd-MMM-yyyy'}"/></t></td>
                     </tr>
-                <!--</table>
-
-                <![CDATA[<br>]]>
-
-                <table>-->
                     <tr>
                         <td>
                             <t t-if="o.is_internal_transfer"><strong>Payment Journal</strong></t>
@@ -94,19 +81,9 @@
                             <t t-if="o.is_internal_transfer">: <span t-field="o.journal_id.name"/></t>
                             <t t-else="">: <span t-field="o.partner_id.name"/></t>
                         </td>
-                        <td>
-                            <t><strong>Memo</strong></t>
-                        </td>
-                        <td>
-                            <t>: <span t-field="o.ref"/></t>
-                            <![CDATA[<br>]]>
-                        </td>
+                        <td><t><strong>Memo</strong></t></td>
+                        <td><t>: <span t-field="o.ref"/></t></td>
                     </tr>
-                <!--</table>
-
-                <![CDATA[<br>]]>
-
-                <table>-->
                     <tr>
                         <td>
                             <t t-if="o.is_internal_transfer"><strong>Transfer To</strong></t>
@@ -115,66 +92,52 @@
                         <td>
                             <t t-if="o.is_internal_transfer">: <span t-field="o.destination_journal_id.name"/></t>
                             <t t-else="">: <span t-field="o.journal_id.name"/></t>
-
                         </td>
-                        <td>
-                            <t><strong>Payment Transaction</strong></t>
-                        </td>
-                        <td>
-                            <t>: <span t-field="o.payment_transaction_id.reference"/></t>
-                            <![CDATA[<br>]]>
-                        </td>
+                        <td><t><strong>Payment Transaction</strong></t></td>
+                        <td><t>: <span t-field="o.payment_transaction_id.reference"/></t></td>
                     </tr>
-                <!--</table>
-
-                <table>-->
                     <tr class="content">
-                        <![CDATA[<br>]]>
-                        <td>
-                            <t><strong>Payment Amount</strong></t>
-                        </td>
-                        <td>
-                            <t>: <span t-field="o.amount"/></t>
-                        </td>
+                        <td><t><strong>Payment Amount</strong></t></td>
+                        <td><t>: <span t-field="o.amount"/></t></td>
                     </tr>
                 </table>
 
                 <![CDATA[<br>]]>
-                <table class="myborder" style="width:100%; margin-top: 30px;">
+                <table style="width:100%; margin-top: 30px;">
                     <thead>
-                        <tr class="myborder">
-                            <td class="myborder">Prepaid By</td>
-                            <td class="myborder">Approved By</td>
-                            <td class="myborder">Approved By</td>
-                            <t t-if="o.is_internal_transfer">
-                                <td class="myborder">Approval</td>
+                        <tr>
+                            <td style="text-align: center;">Submitted by,</td>
+                            <td style="text-align: center;">Verified by,</td>
+                            <td style="text-align: center;">Approved by,</td>
+                            <!--<t t-if="o.is_internal_transfer">
+                                <td>Approval</td>
                             </t>
                             <t t-else="">
-                                <td class="myborder">Received By</td>
-                            </t>
+                                <td>Received By</td>
+                            </t>-->
                         </tr>
                     </thead>
-                    <tr class="myborder" height="100px">
-                        <td class="myborder"></td>
-                        <td class="myborder"></td>
-                        <td class="myborder"></td>
-                        <t t-if="o.is_internal_transfer">
-                            <td class="myborder"/>
-                        </t>
-                        <t t-else="">
-                            <td class="myborder"/>
-                        </t>
-                    </tr>
-                    <tr class="myborder" height="25px">
-                        <td class="myborder"><!--<span t-esc="o.payment_transfer_prepared_id.name or o.create_uid.name"/>--></td>
-                        <td class="myborder"><!--<span t-field="o.bill_signed1_id"/>--></td>
-                        <td class="myborder"><!--<span t-field="o.bill_signed2_id"/>--></td>
-                        <t t-if="o.is_internal_transfer">
+                    <tr height="100px">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <!--<t t-if="o.is_internal_transfer">
                             <td/>
                         </t>
                         <t t-else="">
-                            <td class="myborder"><!--<span t-field="o.payment_transfer_received_by"/>--></td>
+                            <td/>
+                        </t>-->
+                    </tr>
+                    <tr height="25px">
+                        <td style="text-align: center;">( <span t-esc="o.create_uid.name"/> )</td>
+                        <td style="text-align: center;">( <span t-field="o.payment_transfer_approver1_id.name"/> )</td>
+                        <td style="text-align: center;">( <span t-field="o.payment_transfer_approver2_id.name"/> )</td>
+                        <!--<t t-if="o.is_internal_transfer">
+                            <td/>
                         </t>
+                        <t t-else="">
+                            <td>&lt;!&ndash;<span t-field="o.payment_transfer_received_by"/>&ndash;&gt;</td>
+                        </t>-->
                     </tr>
                 </table>
             </div>
