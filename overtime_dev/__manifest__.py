@@ -14,6 +14,7 @@
         'hr_payroll_dev',
         'hr_contract',
         'hr_payroll_cancel',
+        'hr_public_holiday_dev',
         # 'hr_attendance_dev',
         # 'hr_employee_shift'
     ],
@@ -27,7 +28,7 @@
         'views/overtime_type.xml',
         'views/overtime_request.xml',
         # 'views/overtime_limit.xml',
-        'views/calendar_leave_views.xml',
+        # 'views/calendar_leave_views.xml',
         # 'views/payroll_assign_other_input_views.xml',
         'views/res_config_settings_views.xml',
         'wizard/hr_overtime_mass_confirm.xml',
