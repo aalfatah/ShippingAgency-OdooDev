@@ -46,7 +46,7 @@ class SaleCostStructureLine(models.Model):
                 'sale_structure_line_id': self.id,
                 'product_id': self.product_id.id,
                 'name': self.name,
-                'total_amount': self.estimated_cost,
+                'unit_amount': self.estimated_cost,
                 'employee_id': employee_id.id,
                 'payment_mode': 'company_account',
                 'reference': self.sale_order_id.name,
