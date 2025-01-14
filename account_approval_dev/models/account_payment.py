@@ -52,5 +52,5 @@ class AccountPayment(models.Model):
     @api.model
     def create(self, vals):
         res = super(AccountPayment, self).create(vals)
-        res._set_signed_id()
+        # res._set_signed_id() # <<<----------------------- Error jika di un-marking, saat post expense
         return res
