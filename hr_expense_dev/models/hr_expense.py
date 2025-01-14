@@ -70,7 +70,7 @@ class Expense(models.Model):
                             states={'draft': [('readonly', False)], 'reported': [('readonly', False)],
                                     'refused': [('readonly', False)]}, digits='Product Unit of Measure', default=1)
     tax_ids = fields.Many2many('account.tax', 'expense_tax', 'expense_id', 'tax_id',
-                               compute='_compute_from_product_id_company_id', store=True, readonly=False,
+                               # compute='_compute_from_product_id_company_id', store=True, readonly=False,
                                domain="[('company_id', '=', company_id), ('type_tax_use', '=', 'purchase')]",
                                string='Taxes')
     untaxed_amount = fields.Float("Subtotal", store=True, compute='_compute_amount', digits='Account')
