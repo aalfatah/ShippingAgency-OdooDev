@@ -20,6 +20,8 @@
                     <field name="standard_cost" readonly="1"/>
                     <field name="quantity" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
                     <field name="estimated_cost"/>
+                    <field name="expense_cost" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
+                    <field name="expense_date" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
                     <field name="allow_expense" widget="boolean_toggle"/>
                     <field name="expense_id" options="{'no_create': True}" optional="show"/>
                     <button name="create_expense" class="oe_stat_button" type="object" icon="fa-money" title="expense"

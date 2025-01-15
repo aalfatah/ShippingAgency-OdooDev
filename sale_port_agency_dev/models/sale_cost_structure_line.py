@@ -6,6 +6,7 @@ from odoo.exceptions import UserError
 class SaleCostStructureLine(models.Model):
     _name = 'sale.cost.structure.line'
     _description = 'Sale Cost Structure Line'
+    _order = 'sequence'
     _inherit = ['mail.thread']
 
     sequence = fields.Integer("Number")
@@ -22,6 +23,8 @@ class SaleCostStructureLine(models.Model):
     standard_cost = fields.Float(string="Standard Cost")
     quantity = fields.Float(string="Quantity")
     estimated_cost = fields.Float(string="Estimated Cost", compute='_compute_cost',  store=True)
+    expense_cost = fields.Float(string="Expense Cost", related="estimated_cost",  store=True)
+    expense_date = fields.Date(string="Expense Date")
     expense_id = fields.Many2one("hr.expense", string="Expense", readonly=True, ondelete="set null")
     attachment_url = fields.Char("Attachment")
     allow_expense = fields.Boolean('Allow Expense')
@@ -36,6 +39,8 @@ class SaleCostStructureLine(models.Model):
             raise UserError(_("%s belum di confirm atau SO di locked!" % self.sale_order_id.name))
         if not self.attachment_url:
             raise UserError(_("%s belum belum ada attachment!" % self.name))
+        if not self.expense_date:
+            raise UserError(_("%s belum isi expense date!" % self.name))
         return True
 
     def create_expense(self):
@@ -46,11 +51,11 @@ class SaleCostStructureLine(models.Model):
                 'sale_structure_line_id': self.id,
                 'product_id': self.product_id.id,
                 'name': self.name,
-                'unit_amount': self.estimated_cost,
+                'unit_amount': self.expense_cost,
                 'employee_id': employee_id.id,
                 'payment_mode': 'company_account',
                 'reference': self.sale_order_id.name,
-                'date': datetime.now().date(),
+                'date': self.expense_date,
                 'analytic_distribution': {self.sale_order_id.analytic_account_id.id: 100},
             }
             expense_id = self.env['hr.expense'].create(expense_data)

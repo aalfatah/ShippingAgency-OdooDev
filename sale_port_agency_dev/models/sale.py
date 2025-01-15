@@ -77,6 +77,7 @@ class SaleOrder(models.Model):
                 for cost in rem_fields:
                     cost_structure_line_id.pop(cost)
                 cost_structure_line_id.update({
+                    'sequence': cost_structure_line_id['sequence'],
                     'cost_structure_id': cost_structure_line_id['cost_structure_id'][0],
                     'package_id': cost_structure_line_id.get('package_id') and cost_structure_line_id['package_id'][0],
                     'header_id': cost_structure_line_id.get('header_id') and cost_structure_line_id['header_id'][0],
