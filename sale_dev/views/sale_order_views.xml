@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <field name="commitment_date" position="before">
                 <field name="start_date" widget="date" optional="hide"/>
+                <field name="loading_date" widget="date" optional="hide"/>
             </field>
         </field>
     </record>
@@ -16,6 +17,7 @@
         <field name="arch" type="xml">
             <field name="commitment_date" position="before">
                 <field name="start_date" widget="date" optional="hide"/>
+                <field name="loading_date" widget="date" optional="hide"/>
             </field>
         </field>
     </record>
