@@ -9,6 +9,6 @@ class AccountPayment(models.Model):
         if self.is_internal_transfer:
             return 'Internal Transfer %s' % self.name
         elif self.payment_type == 'outbound':
-            return 'Payment Voucher %s - %' % (self.name, self.partner_id.name)
+            return 'Payment Voucher %s - %s' % (self.name, self.partner_id.name)
         elif self.payment_type == 'inbound':
-            return 'Receive Voucher %s - %' % (self.name, self.partner_id.name)
+            return 'Receive Voucher %s - %s' % (self.name, self.partner_id.name)
