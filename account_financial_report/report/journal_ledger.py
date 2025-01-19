@@ -111,6 +111,7 @@ class JournalLedgerReport(models.AbstractModel):
             "account_id": ml.account_id.id,
             "partner_id": ml.partner_id.id,
             "label": ml.name,
+            "analytic_account": ', '.join(ml.analytic_account_ids.mapped('name')),
             "debit": ml.debit,
             "credit": ml.credit,
             "company_currency_id": ml.company_currency_id.id,

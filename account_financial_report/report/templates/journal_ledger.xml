@@ -147,8 +147,11 @@
                 <div class="act_as_cell" name="partner" style="width: 15.14%;">
                     Partner
                 </div>
-                <div class="act_as_cell" name="label" t-att-style="label_column_style">
+                <div class="act_as_cell" name="label" style="width: 25%;">
                     Ref - Label
+                </div>
+                <div class="act_as_cell" name="analytic_account" style="width: 17%;">
+                    Analytic Account
                 </div>
                 <div class="act_as_cell" name="taxes" style="width: 7.57%;">Taxes</div>
                 <div class="act_as_cell" name="debit" style="width: 8.65%;">Debit</div>
@@ -269,6 +272,9 @@
         <div class="act_as_cell left" name="label">
             <span t-if="move_line['label']" t-esc="move_line['label']" />
             <span t-if="not move_line['label']">/</span>
+        </div>
+        <div class="act_as_cell left" name="analytic_account">
+            <span t-esc="move_line['analytic_account']"/>
         </div>
         <div class="act_as_cell left" name="taxes">
             <t

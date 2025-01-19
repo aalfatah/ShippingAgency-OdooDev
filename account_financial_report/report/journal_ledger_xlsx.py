@@ -41,6 +41,7 @@ class JournalLedgerXslx(models.AbstractModel):
         columns += [
             {"header": _("Partner"), "field": "partner", "width": 25},
             {"header": _("Ref - Label"), "field": "label", "width": 40},
+            {"header": _("Analytic Account"), "field": "analytic_account", "width": 15},
             {"header": _("Taxes"), "field": "taxes_description", "width": 11},
             {"header": _("Debit"), "field": "debit", "type": "amount", "width": 14},
             {"header": _("Credit"), "field": "credit", "type": "amount", "width": 14},

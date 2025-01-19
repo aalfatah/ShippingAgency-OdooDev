@@ -6,14 +6,15 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Account Financial Reports",
-    "version": "16.0.1.13.1",
+    "version": "16.0.2.0.0",
     "category": "Reporting",
-    "summary": "OCA Financial Reports",
+    "summary": "OCA Financial Reports + Analytic Accounts",
     "author": "Camptocamp,"
     "initOS GmbH,"
     "redCOR AG,"
     "ForgeFlow,"
-    "Odoo Community Association (OCA)",
+    "Odoo Community Association (OCA)"
+    "Smits Dev",
     "website": "https://github.com/OCA/account-financial-reporting",
     "depends": ["account", "date_range", "report_xlsx"],
     "data": [
