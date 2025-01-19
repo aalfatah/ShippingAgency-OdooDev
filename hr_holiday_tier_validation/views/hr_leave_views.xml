@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_leave_view_tree_tier" model="ir.ui.view">
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="reviewer_ids" widget="many2many_tags" optional="hide"/>
+                <field name="validated" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_hr_holidays_filter_dev" model="ir.ui.view">
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.view_hr_holidays_filter"/>
+        <field name="arch" type="xml">
+            <filter name="department" position="after">
+                <separator />
+                <filter
+                    name="needs_review"
+                    string="Needs my Review"
+                    domain="[('reviewer_ids','in',uid), ('state', 'not in', ['approve', 'post', 'done', 'cancel'])]"
+                    help="My Expense report to review"
+                />
+                <filter
+                    name="tier_validated"
+                    string="Validated"
+                    domain="[('validated', '=', True)]"
+                    help="Expense report validated and ready to be approved"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
