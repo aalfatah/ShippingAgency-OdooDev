@@ -26,6 +26,20 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+            <field name="partner_invoice_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+            <field name="partner_shipping_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+
+            <field name="analytic_account_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+
             <group name="partner_details" position="inside">
                 <field name="customer_contact"/>
             </group>
