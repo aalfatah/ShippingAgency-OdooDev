@@ -106,6 +106,9 @@
         <field name="model">hr.overtime</field>
         <field name="inherit_id" ref="ohrms_overtime.hr_overtime_tree_view"/>
         <field name="arch" type="xml">
+            <field name="employee_id" position="before">
+                <field name="name" optional="hide"/>
+            </field>
             <field name="project_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>

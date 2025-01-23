@@ -20,6 +20,6 @@ class WageContract(models.Model):
     @api.onchange('wage') #, 'tunjangan_tetap') #, 'tunjangan_tidak_tetap')
     def _get_over_hour(self):
         for row in self:
-            localdict = {'wage': self.wage} #, 'tunjangan_tetap': self.tunjangan_tetap} #, 'tunjangan_tidak_tetap': self.tunjangan_tidak_tetap}
-            safe_eval(self.wage_hours_python_compute, localdict, mode="exec", nocopy=True)
+            localdict = {'wage': row.sudo().wage} #, 'tunjangan_tetap': self.tunjangan_tetap} #, 'tunjangan_tidak_tetap': self.tunjangan_tidak_tetap}
+            safe_eval(row.sudo().wage_hours_python_compute, localdict, mode="exec", nocopy=True)
             row.over_hour = ('result' in localdict) and localdict['result'] or 0
