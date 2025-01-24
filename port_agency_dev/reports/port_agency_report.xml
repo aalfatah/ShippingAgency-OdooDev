@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_port_agency" model="report.paperformat">
+        <field name="name">A4 Port Agency</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">22</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="report_port_agency" model="ir.actions.report">
+        <field name="name">Port Agency</field>
+        <field name="model">agency.cost.structure</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">port_agency_dev.port_agency_report</field>
+        <field name="report_file">port_agency_dev.port_agency_report</field>
+        <field name="paperformat_id" ref="paperformat_port_agency"/>
+        <field name="binding_model_id" ref="model_agency_cost_structure"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="port_agency_document">
+        <t t-call="web.external_layout">
+
+            <t t-set="o" t-value="doc"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
+            <div class="page" style="font-size: 12px; font-family: 'Gideon Roman', sans-serif;">
+                <style>
+                    table {border: 0px;}
+                    td {background-color: white; border: 0px solid transparent;}
+                </style>
+                <![CDATA[<br>]]>
+                <div style="font-size: 15px; margin-top: 2px; padding: 5px; background-color: #061145; color: white; text-align: center; height: 25px; font-weight: bold;">
+                    COST STRUCTURE
+                </div>
+
+                <div style="border: 0px; padding: 10px;">
+                    <div style="border: 0px; padding: 10px; margin-top: 10px; background-color: #061145; color: white;">
+                        <table style="border: 0px;" width="100%">
+                            <tr>
+                                <td style="background-color: #061145; color: white;">LAST PORT</td>
+                                <td style="background-color: #061145; color: white;">:</td>
+                                <td style="background-color: #061145; color: white;"><span t-esc='o.last_port_id.name'/></td>
+                                <td style="background-color: #061145; color: white;">VESSEL'S NAME</td>
+                                <td style="background-color: #061145; color: white;">:</td>
+                                <td style="background-color: #061145; color: white;"><span t-field='o.vessel_ids'/></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #061145; color: white;">LOADING PORT</td>
+                                <td style="background-color: #061145; color: white;">:</td>
+                                <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.load_port_ids])"/></td>
+                                <td style="background-color: #061145; color: white;">GRT</td>
+                                <td style="background-color: #061145; color: white;">:</td>
+                                <td style="background-color: #061145; color: white;"><span t-esc="'%s GRT' % o.grt"/></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #061145; color: white;">DISCH PORT</td>
+                                <td style="background-color: #061145; color: white;">:</td>
+                                <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.discharge_port_ids])"/></td>
+                                <td style="background-color: #061145; color: white;">CAPACITY</td>
+                                <td style="background-color: #061145; color: white;">:</td>
+                                <td style="background-color: #061145; color: white;"><span t-field='o.capacity'/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
+                        <table style="border: 0px;" width="100%">
+                            <t t-set="header" t-value=""/>
+                            <t t-foreach="o.line_ids.filtered(lambda l: l.item_id)" t-as="line">
+                                <t t-if="header != line.header_id">
+                                    <t t-if="header">
+                                        <td colspan="3" style="height: 20px; vertical-align: bottom;"/>
+                                    </t>
+                                    <tr>
+                                        <td colspan="3" style="width: 100%;"><span t-field='line.header_id'/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td style="width: 65%; padding-left: 10px;"><span t-field='line.item_id'/></td>
+                                    <td style="width: 5%;">:</td>
+                                    <td style="width: 30%; text-align: right;"><span t-esc="'{0:,.2f}'.format(line.estimated_cost)"/></td>
+                                    <!--<td style="width: 23%;">VOYAGE NO.</td>
+                                    <td style="width: 2%;">:</td>
+                                    <td style="width: 14%;"><span t-field='o.name'/></td>-->
+                                </tr>
+                                <t t-set="header" t-value="line.header_id"/>
+                            </t>
+                        </table>
+                    </div>
+                    <div style="padding: 0px; margin-top: 5px;">
+                        <table style="width: 100%;">
+                            <tr style="border: 0px;">
+                                <td style="border: 0px;"></td>
+                                <td style="border: 0px;"></td>
+                                <td style="border: 0px;"></td>
+                                <td style="border: 0px;"></td>
+                                <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;"><strong>Total</strong></td>
+                                <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;">
+                                    <span t-esc="'{0:,.2f}'.format(o.amount_total)"/>
+                                </td>
+                            </tr>
+                            <!--<t t-set="tax_totals" t-value="o.tax_totals"/>-->
+                            <!--<t t-foreach="tax_totals['groups_by_subtotal']['Untaxed Amount']" t-as="amount_by_group">
+                                <tr>
+                                    <td style="border: 0px;" colspan="4"></td>
+                                    <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15">
+                                        <strong><span t-esc="amount_by_group['tax_group_name']"/></strong>
+                                    </td>
+                                    <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15">
+                                        <span style="text-align: right;" t-esc="amount_by_group['formatted_tax_group_amount']"/>
+                                    </td>
+                                </tr>
+                            </t>-->
+                            <!--<tr style="border: 0px;">
+                                <td style="border: 0px;" colspan="4"><strong>Advance payment must be paid before vessel's arrival in full amount to :</strong></td>
+                                <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px; height: 20px;"><strong>Grand Total</strong></td>
+                                <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px; height: 20px;">
+                                    <strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong>
+                                </td>
+                            </tr>-->
+                            <!--<tr height="25px">
+                                <td style="padding-left: 10px;">Bank Details</td>
+                                <td style="border: 0px;">:</td>
+                                <td style="padding-left: 5px;">BANK MANDIRI ( KCP Cikarang - Jababeka )</td>
+                            </tr>-->
+                            <!--<tr height="25px">
+                                <td style="padding-left: 10px;">Account Bank</td>
+                                <td style="border: 0px;">:</td>
+                                <td style="padding-left: 5px;">156-00-3453333-3</td>
+                            </tr>
+                            <tr height="25px">
+                                <td style="padding-left: 10px;">Beneficiary Name</td>
+                                <td style="border: 0px;">:</td>
+                                <td style="padding-left: 5px;">PT BARITO SAMUDRA SEJAHTERA</td>
+                            </tr>-->
+                        </table>
+                    </div>
+                    <!--<![CDATA[<br>]]>
+                    <div><strong>Thanks for your inquiry. Should you have any other questions or inquiries, please do not hesitate to call us.</strong></div>
+                    <table style="border: 0px;" width="100%">
+                        <tr height="25px">
+                            <td style="background: white;" colspan="6">Best Regards,</td>
+                        </tr>
+                        <tr height="25px">
+                            <td style="background: white;" colspan="3">FAT Division - Nurmiati (Mrs.)</td>
+                            <td style="background: white;" colspan="3">Operational Agency - Rotun (Mr.)</td>
+                        </tr>
+                        <tr height="25px">
+                            <td style="background: white; width: 18%;">Mobile</td>
+                            <td style="background: white; width: 2%;">:</td>
+                            <td style="background: white; width: 41%;">62877-1637-7616</td>
+                            <td style="background: white; width: 22%;">Mobile</td>
+                            <td style="background: white; width: 2%;">:</td>
+                            <td style="background: white; width: 15%;">62822-5105-4106</td>
+                        </tr>
+                        <tr height="25px">
+                            <td style="background: white; width: 18%;">E-mail</td>
+                            <td style="background: white; width: 2%;">:</td>
+                            <td style="background: white; width: 41%;">nurmiati@baritosamudra.co.id</td>
+                            <td style="background: white; width: 22%;">E-mail</td>
+                            <td style="background: white; width: 2%;">:</td>
+                            <td style="background: white; width: 15%;"> rotun@baritosamudra.co.id</td>
+                        </tr>
+                    </table>
+                    <div style="margin-top: 10px; border-top: 1px solid black; width: 100%;"/>
+                    <table style="margin-top: 10px; border: 0px;" width="100%">
+                        <tr height="25px">
+                            <td style="background: white;" colspan="6"><strong>EPDA CONFIRMATION / APPROVAL BY CUSTOMER</strong></td>
+                        </tr>
+                        <tr height="25px">
+                            <td style="background: white;" colspan="6">We hereby confirm that PT. Barito Samudra Sejahtera has been appointed as our agent for handling our vessel calling  to the above mentioned ports based on the above EPDA.</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 17%; padding-top: 30px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                            <td style="width: 1px; padding-left: 3px;">,</td>
+                            <td style="width: 32%;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                            <td style="width: 50%;" colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 17%; padding-top: 100px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                            <td style="width: 1px;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                            <td style="width: 32%;"><div style="border-bottom: 1px solid black; width: 100%;"/></td>
+                            <td style="width: 50%;" colspan="3"></td>
+                        </tr>
+                    </table>-->
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="port_agency_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="port_agency_dev.port_agency_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>
