@@ -22,17 +22,17 @@ class HolidaysRequest(models.Model):
 
     @api.depends('employee_id')
     def _compute_approval_id(self):
-        for holiday in self:
+        for rec in self:
             employee_approval_id = False
-            if holiday.employee_id:
-                if holiday.employee_id.department_id.parent_id:
-                    employee_approval_id = holiday.employee_id.department_id.parent_id.manager_id
+            if rec.employee_id:
+                if rec.employee_id.department_id.parent_id:
+                    employee_approval_id = rec.employee_id.department_id.parent_id.manager_id
                 else:
-                    employee_approval_id = holiday.employee_id.department_id.manager_id
+                    employee_approval_id = rec.employee_id.department_id.manager_id
             if employee_approval_id:
-                holiday.employee_approval_id = employee_approval_id.id
+                rec.employee_approval_id = employee_approval_id.id
             else:
-                holiday.employee_approval_id = False
+                rec.employee_approval_id = False
 
     def validate_tier(self):
         super(HolidaysRequest, self).validate_tier()

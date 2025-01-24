@@ -74,7 +74,7 @@ class HrOverTime(models.Model):
     state = fields.Selection([('draft', 'Draft'),
                               ('f_approve', 'Waiting'),
                               ('approved', 'Approved'),
-                              ('refused', 'Refused')], string="state",
+                              ('refused', 'Refused')], string="State",
                              default="draft")
     cancel_reason = fields.Text('Refuse Reason')
     leave_id = fields.Many2one('hr.leave.allocation',

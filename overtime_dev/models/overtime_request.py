@@ -52,14 +52,19 @@ class HrOverTime(models.Model):
     employee_name = fields.Char(related="employee_id.name")
     color = fields.Integer(string="color", compute="get_color" ,store=True, readonly=False, default=1)
     # work_shift_ids = fields.One2many(related='employee_id.contract_id.shift_schedule')
-    contract_id = fields.Many2one('hr.contract', string="Contract", domain="[('employee_id', '=', employee_id), ('state', 'in', ['open','close'])]", readonly=False)
+    contract_id = fields.Many2one('hr.contract', string="Contract", readonly=False,
+                                  domain="[('employee_id', '=', employee_id), ('state', 'in', ['open','close'])]",
+                                  groups='overtime_dev.group_overtime_manager')
     global_leaves = fields.One2many('resource.calendar.leaves', compute=_get_leave_ids, related='')
     # shift_ids = fields.One2many(related='employee_id.shift_ids')
     # work_day = fields.Boolean(string="Working Day")
-    cash_hrs_amount = fields.Float(string='Overtime Hours Amount', readonly=True) #, groups='hr_payroll_community.group_hr_payroll_community_user,hr_payroll_community.group_hr_payroll_community_manager')
-    cash_day_amount = fields.Float(string='Overtime Days Amount', readonly=True) #, groups='hr_payroll_community.group_hr_payroll_community_user,hr_payroll_community.group_hr_payroll_community_manager')
+    cash_hrs_amount = fields.Float(string='Overtime Hours Amount', readonly=True,
+                                   groups='overtime_dev.group_overtime_manager')
+    cash_day_amount = fields.Float(string='Overtime Days Amount', readonly=True,
+                                   groups='overtime_dev.group_overtime_manager')
 
-    duration_type = fields.Selection(selection='_get_duration_type', string="Duration Type", default="hours", required=True)
+    duration_type = fields.Selection(selection='_get_duration_type', string="Duration Type",
+                                     default="hours", required=True)
     days_no_tmp_period = fields.Float('Hours / Period')
 
     @api.model
@@ -168,14 +173,14 @@ class HrOverTime(models.Model):
     def _onchange_rate_hours(self):
         if self.state == 'f_approve':
             cash_amount = 0
-            if self.overtime_type_id.rule_line_ids and self.duration_type in ('hours','period'):
-                if self.contract_id.over_hour:
+            if self.overtime_type_id.rule_line_ids and self.duration_type in ('hours', 'period'):
+                if self.sudo().contract_id.over_hour:
                     # cash_amount = round(self.contract_id.over_hour * self.rate_hours, -2)
-                    cash_amount = self.contract_id.over_hour * self.rate_hours
+                    cash_amount = self.sudo().contract_id.over_hour * self.rate_hours
                 else:
                     raise UserError(_("Hour Overtime Needs Hour Wage in Employee Contract."))
 
-            self.write({
+            self.sudo().write({
                 'cash_hrs_amount': cash_amount,
             })
 
@@ -187,13 +192,13 @@ class HrOverTime(models.Model):
     def _onchange_date(self):
         if self.employee_id:
             if self.date_from:
-                contract_id = self.env['hr.contract'].search([('employee_id', '=', self.employee_id.id),
-                                                              ('state', 'in', ['open', 'close']),
-                                                              ('date_start', '<=', self.date_from)], order='date_start desc',
-                                                             limit=1)
-                self.contract_id = contract_id.id
+                contract_id = self.sudo().env['hr.contract'].search([('employee_id', '=', self.employee_id.id),
+                                                                     ('state', 'in', ['open', 'close']),
+                                                                     ('date_start', '<=', self.date_from)],
+                                                                    order='date_start desc', limit=1)
+                self.sudo().contract_id = contract_id.id
             else:
-                self.contract_id = self.employee_id.contract_id.id
+                self.sudo().contract_id = self.sudo().employee_id.contract_id.id
         holiday = False
         holiday_str = ' '
         day_type = 'working_day'
@@ -243,16 +248,16 @@ class HrOverTime(models.Model):
                 self.overtime_type_id = overtime_type
                 self._get_rate_hours()
                 if self.overtime_type_id.rule_line_ids and self.duration_type in ('hours','period'):
-                    if self.contract_id.over_hour:
+                    if self.sudo().contract_id.over_hour:
                         # cash_amount = round(self.contract_id.over_hour * self.rate_hours, -2)
-                        cash_amount = self.contract_id.over_hour * self.rate_hours
+                        cash_amount = self.sudo().contract_id.over_hour * self.rate_hours
                     else:
                         raise UserError(_("Hour Overtime Needs Hour Wage in Employee Contract."))
                 elif self.overtime_type_id.rule_line_ids and self.duration_type == 'days':
                     for recd in self.overtime_type_id.rule_line_ids:
                         if recd.from_hrs < self.days_no_tmp <= recd.to_hrs and self.contract_id:
-                            if self.contract_id.over_day:
-                                cash_amount = self.contract_id.over_day * recd.hrs_amount
+                            if self.sudo().contract_id.over_day:
+                                cash_amount = self.sudo().contract_id.over_day * recd.hrs_amount
                                 # self.cash_day_amount = cash_amount
                             else:
                                 raise UserError(_("Day Overtime Needs Day Wage in Employee Contract."))
@@ -260,7 +265,7 @@ class HrOverTime(models.Model):
             if day_type != 'working_day':
                 holiday_str = 'You have %s, %s in your Overtime request.' % (holiday_type, day_off_name)
 
-            self.write({
+            self.sudo().write({
                 'day_type': day_type,
                 'public_holiday': holiday_str,
                 'overtime_type_id': overtime_type,

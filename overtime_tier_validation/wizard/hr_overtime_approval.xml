@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_overtime_request_approval" model="ir.ui.view">
+        <field name="name">Request Approval</field>
+        <field name="model">hr.overtime.request.approval</field>
+        <field name="arch" type="xml">
+        <form string="Request Approval">
+            <p class="oe_grey">
+                Do you want to request approval these selected overtimes?
+            </p>
+            <footer>
+                <button name="submit" string="Submit" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="act_overtime_request_approval" model="ir.actions.act_window">
+        <field name="name">Request Approval</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime.request.approval</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_overtime"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <record id="view_overtime_restart_approval" model="ir.ui.view">
+        <field name="name">Restart Approval</field>
+        <field name="model">hr.overtime.restart.approval</field>
+        <field name="arch" type="xml">
+        <form string="Restart Approval">
+            <p class="oe_grey">
+                Do you want to restart approval these selected overtimes?
+            </p>
+            <footer>
+                <button name="submit" string="Submit" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="act_overtime_restart_approval" model="ir.actions.act_window">
+        <field name="name">Restart Approval</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime.restart.approval</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_overtime"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <record id="view_overtime_validate_tier" model="ir.ui.view">
+        <field name="name">Validate Tier</field>
+        <field name="model">hr.overtime.validate.tier</field>
+        <field name="arch" type="xml">
+        <form string="Validate Tier">
+            <p class="oe_grey">
+                Do you want to validate these selected overtimes?
+            </p>
+            <footer>
+                <button name="submit" string="Submit" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="act_overtime_validate_tier" model="ir.actions.act_window">
+        <field name="name">Validate Tier</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime.validate.tier</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_overtime"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <record id="view_overtime_reject_tier" model="ir.ui.view">
+        <field name="name">Reject Tier</field>
+        <field name="model">hr.overtime.reject.tier</field>
+        <field name="arch" type="xml">
+        <form string="Validate Tier">
+            <p class="oe_grey">
+                Do you want to reject these selected overtimes?
+            </p>
+            <footer>
+                <button name="submit" string="Submit" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="act_overtime_reject_tier" model="ir.actions.act_window">
+        <field name="name">Reject Tier</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime.reject.tier</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_overtime"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

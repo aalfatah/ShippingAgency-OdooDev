@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019-2020 ForgeFlow S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_overtime_request_form_inherit_tier" model="ir.ui.view">
+        <field name="model">hr.overtime</field>
+        <field name="inherit_id" ref="overtime_dev.hr_overtime_form_view_dev"/>
+        <field name="arch" type="xml">
+            <button name="submit_to_f" position="attributes">
+                <attribute name="states">draft</attribute>
+                <!--<attribute name="groups">overtime_dev.group_overtime_manager</attribute>-->
+                <attribute name="string">Confirm</attribute>
+            </button>
+            <!--<button name="button_to_approve" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>-->
+            <!--<field name="state" position="attributes">
+                <attribute name="statusbar_visible">draft,verification,posted,cancel</attribute>
+            </field>-->
+        </field>
+    </record>
+
+    <record id="hr_overtime_tree_view_inherit_tier_dev" model="ir.ui.view">
+        <field name="model">hr.overtime</field>
+        <field name="inherit_id" ref="overtime_dev.hr_overtime_tree_view_dev"/>
+        <field name="arch" type="xml">
+            <field name="state" position="replace">
+                <field name="reviewer_ids" widget="many2many_tags" optional="show"/>
+                <field name="validated" optional="show"/>
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state in ('approved')"
+                    decoration-muted="state == 'draft'"
+                    decoration-warning="state == 'f_approve'"
+                    decoration-danger="state == 'refused'"
+                    optional="show"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_overtime_request_filter_tier_validation" model="ir.ui.view">
+        <field name="model">hr.overtime</field>
+        <field name="inherit_id" ref="overtime_dev.hr_overtime_search_dev"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <group expand="0" string="Need actions">
+                    <filter
+                        name="needs_review"
+                        string="Needs my Review"
+                        domain="[('reviewer_ids','in',uid), ('state', 'in', ['draft'])]"
+                        help="My overtime to review"
+                    />
+                    <filter
+                        name="tier_validated"
+                        string="Validated"
+                        domain="[('validated', '=', True)]"
+                        help="Overtime validated and ready to be approved"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
