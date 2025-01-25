@@ -92,6 +92,55 @@
             </field>
         </record>
 
+        <record id="view_cost_structure_kanban" model="ir.ui.view">
+            <field name="name">cost.structure.kanban</field>
+            <field name="model">agency.cost.structure</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong class="float-right"><field name="last_port_id"/></strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span><field name="load_port_ids"/></span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span><field name="discharge_port_ids"/></span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span><field name="vessel_ids"/></span>
+                                    </div>
+                                </div>
+                                <div class="col-12" style="text-align: right">
+                                    <strong><field name="amount_total"/></strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_cost_structure_pivot" model="ir.ui.view">
+            <field name="name">cost.structure.pivot</field>
+            <field name="model">agency.cost.structure</field>
+            <field name="arch" type="xml">
+                <pivot string="Cost Structure" sample="1">
+                    <field name='last_port_id' type="row"/>
+                    <!--<field name='date_from' interval="year" type="col"/>-->
+                    <field name='amount_total' type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
         <record id="view_cost_structure_search" model="ir.ui.view">
             <field name="name">cost.structure.search</field>
             <field name="model">agency.cost.structure</field>
@@ -105,6 +154,12 @@
                     <field name="load_port_ids"/>
                     <field name="discharge_port_ids"/>
                     <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Last Port" name="group_last_port" domain="[]" context="{'group_by': 'last_port_id'}"/>
+                        <filter string="Load Port" name="group_load_port" domain="[]" context="{'group_by': 'load_port_ids'}"/>
+                        <filter string="Discharge Port" name="group_discharge_port" domain="[]" context="{'group_by': 'discharge_port_ids'}"/>
+                        <filter string="Vessel" name="group_vessel" domain="[]" context="{'group_by': 'vessel_ids'}"/>
+                    </group>
                 </search>
             </field>
         </record>
@@ -113,7 +168,7 @@
             <field name="name">Port Agency</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">agency.cost.structure</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban,pivot</field>
             <field name="search_view_id" ref="view_cost_structure_search"/>
             <field name="domain">[]</field>
             <field name="context">{}</field>

@@ -20,7 +20,7 @@ class CostStructure(models.Model):
                                      'port_id', 'Load Port', tracking=True)
     discharge_port_ids = fields.Many2many('agency.port', 'agency_cost_structure_discharge_port_rel',
                                           'cost_structure_id', 'port_id', 'Discharge Port', tracking=True)
-    amount_total = fields.Float(string="Total", compute='_compute_total')
+    amount_total = fields.Float(string="Total", compute='_compute_total', store=True)
     line_ids = fields.One2many('agency.cost.structure.line', 'cost_structure_id', 'Lines', copy=True)
 
     def action_cost_item_product(self):
@@ -46,6 +46,7 @@ class CostStructure(models.Model):
         for s in self:
             s.grt = sum(s.vessel_ids.mapped('grt')) if s.vessel_ids else 0
 
+    @api.depends('line_ids')
     @api.onchange('line_ids')
     def _compute_total(self):
         for s in self:
