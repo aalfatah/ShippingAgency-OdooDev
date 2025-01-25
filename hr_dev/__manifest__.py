@@ -17,5 +17,5 @@
         "views/res_partner_views.xml",
     ],
     "sequence": 1,
-    "license": "AGPL-3",
+    "license": "LGPL-3",
 }
