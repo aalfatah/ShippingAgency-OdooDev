@@ -37,7 +37,7 @@
                             border:1px solid grey;
                         }
                     </style>
-                    <h3><center><span t-esc="res_company.name"/></center></h3>
+                    <!--<h3><center><span t-esc="res_company.name"/></center></h3>-->
                     <h3><center>Purchase Invoice List Summary</center></h3>
                     <h5><center>From <span t-esc="Filters['date_from']" t-options='{"widget": "date"}'></span> To <span t-esc="Filters['date_to']" t-options='{"widget": "date"}'></span></center></h5>
                     <div>
@@ -198,8 +198,10 @@
                         </table>
                     </div>
                     <br></br>
-                    <p style="text-align:center">Approval</p>
-                    <p style="text-align:center; padding-top: 80px">( Wahyu Bantami )</p>
+                    <div style="page-break-inside: avoid;">
+                        <p style="text-align:center">Approval</p>
+                        <p style="text-align:center; padding-top: 80px">( Wahyu Bantami )</p>
+                    </div>
                 </div>
            </t>
         </t>
