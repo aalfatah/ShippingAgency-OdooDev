@@ -20,6 +20,8 @@
     'depends': ['account_dynamic_reports'],
     'data': [
              'wizard/partner_ageing_view.xml',
+             'wizard/partner_ledger_view.xml',
+             'views/partner_ledger_view.xml',
              ],
     'license': 'OPL-1',
     'installable': True,

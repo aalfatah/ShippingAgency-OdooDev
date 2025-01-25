@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <record id="ins_partner_ledger_wizard_dev" model="ir.ui.view">
+            <field name="model">ins.partner.ledger</field>
+            <field name="inherit_id" ref="account_dynamic_reports.ins_partner_ledger_wizard"/>
+            <field name="arch" type="xml">
+                <button name="action_pdf" position="before">
+                    <button name="action_invoice_list_pdf" type="object" string="Purchase Invoice List" class="oe_highlight"/>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</odoo>
