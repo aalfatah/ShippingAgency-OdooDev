@@ -15,10 +15,18 @@ class AccountMove(models.Model):
 
     sale_order_id = fields.Many2one('sale.order', compute='_origin_sale_order_id')
 
+    def sale_order_customer_contact(self):
+        if self.sale_order_id:
+            return self.sale_order_id.customer_contact
+        return False
+
     @api.depends('line_ids.sale_line_ids')
     def _origin_sale_order_id(self):
         for move in self:
-            move.sale_order_id = move.line_ids.sale_line_ids.order_id[0]
+            if move.line_ids.sale_line_ids:
+                move.sale_order_id = move.line_ids.sale_line_ids.order_id[0]
+            else:
+                move.sale_order_id = False
 
     def month_translate(self, month):
         return ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',

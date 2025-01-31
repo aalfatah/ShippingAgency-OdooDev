@@ -23,9 +23,9 @@
                     </tr>
                 </thead>
                 <tr height="100px">
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="text-align: center;"><span t-raw="o.create_uid.signature"/></td>
+                    <td style="text-align: center;"><span t-raw="o.expense_signed1_id.signature"/></td>
+                    <td style="text-align: center;"><span t-raw="o.expense_signed2_id.signature"/></td>
                     <!--<t t-if="o.is_internal_transfer">
                         <td/>
                     </t>
