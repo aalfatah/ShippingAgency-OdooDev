@@ -44,3 +44,6 @@ class AccountMove(models.Model):
 
     def total_amount_in_words(self):
         return num2words(int(self.amount_total), lang="id").title() + ' Rupiah'
+
+    def invoice_signature(self):
+        return self.sudo().env['res.users'].search([('id', '=', 13)]).signature
