@@ -47,3 +47,6 @@ class AccountMove(models.Model):
 
     def invoice_signature(self):
         return self.sudo().env['res.users'].search([('id', '=', 13)]).signature
+
+    def invoice_signature_name(self):
+        return 'NURMIATI'
