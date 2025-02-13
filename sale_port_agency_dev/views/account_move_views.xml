@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--<record id="account_invoice_groupby_inherit" model="ir.ui.view">
+        <field name="name">account.move.groupby</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="sale.account_invoice_groupby_inherit"/>
+        <field name="arch" type="xml">
+            <field name="invoice_user_id" position="after">
+                <field name="team_id"/>
+            </field>
+            <xpath expr="//group/filter[@name='status']" position="after">
+                <filter string="Sales Team" name="sales_channel" domain="[]" context="{'group_by':'team_id'}"/>
+            </xpath>
+        </field>
+    </record>-->
+
+    <record id="account_invoice_view_tree_dev" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="sale.account_invoice_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="activity_ids" position="after">
+                <field name="sale_order_id" optional="hide"/>
+                <field name="po_no" optional="hide"/>
+                <field name="vo_no" optional="hide"/>
+                <field name="vessel_ids" widget="many2many_tags" optional="hide"/>
+                <field name="last_port_id" optional="hide"/>
+                <field name="load_port_ids" widget="many2many_tags" optional="hide"/>
+                <field name="discharge_port_ids" widget="many2many_tags" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_invoice_form_dev">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="sale.account_invoice_form"/>
+        <field name="arch" type="xml">
+            <group name="accounting_info_group" position="after">
+                <group string="Sales Order" name="sale_order">
+                    <field name="sale_order_id"/>
+                    <field name="po_no"/>
+                    <field name="vo_no"/>
+                    <field name="vessel_ids" widget="many2many_tags"/>
+                    <field name="last_port_id"/>
+                    <field name="load_port_ids" widget="many2many_tags"/>
+                    <field name="discharge_port_ids" widget="many2many_tags"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
