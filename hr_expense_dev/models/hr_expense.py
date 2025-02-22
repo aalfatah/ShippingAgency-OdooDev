@@ -217,7 +217,7 @@ class Expense(models.Model):
             'name': self.employee_id.name + ': ' + self.name.split('\n')[0][:64],
             'account_id': account.id,
             'quantity': self.quantity or 1,
-            'price_unit': self.total_amount, #.unit_amount,
+            'price_unit': self.unit_amount,
             'product_id': self.product_id.id,
             'product_uom_id': self.product_uom_id.id,
             'analytic_distribution': self.analytic_distribution,
