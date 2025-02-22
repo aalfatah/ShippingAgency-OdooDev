@@ -41,6 +41,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
             ).with_user(self.env.uid)  # Unsudo the invoice after creation
 
             invoice.down_payment = True
+            invoice.journal_id = 18 # change journal to Customer Invoice DP if down payment
 
             invoice.message_post_with_view(
                 'mail.message_origin_link',
