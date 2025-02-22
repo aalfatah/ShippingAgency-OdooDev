@@ -16,6 +16,7 @@
         "views/hr_employee_views.xml",
         "views/res_partner_views.xml",
         "views/hr_job_views.xml",
+        "views/hr_department_views.xml",
     ],
     "sequence": 1,
     "license": "LGPL-3",

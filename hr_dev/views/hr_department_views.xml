@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_department_tree_dev">
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="approval_director"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_department_form_dev">
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <field name="approval_director"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
