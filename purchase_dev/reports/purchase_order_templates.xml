@@ -8,32 +8,24 @@
             </style>
             <div style="border: 0px; padding-top: 30px; margin-top: 5px;">
                 <table style="width: 100%;">
-                    <tr height="35px">
+                    <tr> <!--height="35px">-->
                         <td style="padding-left: 10px; width: 65%;" colspan="4"/>
-                        <td style="padding-left: 10px; padding-bottom: 80px; width: 35%; text-align: center;" colspan="2"><strong>PT. BARITO SAMUDRA SEJAHTERA</strong></td>
+                        <td style="padding-left: 10px; padding-bottom: 0px; width: 35%; text-align: center;" colspan="2"><strong>PT. BARITO SAMUDRA SEJAHTERA</strong></td>
                     </tr>
-                    <!--<tr height="25px">
-                        <td style="padding-left: 10px;">Bank Details</td>
-                        <td>:</td>
-                        <td style="padding-left: 5px;">BANK MANDIRI ( KCP Cikarang - Jababeka )</td>
-                    </tr>
-                    <tr height="25px">
-                        <td style="padding-left: 10px;">Account Bank</td>
-                        <td>:</td>
-                        <td style="padding-left: 5px;">156-00-3453333-3</td>
-                    </tr>
-                    <tr height="25px">
-                        <td style="padding-left: 10px;">Beneficiary Name</td>
-                        <td>:</td>
-                        <td style="padding-left: 5px;">PT BARITO SAMUDRA SEJAHTERA</td>
-                    </tr>-->
-                    <tr height="25px">
+                    <tr> <!--height="25px">-->
                         <td style="padding-left: 10px;" colspan="4"/>
-                        <td style="padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong>Noor Meila Sari</strong></td>
+                        <!--<td style="padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong>Noor Meila Sari</strong></td>-->
+                        <td style="padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong><span t-esc="o.user_id.signature"/></strong></td>
                     </tr>
-                    <tr height="30px">
+                    <tr> <!--height="25px">-->
                         <td style="padding-left: 10px;" colspan="4"/>
-                        <td style="border-top: 1px solid black; padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong>Head HCGA Dept</strong></td>
+                        <!--<td style="padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong>Noor Meila Sari</strong></td>-->
+                        <td style="padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong><span t-esc="o.user_id.name"/></strong></td>
+                    </tr>
+                    <tr> <!--height="20px">-->
+                        <td style="padding-left: 10px;" colspan="4"/>
+                        <!--<td style="border-top: 1px solid black; padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong>Head HCGA Dept</strong></td>-->
+                        <td style="border-top: 1px solid black; padding-left: 10px; padding-top: 0px; text-align: center;" colspan="2"><strong><span t-esc="o.user_id.employee_id.job_title"/></strong></td>
                     </tr>
                 </table>
             </div>
