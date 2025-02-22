@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <template id="report_purchase_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <!--<t t-if="o.state in ('approved', 'done')">-->
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
+                    <div class="page" style="font-size: 11px; font-family: 'Gideon Roman', sans-serif;">
+                        <style>
+                            table {border: 0px;}
+                            td {background-color: white; border: 0px solid transparent;}
+                        </style>
+                        <div class="oe_structure"/>
+                        <h4>
+                            <center>
+                                PURCHASE REQUEST<br/>
+                            </center>
+                        </h4>
+                        <h6>
+                            <center>
+                                <span t-field="o.name"/>
+                            </center>
+                        </h6>
+                        <div class="row mt32 mb32" style="margin-bottom: 10px;">
+                            <!--<div class="col-xs-3">
+                                <strong>Request Reference:</strong>
+                                <br />
+                                <span t-field="o.name" />
+                            </div>-->
+                            <div class="col-3 bm-2">
+                                <strong>Creation Date:</strong>
+                                <br />
+                                <span t-field="o.date_start" class="m-0"/>
+                            </div>
+                            <!--<div class="col-xs-3">
+                                <strong>Source:</strong>
+                                <br />
+                                <span t-field="o.origin" />
+                            </div>-->
+                            <div class="col-3 bm-2">
+                                <strong>Description:</strong>
+                                <br />
+                                <span t-field="o.description" class="m-0"/>
+                            </div>
+                            <div class="col-3 bm-2">
+                                <strong>Requested by:</strong>
+                                <br />
+                                <span t-field="o.requested_by" class="m-0"/>
+                            </div>
+                            <!--<div class="col-xs-3">
+                                <strong>Assigned to:</strong>
+                                <br />
+                                <span t-field="o.assigned_to" />
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Picking Type:</strong>
+                                <br />
+                                <span t-field="o.picking_type_id" />
+                            </div>-->
+                        </div>
+                        <t t-if="o.line_ids">
+                            <!--<h3>Products</h3>-->
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 60%;">
+                                            <strong>Description</strong>
+                                        </th>
+                                        <!--<th groups="analytic.group_analytic_accounting" style="padding-top: 7px; padding-bottom: 7px;">
+                                            <strong>Analytic Account</strong>
+                                        </th>-->
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 15%;">
+                                            <strong>Quantity</strong>
+                                        </th>
+                                        <!--<th class="text-center" groups="uom.group_uom" style="padding-top: 7px; padding-bottom: 7px;">
+                                            <strong>Product UoM</strong>
+                                        </th>-->
+                                        <!--<th>
+                                            <strong>Estimated Cost</strong>
+                                        </th>-->
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 25%;">
+                                            <strong>Requested Date</strong>
+                                        </th>
+                                        <!--<th>
+                                            <strong>Specifications</strong>
+                                        </th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.line_ids" t-as="line_ids">
+                                        <td style="padding-top: 3px; padding-bottom: 3px;">
+                                            <span t-field="line_ids.name"/>
+                                        </td>
+                                        <!--<td groups="analytic.group_analytic_accounting" style="padding-top: 3px; padding-bottom: 3px;">
+                                            <span t-field="line_ids.analytic_distribution"/>
+                                        </td>-->
+                                        <td style="padding-top: 3px; padding-bottom: 3px; text-align: center;">
+                                            <span t-field="line_ids.product_qty"/>
+                                        </td>
+                                        <!--<t>
+                                            <td class="text-center" groups="uom.group_uom" style="padding-top: 3px; padding-bottom: 3px;">
+                                                <span
+                                                    t-field="line_ids.product_uom_id.name"
+                                                />
+                                            </td>
+                                        </t>-->
+                                        <!--<td>
+                                            <span t-field="line_ids.estimated_cost" />
+                                        </td>-->
+                                        <td class="text-center" style="padding-top: 3px; padding-bottom: 3px;">
+                                            <span t-field="line_ids.date_required"/>
+                                        </td>
+                                        <!--<td>
+                                            <span t-field="line_ids.specifications" />
+                                        </td>-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table style="width:100%; margin-top: 50px;">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15%;"/>
+                                        <th class="text-center" style="width:30%;">REQUESTED BY</th>
+                                        <th style="width:10%;"/>
+                                        <th class="text-center" style="width:30%;">APPROVED BY</th>
+                                        <th style="width:15%;"/>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td/>
+                                        <td style="text-align: center; vertical-align: middle;" height="100"><span t-raw="o.requested_by.signature"/></td>
+                                        <td/>
+                                        <td style="text-align: center; vertical-align: middle;" height="100"><span t-raw="o.approval_by('signature')"/></td>
+                                        <td/>
+                                    </tr>
+                                    <tr>
+                                        <td/>
+                                        <td class="text-center" style="border-bottom: solid 1px;"><span t-field="o.requested_by"/></td>
+                                        <td/>
+                                        <td class="text-center" style="border-bottom: solid 1px;"><span t-esc="o.approval_by('name')"/></td>
+                                        <td/>
+                                    </tr>
+                                    <tr>
+                                        <td/>
+                                        <td class="text-center"><span t-field="o.requested_by.employee_id.job_title"/></td>
+                                        <td/>
+                                        <td class="text-center"><span t-esc="o.approval_by('job_title')"/></td>
+                                        <td/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                        <div class="oe_structure" />
+                    </div>
+                    <!--</t>-->
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

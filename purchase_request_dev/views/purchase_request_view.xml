@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_purchase_request_form_dev" model="ir.ui.view">
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+        <field name="arch" type="xml">
+            <!--<xpath expr="//header/button[4]" position="attributes">
+                <attribute name="groups">purchase.group_purchase_user,purchase.group_purchase_manager</attribute>
+            </xpath>
+            <xpath expr="//header/button[5]" position="attributes">
+                <attribute name="groups">purchase.group_purchase_user,purchase.group_purchase_manager</attribute>
+            </xpath>
+            <xpath expr="//h1/field[@name='name']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <field name="origin" position="before">
+                <field name="date_start" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                <field name="customer_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="area_id" options="{'no_create': True, 'no_open': True}"/>
+            </field>-->
+            <field name="date_start" position="replace"/>
+            <field name="description" position="before">
+                <field name="date_start"/>
+            </field>
+            <field name="origin" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="picking_type_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="group_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="assigned_to" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{"no_create": True}</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_uom_id']" position="attributes">
+                <attribute name="options">{"no_create": True}</attribute>
+            </xpath>
+            <!--<xpath expr="//tree/field[@name='analytic_account_id']" position="attributes">
+                <attribute name="options">{"no_create": True}</attribute>
+                <attribute name="optional">hide</attribute>
+            </xpath>-->
+            <xpath expr="//tree/field[@name='estimated_cost']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <button name="action_show_details" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+           <!-- <xpath expr="//tree/field[@name='analytic_tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>-->
+            <!--<tree position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </tree>-->
+            <field name="requested_by" position="attributes">
+                <!--<attribute name="readonly">1</attribute>-->
+                <attribute name="options">{"no_create": True}</attribute>
+            </field>
+            <xpath expr="//group[hasclass('oe_subtotal_footer')]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--<field name="requested_by" position="before">
+                <field name="type_id" required="True" options="{'no_create': True, 'no_open': True}"/>
+                <field name="service_type_id" domain="order_type_domain" options="{'no_create': True, 'no_open': True}"/>
+                <field name="order_type_domain" invisible="1"/>
+            </field>-->
+        </field>
+    </record>
+    <!--<record id="view_purchase_request_tree_dev" model="ir.ui.view">
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_tree" />
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="type_id"/>
+            </field>
+        </field>
+    </record>-->
+    <!--<record id="view_purchase_request_search" model="ir.ui.view">
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_search" />
+        <field name="arch" type="xml">
+            <field name="requested_by" position="before">
+                <field name="type_id" />
+            </field>
+            <group position="inside">
+                <filter
+                    string="PR Type"
+                    name="type_id"
+                    domain="[]"
+                    context="{'group_by': 'type_id'}"
+                />
+            </group>
+        </field>
+    </record>-->
+</odoo>
