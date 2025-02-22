@@ -55,7 +55,7 @@
                         td {background-color: white; border: 0px solid transparent;}
                     </style>
                     <![CDATA[<br>]]>
-                    <div style="font-size: 14px; margin-top: 2px; padding: 3px; background-color: #061145; color: white; text-align: center; height: 25px; font-weight: bold; text-transform:uppercase">
+                    <div style="font-size: 14px; margin-top: 2px; padding: 3px; background-color: #102cb0; color: white; text-align: center; height: 25px; font-weight: bold; text-transform:uppercase">
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
@@ -91,63 +91,63 @@
                                 <td><span t-field='o.company_id'/></td>
                             </tr>
                         </table>
-                        <div style="border: 0px; padding: 10px; margin-top: 10px; background-color: #061145; color: white;">
+                        <div style="border: 0px; padding: 10px; margin-top: 10px; background-color: #102cb0; color: white;">
                             <table style="width: 100%">
                                 <tr>
-                                    <td style="width: 18%; background-color: #061145; color: white;">VESSEL'S NAME</td>
-                                    <td style="width: 2%; background-color: #061145; color: white;">:</td>
-                                    <td style="width: 41%; background-color: #061145; color: white;"><span t-field='o.sale_order_id.vessel_ids'/></td>
-                                    <td style="width: 23%; background-color: #061145; color: white;">DN NO.</td>
-                                    <td style="width: 2%; background-color: #061145; color: white;">:</td>
-                                    <td style="width: 14%; background-color: #061145; color: white;"><span t-field='o.name'/></td>
+                                    <td style="width: 18%; background-color: #102cb0; color: white;">VESSEL'S NAME</td>
+                                    <td style="width: 2%; background-color: #102cb0; color: white;">:</td>
+                                    <td style="width: 41%; background-color: #102cb0; color: white;"><span t-field='o.sale_order_id.vessel_ids'/></td>
+                                    <td style="width: 23%; background-color: #102cb0; color: white;">DN NO.</td>
+                                    <td style="width: 2%; background-color: #102cb0; color: white;">:</td>
+                                    <td style="width: 14%; background-color: #102cb0; color: white;"><span t-field='o.name'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">LAST PORT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc='o.sale_order_id.last_port_id.name'/></td>
-                                    <td style="background-color: #061145; color: white;">PROFORMA NO.</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="o.sale_order_id.name"/></td>
+                                    <td style="background-color: #102cb0; color: white;">LAST PORT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc='o.sale_order_id.last_port_id.name'/></td>
+                                    <td style="background-color: #102cb0; color: white;">PROFORMA NO.</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.sale_order_id.name"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">LOADING PORT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.sale_order_id.load_port_ids])"/></td>
-                                    <td style="background-color: #061145; color: white;">COMMODITY</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="o.sale_order_id.commodity"/></td>
+                                    <td style="background-color: #102cb0; color: white;">LOADING PORT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="', '.join([p.name for p in o.sale_order_id.load_port_ids])"/></td>
+                                    <td style="background-color: #102cb0; color: white;">COMMODITY</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.sale_order_id.commodity"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">DISCH PORT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.sale_order_id.discharge_port_ids])"/></td>
-                                    <td style="background-color: #061145; color: white;">CARGO QTY</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="'%s MT' % o.sale_order_id.cargo"/></td>
+                                    <td style="background-color: #102cb0; color: white;">DISCH PORT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="', '.join([p.name for p in o.sale_order_id.discharge_port_ids])"/></td>
+                                    <td style="background-color: #102cb0; color: white;">CARGO QTY</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="'%s MT' % o.sale_order_id.cargo"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">START DATE</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc='o.sale_order_id.start_date' t-options='{"widget": "date"}'/></td>
-                                    <td style="background-color: #061145; color: white;">GRT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="'%s GRT' % o.sale_order_id.grt"/></td>
+                                    <td style="background-color: #102cb0; color: white;">START DATE</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc='o.sale_order_id.start_date' t-options='{"widget": "date"}'/></td>
+                                    <td style="background-color: #102cb0; color: white;">GRT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="'%s GRT' % o.sale_order_id.grt"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">LOADING DATE</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc='o.sale_order_id.loading_date' t-options='{"widget": "date"}'/></td>
-                                    <td style="background-color: #061145; color: white;">NO. PO</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="o.sale_order_id.client_order_ref"/></td>
+                                    <td style="background-color: #102cb0; color: white;">LOADING DATE</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc='o.sale_order_id.loading_date' t-options='{"widget": "date"}'/></td>
+                                    <td style="background-color: #102cb0; color: white;">NO. PO</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.sale_order_id.client_order_ref"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">END DATE</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc='o.sale_order_id.commitment_date' t-options='{"widget": "date"}'/></td>
-                                    <td style="background-color: #061145; color: white;">NO. VO</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="o.sale_order_id.vo_no"/></td>
+                                    <td style="background-color: #102cb0; color: white;">END DATE</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc='o.sale_order_id.commitment_date' t-options='{"widget": "date"}'/></td>
+                                    <td style="background-color: #102cb0; color: white;">NO. VO</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.sale_order_id.vo_no"/></td>
                                 </tr>
                             </table>
                         </div>
