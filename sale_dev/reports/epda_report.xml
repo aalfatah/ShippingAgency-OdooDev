@@ -54,7 +54,7 @@
                     </table>-->
 
                     <![CDATA[<br>]]>
-                    <div style="font-size: 15px; margin-top: 2px; padding: 5px; background-color: #061145; color: white; text-align: center; height: 25px; font-weight: bold;">
+                    <div style="font-size: 15px; margin-top: 2px; padding: 5px; background-color: #102cb0; color: white; text-align: center; height: 25px; font-weight: bold;">
                         ESTIMATED PORT DISBURSEMENT ACCOUNT (EPDA)
                     </div>
 
@@ -84,47 +84,47 @@
                                 <td><span t-field='o.company_id'/></td>
                             </tr>
                         </table>
-                        <div style="border: 0px; padding: 10px; margin-top: 10px; background-color: #061145; color: white;">
+                        <div style="border: 0px; padding: 10px; margin-top: 10px; background-color: #102cb0; color: white;">
                             <table style="width: 100%">
                                 <tr>
-                                    <td style="width: 18%; background-color: #061145; color: white;">VESSEL'S NAME</td>
-                                    <td style="width: 2%; background-color: #061145; color: white;">:</td>
-                                    <td style="width: 41%; background-color: #061145; color: white;"><span t-field='o.vessel_ids'/></td>
-                                    <td style="width: 23%; background-color: #061145; color: white;">VOYAGE NO.</td>
-                                    <td style="width: 2%; background-color: #061145; color: white;">:</td>
-                                    <td style="width: 14%; background-color: #061145; color: white;"><span t-field='o.vo_no'/></td>
+                                    <td style="width: 18%; background-color: #102cb0; color: white;">VESSEL'S NAME</td>
+                                    <td style="width: 2%; background-color: #102cb0; color: white;">:</td>
+                                    <td style="width: 41%; background-color: #102cb0; color: white;"><span t-field='o.vessel_ids'/></td>
+                                    <td style="width: 23%; background-color: #102cb0; color: white;">VOYAGE NO.</td>
+                                    <td style="width: 2%; background-color: #102cb0; color: white;">:</td>
+                                    <td style="width: 14%; background-color: #102cb0; color: white;"><span t-field='o.vo_no'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">LAST PORT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc='o.last_port_id.name'/></td>
-                                    <td style="background-color: #061145; color: white;">COMMODITY / CARGO</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="'%s / %s MT' % (o.commodity, o.cargo)"/></td>
+                                    <td style="background-color: #102cb0; color: white;">LAST PORT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc='o.last_port_id.name'/></td>
+                                    <td style="background-color: #102cb0; color: white;">COMMODITY / CARGO</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="'%s / %s MT' % (o.commodity, o.cargo)"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">LOADING PORT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.load_port_ids])"/></td>
-                                    <td style="background-color: #061145; color: white;">FLAG</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-field='o.flag'/></td>
+                                    <td style="background-color: #102cb0; color: white;">LOADING PORT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="', '.join([p.name for p in o.load_port_ids])"/></td>
+                                    <td style="background-color: #102cb0; color: white;">FLAG</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-field='o.flag'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">DISCH PORT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="', '.join([p.name for p in o.discharge_port_ids])"/></td>
-                                    <td style="background-color: #061145; color: white;">ETA</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc='o.start_date' t-options='{"widget": "date"}'/></td>
+                                    <td style="background-color: #102cb0; color: white;">DISCH PORT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="', '.join([p.name for p in o.discharge_port_ids])"/></td>
+                                    <td style="background-color: #102cb0; color: white;">ETA</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc='o.start_date' t-options='{"widget": "date"}'/></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #061145; color: white;">GRT</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc="'%s GRT' % o.grt"/></td>
-                                    <td style="background-color: #061145; color: white;">ETD</td>
-                                    <td style="background-color: #061145; color: white;">:</td>
-                                    <td style="background-color: #061145; color: white;"><span t-esc='o.commitment_date' t-options='{"widget": "date"}'/></td>
+                                    <td style="background-color: #102cb0; color: white;">GRT</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="'%s GRT' % o.grt"/></td>
+                                    <td style="background-color: #102cb0; color: white;">ETD</td>
+                                    <td style="background-color: #102cb0; color: white;">:</td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc='o.commitment_date' t-options='{"widget": "date"}'/></td>
                                 </tr>
                             </table>
                         </div>
