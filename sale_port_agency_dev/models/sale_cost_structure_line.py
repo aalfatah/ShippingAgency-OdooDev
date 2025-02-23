@@ -23,7 +23,7 @@ class SaleCostStructureLine(models.Model):
     standard_cost = fields.Float(string="Standard Cost")
     quantity = fields.Float(string="Quantity")
     estimated_cost = fields.Float(string="Estimated Cost", compute='_compute_cost',  store=True)
-    expense_cost = fields.Float(string="Expense Cost", related="estimated_cost",  store=True)
+    expense_cost = fields.Float(string="Expense Cost") #, related="estimated_cost",  store=True)
     expense_date = fields.Date(string="Expense Date")
     expense_id = fields.Many2one("hr.expense", string="Expense", readonly=True, ondelete="set null")
     attachment_url = fields.Char("Attachment")

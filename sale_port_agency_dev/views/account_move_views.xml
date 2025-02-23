@@ -19,13 +19,13 @@
         <field name="inherit_id" ref="sale.account_invoice_view_tree"/>
         <field name="arch" type="xml">
             <field name="activity_ids" position="after">
-                <field name="sale_order_id" optional="hide"/>
-                <field name="po_no" optional="hide"/>
-                <field name="vo_no" optional="hide"/>
-                <field name="vessel_ids" widget="many2many_tags" optional="hide"/>
-                <field name="last_port_id" optional="hide"/>
-                <field name="load_port_ids" widget="many2many_tags" optional="hide"/>
-                <field name="discharge_port_ids" widget="many2many_tags" optional="hide"/>
+                <field name="sale_order_id" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
+                <field name="po_no" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
+                <field name="vo_no" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
+                <field name="vessel_ids" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" widget="many2many_tags" optional="hide"/>
+                <field name="last_port_id" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
+                <field name="load_port_ids" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" widget="many2many_tags" optional="hide"/>
+                <field name="discharge_port_ids" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" widget="many2many_tags" optional="hide"/>
             </field>
         </field>
     </record>
@@ -35,7 +35,7 @@
         <field name="inherit_id" ref="sale.account_invoice_form"/>
         <field name="arch" type="xml">
             <group name="accounting_info_group" position="after">
-                <group string="Sales Order" name="sale_order">
+                <group string="Sales Order" name="sale_order" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}">
                     <field name="sale_order_id"/>
                     <field name="po_no"/>
                     <field name="vo_no"/>

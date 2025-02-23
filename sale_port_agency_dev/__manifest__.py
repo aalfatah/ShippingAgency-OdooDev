@@ -7,6 +7,7 @@
     "depends": ["sale", "sale_management", "sale_dev", "port_agency_dev", "hr_expense"],
     "data": [
         "security/ir.model.access.csv",
+        "security/port_agency_security.xml",
         "views/sale_order_view.xml",
         "views/sale_cost_structure_views.xml",
         "views/hr_expense_view.xml",

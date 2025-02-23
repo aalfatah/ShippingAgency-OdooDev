@@ -17,15 +17,15 @@
                     <field name="name" readonly="1" optional="show"/>
                     <field name="attachment_url" widget="url" optional="hide"/>
                     <field name="product_id" readonly="1" optional="hide"/>
-                    <field name="standard_cost" readonly="1"/>
-                    <field name="quantity" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
-                    <field name="estimated_cost"/>
+                    <field name="standard_cost" readonly="1"/> <!--groups='sale_port_agency_dev.group_structure_cost'/>-->
+                    <field name="quantity" attrs="{'readonly': [('expense_id', '!=', False)]}"/> <!--groups='sale_port_agency_dev.group_structure_cost'/>-->
+                    <field name="estimated_cost"/> <!--groups='sale_port_agency_dev.group_structure_cost'/>-->
                     <field name="expense_cost" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
                     <field name="expense_date" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
                     <field name="allow_expense" widget="boolean_toggle"/>
                     <field name="expense_id" options="{'no_create': True}" optional="show"/>
                     <button name="create_expense" class="oe_stat_button" type="object" icon="fa-money" title="expense"
-                            attrs="{'invisible': ['|', '|', ('allow_expense', '!=', True), ('expense_id', '!=', False), ('estimated_cost', '&lt;=', 1)]}"/>
+                            attrs="{'invisible': ['|', '|', ('allow_expense', '!=', True), ('expense_id', '!=', False), ('expense_cost', '&lt;=', 1)]}"/>
                 </tree>
             </field>
         </record>
@@ -75,7 +75,7 @@
             <field name="state">code</field>
             <field name="code">
                 for r in records:
-                    if r.allow_expense and   not r.expense_id and r.estimated_cost > 0:
+                    if r.allow_expense and   not r.expense_id and r.expense_cost > 0:
                         r.create_expense()
             </field>
         </record>

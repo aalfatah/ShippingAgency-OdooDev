@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cost_structure_line,cost_structure_line,model_sale_cost_structure_line,sale_port_agency_dev.group_structure_cos,1,1,1,1
 access_sale_cost_structure_line,sale_cost_structure_line,model_sale_cost_structure_line,sales_team.group_sale_salesman,1,1,1,1

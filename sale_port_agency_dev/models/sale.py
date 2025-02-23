@@ -8,6 +8,7 @@ class SaleOrder(models.Model):
     cost_structure_id = fields.Many2one('agency.cost.structure', 'Cost Structure', tracking=True)
     sale_cost_structure_line_ids = fields.One2many('sale.cost.structure.line', 'sale_order_id', 'Cost Structure Lines')
     vessel_ids = fields.Many2many('agency.vessel', 'sale_order_vessel_rel', string='Vessel')
+    vessel_name = fields.Char(string='Vessel Name', compute='_get_vessel_name')
     last_port_id = fields.Many2one('agency.port', string='Last Port')
     load_port_ids = fields.Many2many('agency.port', 'sale_order_load_port_rel', string='Load Port')
     discharge_port_ids = fields.Many2many('agency.port', 'sale_order_discharge_port_rel', string='Discharge Port')
@@ -19,6 +20,13 @@ class SaleOrder(models.Model):
     grt = fields.Float('GRT', compute='_get_vessel_grt', tracking=True)
 
     remaining_cost_to_expense = fields.Float('To Expense', compute='_remaining_cost_to_expense')
+
+    def _get_vessel_name(self):
+        for s in self:
+            vessel_name = False
+            if s.vessel_ids:
+                vessel_name = ', '.join(s.vessel_ids.mapped('name'))
+            s.vessel_name = vessel_name
 
     @api.onchange('vessel_ids')
     def _get_vessel_grt(self):
