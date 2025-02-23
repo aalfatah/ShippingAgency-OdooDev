@@ -279,6 +279,7 @@ class HrPayslip(models.Model):
 class HrPayslipLine(models.Model):
     _inherit = 'hr.payslip.line'
 
+    appears_on_list = fields.Boolean(string="Appears on List Detail", related='salary_rule_id.appears_on_list')
     bold_on_payslip = fields.Boolean(string='Bold on Payslip', related='salary_rule_id.bold_on_payslip')
     # payslip_run_id = fields.Many2one('hr.payslip.run', string='Payslip Batches', related="slip_id.payslip_run_id")
 
@@ -286,6 +287,7 @@ class HrPayslipLine(models.Model):
     def _depend_on_salary_rule(self):
         for line in self:
             line.appears_on_payslip = line.salary_rule_id.appears_on_payslip
+
 
 class HrPayslipWorkedDaysRemaining(models.Model):
     _inherit = 'hr.payslip.worked_days'

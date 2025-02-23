@@ -22,6 +22,7 @@
         "views/hr_contract_advantage_template_views.xml",
         "views/hr_contract_views.xml",
         "report/report_payslip_templates.xml",
+        "report/payslip_run_report.xml",
     ],
     "sequence": 1,
     "license": "LGPL-3",

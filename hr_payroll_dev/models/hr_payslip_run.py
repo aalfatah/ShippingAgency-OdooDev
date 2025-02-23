@@ -162,3 +162,23 @@ class HrPayslipRunInherit(models.Model):
                 if slip.move_id:
                     slip.move_id.button_cancel()
                     slip.move_id.unlink()
+
+    def menyetujui(self, title):
+        for request in self:
+            employee = self.env['hr.employee'].sudo().search([('user_id', '=', request.create_uid.id)]).parent_id
+            if title == 'name':
+                return employee.user_id.name
+            elif title == 'job_title':
+                return employee.job_id.name
+            elif title == 'signature':
+                return employee.user_id.signature
+
+    def mengetahui(self, title):
+        for request in self:
+            employee = self.env['hr.employee'].sudo().search([('user_id', '=', request.create_uid.id)]).parent_id.parent_id
+            if title == 'name':
+                return employee.user_id.name
+            elif title == 'job_title':
+                return employee.job_id.name
+            elif title == 'signature':
+                return employee.user_id.signature

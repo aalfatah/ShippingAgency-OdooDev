@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_payslip_run" model="report.paperformat">
+        <field name="name">Payslip Run</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">34</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">29</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="report_payslip_run" model="ir.actions.report">
+        <field name="name">List Detail Gaji Karyawan</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_payroll_dev.detail_payslip</field>
+        <field name="report_file">hr_payroll_dev.detail_payslip</field>
+        <field name="print_report_name">'List Detail %s' % object.name</field>
+        <field name="binding_model_id" ref="hr_payroll_community.model_hr_payslip_run"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_payslip_run"/>
+    </record>
+
+    <template id="detail_payslip">
+        <t t-call="web.html_container">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style>
+                                table {border: 0px;}
+                                td {background-color: white; border: 0px solid transparent;}
+                            </style>
+                            <center>
+                                <strong>
+                                    <h6>
+                                        LIST DETAIL GAJI KARYAWAN<br/>
+                                        PT. BARITO SAMUDRA SEJAHTERA<br/>
+                                        <span t-field="doc.name"/>
+                                    </h6>
+                                </strong>
+                            </center>
+
+                            <table style="width:100%; font-size:12px; table-layout:auto;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width:2%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">No.</th>
+                                        <th class="text-center" style="width:8%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">Nama</th>
+                                        <!--<th class="text-center" style="width:5%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">NRP</th>-->
+                                        <th class="text-center" style="width:5%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20">PTKP</th>
+                                        <t t-foreach="doc.slip_ids[0].line_ids.filtered(lambda r: r.appears_on_list)" t-as="l">
+                                            <th class="text-center" style="width:3%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20"><span t-esc="l.name"/></th>
+                                        </t>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <t t-set="urutan" t-value="0"/>
+                                    <t t-foreach="doc.slip_ids" t-as="s">
+                                        <t t-set="urutan" t-value="urutan+1"/>
+                                        <tr>
+                                            <td class="text-center" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><t t-esc="urutan"/></td>
+                                            <td class="text-center" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-esc="s.employee_id.name"/></td>
+                                            <!--<td class="text-left" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-esc="s.employee_id.nrp"/></td>-->
+                                            <td class="text-left" style="border: 1px solid black; padding-top: 1px; padding-bottom: 1px; padding-left:10px; padding-right:10px;" height="15"><span t-field="s.ptkp_id"/></td>
+                                            <t t-foreach="s.line_ids.filtered(lambda r: r.appears_on_list)" t-as="l">
+                                                <td style="width:5%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px; text-align: right;" height="20"><span t-esc="'{0:,.0f}'.format(l.total)"/></td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </tbody>
+
+<!--
+                                <tr>
+                                    <td style="padding-top: 5px;" colspan="4"/>
+                                    <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong>Sub Total</strong></td>
+                                    <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong></td>
+                                    &lt;!&ndash;<td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong><span t-esc="'{:,.0f}'.format(o.amount_untaxed)"/></strong></td>&ndash;&gt;
+                                </tr>
+
+                                <t t-set="tax_totals" t-value="o.tax_totals"/>
+                                <t t-foreach="tax_totals['groups_by_subtotal']['Untaxed Amount']" t-as="amount_by_group">
+                                    <tr>
+                                        <td style="padding-top: 5px;" colspan="4"/>
+                                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-esc="amount_by_group['tax_group_name']"/></strong></td>
+                                        <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-esc="amount_by_group['formatted_tax_group_amount']"/></strong></td>
+                                    </tr>
+                                </t>
+
+                                <tr>
+                                    <td style="border:0px;" colspan="4">
+                                        <div class="row" style="padding-top: 5px; padding-right: 5px; ">
+                                            <div style="width: 12%;"><b>Terbilang :</b></div>
+                                            <div style="width: 88%;"><i><t t-esc="'%s' % o.total_amount_in_words()"/></i></div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong>Total</strong></td>
+                                    <td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="15"><strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong></td>
+                                    &lt;!&ndash;<td style="text-align:right; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:10px; padding-right:10px;" height="20"><strong><span t-esc="'{:,.0f}'.format(o.amount_residual)"/></strong></td>&ndash;&gt;
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 0px; height: 20px; padding-top: 10px;" colspan="4"><div style="width: 12%;"><b>Keterangan</b></div></td>
+                                    <td colspan="2"/>
+                                </tr>
+                                <tr>
+                                    <td style="border: 0px; width: 100%" colspan="4"><t t-esc="o.narration"/></td>
+                                    <td colspan="2"/>
+                                </tr>
+-->
+                            </table>
+
+                            <table style="width:100%; margin-top: 30px;">
+                                <thead>
+                                    <tr>
+                                        <td style="text-align: center; width: 33%;">Banjarmasin, <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></td>
+                                        <td style="text-align: center; width: 34%; vertical-align: bottom;" rowspan="2">Menyetujui,</td>
+                                        <td style="text-align: center; width: 33%; vertical-align: bottom;" rowspan="2">Mengetahui,</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; width: 33%;">Yang Mengajukan,</td>
+                                    </tr>
+                                </thead>
+                                <tr height="100px">
+                                    <td style="text-align: center;"><span t-raw="doc.create_uid.signature"/></td>
+                                    <td style="text-align: center;"><span t-raw="doc.menyetujui('signature')"/></td>
+                                    <td style="text-align: center;"><span t-raw="doc.mengetahui('signature')"/></td>
+                                </tr>
+                                <tr height="25px">
+                                    <td style="text-align: center;"><span t-esc="doc.create_uid.name"/></td>
+                                    <td style="text-align: center;"><span t-esc="doc.menyetujui('name')"/></td>
+                                    <td style="text-align: center;"><span t-esc="doc.mengetahui('name')"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">HC</td>
+                                    <td style="text-align: center;"><span t-esc="doc.menyetujui('job_title')"/></td>
+                                    <td style="text-align: center;"><span t-esc="doc.mengetahui('job_title')"/></td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
