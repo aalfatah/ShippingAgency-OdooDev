@@ -48,8 +48,9 @@
             <t t-set="o" t-value="o.with_context(lang=lang)" />
             <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
             <div class="mt-5">
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>
-                <div class="page" style="font-size: 12px; font-family: 'Gideon Roman', sans-serif;">
+                <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gideon Roman"/>-->
+                <!--<div class="page" style="font-size: 12px; font-family: 'Gideon Roman', sans-serif;">-->
+                <div class="page" style="font-size: 12px; font-family: 'Arial', sans-serif;">
                     <style>
                         table {border: 0px;}
                         td {background-color: white; border: 0px solid transparent;}
@@ -245,7 +246,7 @@
                                     <td>:</td>
                                     <td style="padding-left: 5px;">BANK MANDIRI ( KCP Cikarang - Jababeka )</td>
                                     <td rowspan="3"/>
-                                    <td rowspan="3" colspan="2" style="position: absolute;"><center><span t-raw="o.invoice_signature()"/></center></td>
+                                    <td rowspan="3" colspan="2" style="position: absolute; left: 560px; right: 0;"><center><span t-raw="o.invoice_signature()"/></center></td>
                                 </tr>
                                 <tr height="25px">
                                     <td style="padding-left: 10px;">Account Bank</td>
