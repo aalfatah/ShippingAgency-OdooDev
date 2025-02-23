@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_payslip_run_filter_dev" model="ir.ui.view">
+        <field name="name">hr.payslip.run.search.dev</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll_community.hr_payslip_run_filter"/>
+        <field name="arch" type="xml">
+            <filter name="done_filter" position="after">
+                <separator />
+                <filter
+                    name="needs_review"
+                    string="Needs my Review"
+                    domain="[('reviewer_ids','in',uid), ('state', 'not in', ['approve', 'post', 'done', 'cancel'])]"
+                    help="My Expense report to review"
+                />
+                <filter
+                    name="tier_validated"
+                    string="Validated"
+                    domain="[('validated', '=', True)]"
+                    help="Expense report validated and ready to be approved"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
