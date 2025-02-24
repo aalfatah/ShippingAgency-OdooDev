@@ -7,41 +7,43 @@
                 td {background-color: white; border: 0px solid transparent;}
             </style>
             <t t-if="o.move_type in ('out_invoice', 'in_refund')">
-                <table style="width: 100%; font-size: 14px;">
-                    <tr height="40px">
-                        <td style="padding-left: 10px; padding-top: 20px;" colspan="4"><strong>*Note</strong></td>
-                        <td style="padding-left: 10px; padding-top: 20px; text-align: center;" colspan="2"><strong>Your Faithfully</strong></td>
-                    </tr>
-                    <tr height="35px">
-                        <td style="padding-left: 10px;" colspan="4"><strong>Please Kindly remit your payment in full amount to the following bank account :</strong></td>
-                        <td style="padding-left: 10px; text-align: center;" colspan="2"><strong>PT. BARITO SAMUDRA SEJAHTERA</strong></td>
-                    </tr>
-                    <tr height="25px">
-                        <td style="padding-left: 10px;">Bank Details</td>
-                        <td>:</td>
-                        <td style="padding-left: 5px;">BANK MANDIRI ( KCP Cikarang - Jababeka )</td>
-                        <td rowspan="3"/>
-                        <td rowspan="3" colspan="2" style="position: absolute;"><center><span t-raw="o.invoice_signature()"/></center></td>
-                    </tr>
-                    <tr height="25px">
-                        <td style="padding-left: 10px;">Account Bank</td>
-                        <td>:</td>
-                        <td style="padding-left: 5px;">156-00-3453333-3</td>
-                    </tr>
-                    <tr height="25px">
-                        <td style="padding-left: 10px;">Beneficiary Name</td>
-                        <td>:</td>
-                        <td style="padding-left: 5px;">PT BARITO SAMUDRA SEJAHTERA</td>
-                    </tr>
-                    <tr height="25px">
-                        <td colspan="4" style="padding-left: 10px;"/>
-                        <td colspan="2" style="padding-left: 10px; padding-top: 5px;"><center><strong><span style="position: relative;" t-raw="o.invoice_signature_name()"/></strong></center></td>
-                    </tr>
-                    <tr height="30px">
-                        <td style="padding-left: 10px;" colspan="4"/>
-                        <td style="border-top: 1px solid black; padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong>Finance Accounting Dept</strong></td>
-                    </tr>
-                </table>
+                <div style="page-break-inside: avoid">
+                    <table style="width: 100%; font-size: 14px;">
+                        <tr height="40px">
+                            <td style="padding-left: 10px; padding-top: 20px;" colspan="4"><strong>*Note</strong></td>
+                            <td style="padding-left: 10px; padding-top: 20px; text-align: center;" colspan="2"><strong>Your Faithfully</strong></td>
+                        </tr>
+                        <tr height="35px">
+                            <td style="padding-left: 10px;" colspan="4"><strong>Please Kindly remit your payment in full amount to the following bank account :</strong></td>
+                            <td style="padding-left: 10px; text-align: center;" colspan="2"><strong>PT. BARITO SAMUDRA SEJAHTERA</strong></td>
+                        </tr>
+                        <tr height="25px">
+                            <td style="padding-left: 10px;">Bank Details</td>
+                            <td>:</td>
+                            <td style="padding-left: 5px;">BANK MANDIRI ( KCP Cikarang - Jababeka )</td>
+                            <td rowspan="3"/>
+                            <td rowspan="3" colspan="2" style="position: absolute;"><center><span t-raw="o.invoice_signature()"/></center></td>
+                        </tr>
+                        <tr height="25px">
+                            <td style="padding-left: 10px;">Account Bank</td>
+                            <td>:</td>
+                            <td style="padding-left: 5px;">156-00-3453333-3</td>
+                        </tr>
+                        <tr height="25px">
+                            <td style="padding-left: 10px;">Beneficiary Name</td>
+                            <td>:</td>
+                            <td style="padding-left: 5px;">PT BARITO SAMUDRA SEJAHTERA</td>
+                        </tr>
+                        <tr height="25px">
+                            <td colspan="4" style="padding-left: 10px;"/>
+                            <td colspan="2" style="padding-left: 10px; padding-top: 5px;"><center><strong><span style="position: relative;" t-raw="o.invoice_signature_name()"/></strong></center></td>
+                        </tr>
+                        <tr height="30px">
+                            <td style="padding-left: 10px;" colspan="4"/>
+                            <td style="border-top: 1px solid black; padding-left: 10px; padding-top: 5px; text-align: center;" colspan="2"><strong>Finance Accounting Dept</strong></td>
+                        </tr>
+                    </table>
+                </div>
             </t>
         </xpath>
         <p name="payment_communication" position="replace"/>

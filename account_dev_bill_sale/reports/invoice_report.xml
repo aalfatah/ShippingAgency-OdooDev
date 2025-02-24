@@ -191,7 +191,7 @@
                             <table style="width: 100%;">
                                 <t t-if="o.invoice_line_ids[0].product_id.name == 'DOWN PAYMENT'">
                                     <tr>
-                                        <td colspan="4"></td>
+                                        <td colspan="4" width="68%"></td>
                                         <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;"><strong>Total Final Disbursement</strong></td>
                                         <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;">
                                             <span t-field="o.sale_order_id.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/>
@@ -207,7 +207,7 @@
                                 </t>
                                 <t t-else="">
                                     <tr>
-                                        <td colspan="4"></td>
+                                        <td colspan="4" width="68%"></td>
                                         <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;"><strong>Sub Total</strong></td>
                                         <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px;">
                                             <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/>
@@ -230,9 +230,13 @@
                                     <td colspan="4"/>
                                     <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px; height: 20px;"><strong>Grand Total</strong></td>
                                     <td style="text-align:right; border: solid 1px; padding-top: 3px; padding-right: 10px; height: 20px;">
-                                        <strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary",  "display_currency": o.company_id.currency_id}'/></strong>
+                                        <strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></strong>
                                     </td>
                                 </tr>
+                            </table>
+                        </div>
+                        <div style="border: 0px; padding: 0px; margin-top: 5px; page-break-inside: avoid;">
+                            <table style="width: 100%;">
                                 <tr height="40px">
                                     <td style="padding-left: 10px; padding-top: 20px;" colspan="4"><strong>*Note</strong></td>
                                     <td style="padding-left: 10px; padding-top: 20px; text-align: center;" colspan="2"><strong>Your Faithfully</strong></td>
