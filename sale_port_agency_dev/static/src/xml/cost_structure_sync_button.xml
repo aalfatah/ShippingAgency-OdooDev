@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="sync_button_template" xml:space="preserve">
+   <t t-name="sale_port_agency_dev.ListView.Buttons" t-inherit="web.ListView.Buttons"> <!--t-inherit-mode="extension">-->
+       <!--<xpath expr="//button[contains(@class, 'o_list_button_add')]" position="after">-->
+       <xpath expr="//*[@class='btn btn-primary o_list_button_add']" position="after">
+           <button type="button" class="btn btn-primary" style="margin-left: 10px;"  t-on-click="syncCostStructure">
+               Sync. Rate Card
+           </button>
+       </xpath>
+   </t>
+</templates>

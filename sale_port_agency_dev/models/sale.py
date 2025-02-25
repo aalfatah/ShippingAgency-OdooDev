@@ -74,7 +74,8 @@ class SaleOrder(models.Model):
     def update_cost_structure(self):
         self.env['sale.cost.structure.line'].search([('sale_order_id', '=', self.id)]).unlink()
         if self.cost_structure_id:
-            cost_structure_line_ids = self.env['agency.cost.structure.line'].search_read([('cost_structure_id', '=', self.cost_structure_id.id)])
+            cost_structure_line_ids = self.env['agency.cost.structure.line'].search_read([('cost_structure_id', '=',
+                                                                                           self.cost_structure_id.id)])
             # sale_cost_structure_line_ids = []
             for cost_structure_line_id in cost_structure_line_ids:
                 rem_fields = ['id', 'message_is_follower', 'message_follower_ids', 'message_partner_ids', 'message_ids',
@@ -120,3 +121,50 @@ class SaleOrder(models.Model):
             for product_id, line in lines.items():
                 line_ids.append((0, 0, line))
             self.order_line = line_ids
+
+    def sync_rate_card(self):
+        self.ensure_one()
+        wizard = self.env.ref("sale_port_agency_dev.sync_rate_card_wizard_view_form")
+        return {
+            "name": _("Sync. Rate Card"),
+            "res_model": "sync.rate.card.wizard",
+            "view_mode": "form",
+            "view_type": 'form',
+            "views": [[wizard.id, 'form']],
+            "view_id": wizard.id,
+            "target": "new",
+            "context": {'default_order_id': self.id},
+            # "domain": domain,
+            "type": "ir.actions.act_window",
+        }
+
+    def sync_cost_structure(self):
+        self.env['sale.cost.structure.line'].search([('sale_order_id', '=', self.id)]).update({'standard_cost': 0,
+                                                                                               'quantity': 0})
+        cost_structure_line_ids = self.env['agency.cost.structure.line'].search_read([('cost_structure_id', '=',
+                                                                                       self.cost_structure_id.id)])
+        for cost_structure_line_id in cost_structure_line_ids:
+            rem_fields = ['id', 'message_is_follower', 'message_follower_ids', 'message_partner_ids', 'message_ids',
+                          'has_message', 'message_needaction', 'message_needaction_counter', 'message_has_error',
+                          'message_has_error_counter', 'message_attachment_count', 'message_main_attachment_id',
+                          'website_message_ids', 'message_has_sms_error', 'estimated_cost',
+                          '__last_update', 'create_uid', 'create_date', 'write_uid', 'write_date']
+            for cost in rem_fields:
+                cost_structure_line_id.pop(cost)
+            cost_structure_id = self.env['sale.cost.structure.line'].search([('sale_order_id', '=', self.id),
+                                                                             ('item_id', '=',
+                                                                              cost_structure_line_id['item_id'][0])])
+            if cost_structure_id:
+                cost_structure_id.update({'sequence': cost_structure_line_id['sequence'],
+                                          'standard_cost': cost_structure_line_id['standard_cost'],
+                                          'quantity': cost_structure_line_id['quantity']})
+            else:
+                cost_structure_line_id.update({
+                    'sequence': cost_structure_line_id['sequence'],
+                    'cost_structure_id': cost_structure_line_id['cost_structure_id'][0],
+                    'package_id': cost_structure_line_id.get('package_id') and cost_structure_line_id['package_id'][0],
+                    'header_id': cost_structure_line_id.get('header_id') and cost_structure_line_id['header_id'][0],
+                    'item_id': cost_structure_line_id.get('item_id') and cost_structure_line_id['item_id'][0],
+                    'product_id': cost_structure_line_id.get('product_id') and cost_structure_line_id['product_id'][0],
+                })
+                self.env['sale.cost.structure.line'].create(cost_structure_line_id | {'sale_order_id': self.id})

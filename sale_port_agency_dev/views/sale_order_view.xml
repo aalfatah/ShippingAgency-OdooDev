@@ -4,11 +4,8 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <button name="action_preview_sale_order" position="before">
-                <button name="action_view_cost_structure"
-                    type="object"
-                    class="oe_stat_button"
-                    icon="fa-book"
-                    attrs="{'invisible': [('cost_structure_id', '=', False)]}">
+                <button name="action_view_cost_structure" type="object" class="oe_stat_button" icon="fa-book"
+                        context="{'default_order_id': active_id}" attrs="{'invisible': [('cost_structure_id', '=', False)]}">
                     <div class="o_field_widget o_stat_info">
                         <span class="o_stat_text">Cost</span>
                         <span class="o_stat_text">Structure</span>
@@ -26,6 +23,8 @@
                 <label for="cost_structure_id"/>
                 <div class="o_row" name="cost_structure">
                     <field name="cost_structure_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create': True}"/>
+                    <button name="sync_rate_card" type="object" string="Sync. Cost Structure"
+                            attrs="{'invisible': ['|', ('cost_structure_id', '=', False), ('state', '!=', 'draft')]}"/>
                     <button name="update_lines" type="object" string="Update Lines"
                             attrs="{'invisible': ['|', ('cost_structure_id', '=', False), ('state', '!=', 'draft')]}" class="oe_highlight"/>
                 </div>

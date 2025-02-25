@@ -7,9 +7,13 @@
             <field name="type">tree</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <tree string="Cost Structure" create="1" editable="bottom" delete="0">
+                <tree string="Cost Structure" create="1" editable="bottom" delete="0"> <!--js_class="cost_structure_list_controller">-->
                     <field name="sequence" widget="handle" invisible="1"/>
+                    <field name="sequence" invisible="0" optional="hide"/>
                     <field name="display_type" invisible="1"/>
+                    <field name="sale_order_id" options="{'no_create': True}" invisible="1"/>
+                    <field name="sale_order_line_id" options="{'no_create': True}" invisible="1"/>
+                    <field name="cost_structure_id" options="{'no_create': True}" invisible="1"/>
                     <field name="package_id" options="{'no_create': True}" readonly="1"/>
                     <field name="header_id" options="{'no_create': True}" readonly="1"/>
                     <field name="item_id" options="{'no_create': True}" readonly="1"/>

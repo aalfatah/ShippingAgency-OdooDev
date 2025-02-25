@@ -12,8 +12,15 @@
         "views/sale_cost_structure_views.xml",
         "views/hr_expense_view.xml",
         "views/account_move_views.xml",
+        "wizard/sync_rate_card_wizard_view.xml",
         # "reports/sale_order_quotation.xml",
         # "reports/sale_order_bast.xml",
     ],
+    # 'assets': {
+    #    'web.assets_backend': [
+    #        'sale_port_agency_dev/static/src/js/cost_structure_extend.js',
+    #        'sale_port_agency_dev/static/src/xml/cost_structure_sync_button.xml',
+    #    ]
+    # },
     "installable": True,
 }
