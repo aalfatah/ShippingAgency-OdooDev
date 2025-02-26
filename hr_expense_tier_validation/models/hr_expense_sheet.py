@@ -11,3 +11,8 @@ class HrExpenseSheet(models.Model):
     _state_to = ["approve", "post", "done"]
 
     _tier_validation_manual_config = False
+
+    def validate_tier(self):
+        super(HrExpenseSheet, self).validate_tier()
+        if not self.review_ids.filtered(lambda r: r.status != 'approved'):
+            self.approve_expense_sheets()
