@@ -155,7 +155,8 @@
                         <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
                             <table style="width: 100%">
                                 <t t-set="header" t-value=""/>
-                                <t t-foreach="o.sale_order_id.cost_structure_id.line_ids.filtered(lambda l: l.item_id)" t-as="line">
+                                <!--<t t-foreach="o.sale_order_id.cost_structure_id.line_ids.filtered(lambda l: l.item_id)" t-as="line">-->
+                                <t t-foreach="o.sale_order_id.sale_cost_structure_line_ids.filtered(lambda l: l.item_id)" t-as="line">
                                     <t t-if="header != line.header_id">
                                         <t t-if="header">
                                             <td colspan="3" style="height: 20px; vertical-align: bottom;"/>
