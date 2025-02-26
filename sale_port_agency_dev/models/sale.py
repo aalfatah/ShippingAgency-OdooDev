@@ -168,3 +168,7 @@ class SaleOrder(models.Model):
                     'product_id': cost_structure_line_id.get('product_id') and cost_structure_line_id['product_id'][0],
                 })
                 self.env['sale.cost.structure.line'].create(cost_structure_line_id | {'sale_order_id': self.id})
+
+        self.env['sale.cost.structure.line'].search([('sale_order_id', '=', self.id),
+                                                     ('standard_cost', '=', 0),
+                                                     ('expense_id', '=', False)]).unlink()
