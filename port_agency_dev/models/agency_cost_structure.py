@@ -81,3 +81,9 @@ class CostStructure(models.Model):
         if msg:
             self.message_post(body=msg)
         return super(CostStructure, self).write(vals)
+
+    def sort_cost_item(self):
+        sequence = 0
+        for cost in self.line_ids:
+            sequence += 1
+            cost.sequence = sequence
