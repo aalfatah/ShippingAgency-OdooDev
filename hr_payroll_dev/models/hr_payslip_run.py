@@ -182,3 +182,28 @@ class HrPayslipRunInherit(models.Model):
                 return employee.job_id.name
             elif title == 'signature':
                 return employee.user_id.signature
+
+    def summary_employee_payslip(self):
+        summary_payslip_title = []
+        summary_payslip_amount = []
+        first_employee = True
+        for slip_id in self.slip_ids:
+            i = 0
+            for line_id in slip_id.line_ids.filtered(lambda r: r.appears_on_list):
+                if first_employee:
+                    summary_payslip_title.append(line_id.name)
+                    summary_payslip_amount.append(line_id.total)
+                else:
+                    summary_payslip_amount[i] += line_id.total
+                i += 1
+            first_employee = False
+        return [summary_payslip_title, summary_payslip_amount]
+
+    def get_pres_dir(self, option):
+        employee_id = self.env['hr.employee'].search([('job_id.name', '=', 'President Director')], limit=1)
+        if option == 'name':
+            return employee_id.name
+        elif option == 'job_title':
+            return employee_id.job_title
+        elif option == 'signature':
+            return employee_id.user_id.signature

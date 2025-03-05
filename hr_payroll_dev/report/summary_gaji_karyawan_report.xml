@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_summary_payslip" model="ir.actions.report">
+        <field name="name">Summary Gaji Karyawan</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_payroll_dev.summary_payslip</field>
+        <field name="report_file">hr_payroll_dev.summary_payslip</field>
+        <field name="print_report_name">'Summary %s' % object.name</field>
+        <field name="binding_model_id" ref="hr_payroll_community.model_hr_payslip_run"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_payslip_run"/>
+    </record>
+
+    <template id="summary_payslip">
+        <t t-call="web.html_container">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style>
+                                table {border: 0px;}
+                                td {background-color: white; border: 0px solid transparent;}
+                            </style>
+                            <center>
+                                <strong>
+                                    <h6>
+                                        SUMMARY GAJI KARYAWAN<br/>
+                                        PT. BARITO SAMUDRA SEJAHTERA<br/>
+                                        <span t-field="doc.name"/>
+                                    </h6>
+                                </strong>
+                            </center>
+                            <t t-set="summary_payslip" t-value="doc.summary_employee_payslip()"/>
+                            <table style="width:100%; font-size:12px; table-layout:auto;">
+                                <thead>
+                                    <tr>
+                                        <t t-foreach="summary_payslip[0]" t-as="l">
+                                            <th class="text-center" style="width:3%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px;" height="20"><span t-esc="l"/></th>
+                                        </t>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <t t-foreach="summary_payslip[1]" t-as="l">
+                                            <td style="width:5%; border: 1px solid black; padding-top: 3px; padding-bottom: 3px; padding-left:5px; padding-right:5px; text-align: right;" height="20"><span t-esc="'{0:,.0f}'.format(l)"/></td>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="width:100%; margin-top: 30px;">
+                                <thead>
+                                    <tr>
+                                        <td style="text-align: center; width: 50%;">Banjarmasin, <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></td>
+                                        <td style="text-align: center; width: 50%; vertical-align: bottom;" rowspan="2">Mengetahui,</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; width: 50%;">Yang Mengajukan,</td>
+                                    </tr>
+                                </thead>
+                                <tr height="100px">
+                                    <td style="text-align: center;"><span t-raw="doc.create_uid.signature"/></td>
+                                    <td style="text-align: center;"><span t-raw="doc.get_pres_dir('signature')"/></td>
+                                </tr>
+                                <tr height="25px">
+                                    <td style="text-align: center;"><span t-esc="doc.create_uid.name"/></td>
+                                    <td style="text-align: center;"><span t-esc="doc.get_pres_dir('name')"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">HC</td>
+                                    <td style="text-align: center;"><span t-esc="doc.get_pres_dir('job_title')"/></td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
