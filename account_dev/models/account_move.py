@@ -26,6 +26,15 @@ class AccountMove(models.Model):
     # _sequence_monthly_regex = r'$^(?P<prefix1>.*?)(?P<year>((?<=\D)|(?<=^))((19|20|21)\d{2}|(\d{2}(?=\D))))(?P<prefix2>\D*?)(?P<month>(0[1-9]|1[0-2]))(?P<prefix3>\D+?)(?P<seq>\d*)(?P<suffix>\D*?)'
     down_payment = fields.Boolean(string='Down Payment', tracking=True, default=False)
 
+    @api.onchange('move_type')
+    def _onchange_move_type(self):
+        domain = [('type', '!=', 'private')]
+        if self.move_type in ('out_invoice', 'out_refund'):
+            domain += [('customer_rank', '!=', 0)]
+        elif self.move_type in ('in_invoice', 'in_refund'):
+            domain += [('supplier_rank', '!=', 0)]
+        return {'domain': {'partner_id': domain}}
+
     @api.model_create_multi
     def create(self, vals_list):
         return super(AccountMove, self).create(vals_list)
