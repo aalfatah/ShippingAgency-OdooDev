@@ -10,7 +10,7 @@
     'author': "Dev",
     'maintainer': 'Dev',
     'depends': [
-        'purchase'
+        'purchase', 'purchase_requisition'
     ],
     'data': [
         'views/purchase_views.xml',
