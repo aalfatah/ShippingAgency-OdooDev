@@ -179,7 +179,7 @@ class AccountMove(models.Model):
             if self._origin.id:
                 where_string += " AND id != %(id)s "
                 param['id'] = self._origin.id
-            if with_prefix is not None:
+            if with_prefix is not None and with_prefix:
                 where_string += " AND sequence_prefix = %(with_prefix)s "
                 param['with_prefix'] = with_prefix
 
