@@ -10,27 +10,27 @@ class TravelRequest(models.Model):
     _inherit = "travel.request"
     _order = 'name desc'
 
-    def list_emp_pemberi_tugas(self):
-        arr_employee = []
-        params = self.env['ir.config_parameter'].sudo()
-        pemberi_tugas_ids = params.get_param('pemberi_tugas_id', default=False)
-        if pemberi_tugas_ids:
-            for line in literal_eval(pemberi_tugas_ids):
-                arr_employee.append(line)
+    # def list_emp_pemberi_tugas(self):
+    #     arr_employee = []
+    #     params = self.env['ir.config_parameter'].sudo()
+    #     pemberi_tugas_ids = params.get_param('pemberi_tugas_id', default=False)
+    #     if pemberi_tugas_ids:
+    #         for line in literal_eval(pemberi_tugas_ids):
+    #             arr_employee.append(line)
+    #
+    #     domain = [('id', 'in', arr_employee)]
+    #     return domain
 
-        domain = [('id', 'in', arr_employee)]
-        return domain
-
-    def list_emp_approver(self):
-        arr_employee = []
-        params = self.env['ir.config_parameter'].sudo()
-        mengetahui_ids = params.get_param('mengetahui_id', default=False)
-        if mengetahui_ids:
-            for line in literal_eval(mengetahui_ids):
-                arr_employee.append(line)
-
-        domain = [('id', 'in', arr_employee)]
-        return domain
+    # def list_emp_approver(self):
+    #     arr_employee = []
+    #     params = self.env['ir.config_parameter'].sudo()
+    #     mengetahui_ids = params.get_param('mengetahui_id', default=False)
+    #     if mengetahui_ids:
+    #         for line in literal_eval(mengetahui_ids):
+    #             arr_employee.append(line)
+    #
+    #     domain = [('id', 'in', arr_employee)]
+    #     return domain
 
     travel_type_id = fields.Many2one('travel.type', string="Travel Type", required=True)
     expense_sheet_id = fields.Many2one('hr.expense.sheet', string="Expense Sheet", readonly=True)
@@ -55,8 +55,8 @@ class TravelRequest(models.Model):
     from_area = fields.Char(string="From Area", compute="_get_departure_date", store=True)
     to_area = fields.Char(string="To Area", compute="_get_departure_date", store=True)
     total_dp = fields.Float(string="Uang Muka", compute="_get_uang_muka")
-    employee_id_pemberi_tugas = fields.Many2one('hr.employee', string='Pemberi Tugas', domain=list_emp_pemberi_tugas)
-    employee_id_approver = fields.Many2one('hr.employee', string='Mengetahui' , domain=list_emp_approver)
+    # employee_id_pemberi_tugas = fields.Many2one('hr.employee', string='Pemberi Tugas', domain=list_emp_pemberi_tugas)
+    # employee_id_approver = fields.Many2one('hr.employee', string='Mengetahui' , domain=list_emp_approver)
     mail_reminder = fields.Char(string="Mail Reminder", compute="_get_mail_reminder")
     cnt_reminder = fields.Integer('Reminder', readonly=True, default=0, group_operator=False)
     last_reminder = fields.Date('Last Reminder', readonly=True)
@@ -292,6 +292,9 @@ class TravelRequest(models.Model):
         if 'name' not in vals or vals['name'] == False:
             vals['name'] = self.env['ir.sequence'].next_by_code('travel.request.seq')
         return super(TravelRequest, self).create(vals)
+
+    def get_approval(self, level):
+        return False
 
 
 class My_travel_request_line(models.Model):
