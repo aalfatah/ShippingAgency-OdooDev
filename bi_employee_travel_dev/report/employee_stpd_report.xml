@@ -193,35 +193,33 @@
 	                    </div>
 	                </div><br/><br/><br/>-->
 
-					<div style="padding-top:160px;">
-						<div style="padding-top:20px;padding-left:55px;">Jakarta, <span t-field="doc.create_date" t-options='{"format": "d MMMM y"}'/></div>
-						<div style="float:left;padding-left:55px;">Pemberi Tugas,</div><div style="float:right;padding-right:65px;">Mengetahui,</div><br/>
-
-						<div>
-							<div style="float:left;width:200px;"><!--<img src="/bi_employee_travel_kamaju/static/src/img/kamaju_stamp.png" class="img-fluid mx-auto" aria-label="stamp" title="stamp" role="img" style="max-width: 80px;"/>--></div>
-							<div style="float:right;width:200px;"><!--<img src="/bi_employee_travel_kamaju/static/src/img/kamaju_stamp.png" class="img-fluid mx-auto" aria-label="stamp" title="stamp" role="img" style="max-width: 80px;"/>--></div>
-						</div><br/>
-
-						<div style="padding-top:60px;">
-							<div style="text-align:center;">
-								<div style="float:left;width:200px;">
-									<!--<span t-if="doc.employee_id_pemberi_tugas.name" style="border-bottom:1px solid black;" t-field="doc.employee_id_pemberi_tugas.name"/>-->
-									<span style="border-bottom:1px solid black;" t-esc="doc.get_approval(1, 'name')"/>
-								</div>
-								<div style="float:right;width:200px;">
-									<!--<span t-if="doc.employee_id_approver.name" style="border-bottom:1px solid black;" t-field="doc.employee_id_approver.name"/>-->
-									<span style="border-bottom:1px solid black;" t-esc="doc.get_approval(2, 'name')"/>
-								</div>
-							</div>
-							<div style="text-align:center; margin-top: 24px;">
-								<div style="float:left;width:200px;">
-									<span t-esc="doc.get_approval(1, 'job_title')"/>
-								</div>
-								<div style="float:right;width:200px;">
-									<span t-esc="doc.get_approval(2, 'job_title')"/>
-								</div>
-							</div>
-						</div>
+					<div style="padding-top:40px;">
+						<style>
+							table {}
+							td {}
+						</style>
+						<table style="border: 0px; width: 100%;">
+							<tr>
+								<td style="text-align: center; width: 50%; background-color: white; border: 0px solid transparent;">Jakarta, <span t-field="doc.create_date" t-options='{"format": "d MMMM y"}'/></td>
+								<td style="text-align: center; width: 50%; background-color: white; border: 0px solid transparent;"></td>
+							</tr>
+							<tr>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;">Pemberi Tugas,</td>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;">Mengetahui,</td>
+							</tr>
+							<tr>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;"><span style="text-align: center; width: 50px; height: 30px;" t-raw="doc.get_approval(1, 'signature')"/></td>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;"><span style="text-align: center; width: 200px; height: 80px;" t-raw="doc.get_approval(2, 'signature')"/></td>
+							</tr>
+							<tr>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;"><span t-esc="doc.get_approval(1, 'name')"/></td>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;"><span t-esc="doc.get_approval(2, 'name')"/></td>
+							</tr>
+							<tr>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;"><span style="border-top: 1px solid black;" t-esc="doc.get_approval(1, 'job_title')"/></td>
+								<td style="text-align: center; background-color: white; border: 0px solid transparent;"><span style="border-top: 1px solid black;" t-esc="doc.get_approval(2, 'job_title')"/></td>
+							</tr>
+						</table>
 					</div>
 
 	                <div style="padding-top: 50px; width: 100%; font-size: 12px;">
