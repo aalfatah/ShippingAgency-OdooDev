@@ -47,7 +47,7 @@ class AccountMove(models.Model):
         return super(AccountMove, self).write(vals)
 
     def action_post(self):
-        self.ensure_one()
+        # self.ensure_one()
         if self.move_type == 'out_invoice' and self.name == '/':
             prefix = 'INVDP' if self.down_payment else 'INV'
             last_sequence = self._get_last_sequence(with_prefix=prefix)
