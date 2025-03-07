@@ -8,42 +8,86 @@
             </style>
         </xpath>
         <xpath expr="//div[hasclass('page')]/p" position="replace">
-            <table style="width:100%; margin-top: 30px;">
-                <thead>
-                    <tr>
-                        <td style="text-align: center;">Submitted by,</td>
-                        <td style="text-align: center;">Verified by,</td>
-                        <td style="text-align: center;">Approved by,</td>
+            <t t-if="o.get_approval_level() == 3">
+                <table style="width:100%; margin-top: 30px;">
+                    <thead>
+                        <tr>
+                            <td style="text-align: center; width: 25%;">Submitted by,</td>
+                            <td style="text-align: center; width: 25%;">Verified by,</td>
+                            <td style="text-align: center; width: 25%;">Approved by,</td>
+                            <td style="text-align: center; width: 25%;">Approved by,</td>
+                            <!--<t t-if="o.is_internal_transfer">
+                                <td>Approval</td>
+                            </t>
+                            <t t-else="">
+                                <td>Received By</td>
+                            </t>-->
+                        </tr>
+                    </thead>
+                    <tr height="100px">
+                        <td style="text-align: center;"><span t-raw="o.create_uid.signature"/></td>
+                        <td style="text-align: center;"><span t-raw="o.get_approval(1, 'signature')"/></td>
+                        <td style="text-align: center;"><span t-raw="o.get_approval(2, 'signature')"/></td>
+                        <td style="text-align: center;"><span t-raw="o.get_approval(3, 'signature')"/></td>
                         <!--<t t-if="o.is_internal_transfer">
-                            <td>Approval</td>
+                            <td/>
                         </t>
                         <t t-else="">
-                            <td>Received By</td>
+                            <td/>
                         </t>-->
                     </tr>
-                </thead>
-                <tr height="100px">
-                    <td style="text-align: center; width: 33%;"><span t-raw="o.create_uid.signature"/></td>
-                    <td style="text-align: center; width: 34%;"><span t-raw="o.get_approval(1, 'signature')"/></td>
-                    <td style="text-align: center; width: 33%;"><span t-raw="o.get_approval(2, 'signature')"/></td>
-                    <!--<t t-if="o.is_internal_transfer">
-                        <td/>
-                    </t>
-                    <t t-else="">
-                        <td/>
-                    </t>-->
-                </tr>
-                <tr height="25px">
-                    <td style="text-align: center;"><span t-esc="o.get_requestor('name')"/></td>
-                    <td style="text-align: center;"><span t-esc="o.get_approval(1, 'name')"/></td>
-                    <td style="text-align: center;"><span t-esc="o.get_approval(2, 'name')"/></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_requestor('job_title')"/></td>
-                    <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_approval(1, 'job_title')"/></td>
-                    <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_approval(2, 'job_title')"/></td>
-                </tr>
-            </table>
+                    <tr height="25px">
+                        <td style="text-align: center;"><span t-esc="o.get_requestor('name')"/></td>
+                        <td style="text-align: center;"><span t-esc="o.get_approval(1, 'name')"/></td>
+                        <td style="text-align: center;"><span t-esc="o.get_approval(2, 'name')"/></td>
+                        <td style="text-align: center;"><span t-esc="o.get_approval(3, 'name')"/></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_requestor('job_title')"/></td>
+                        <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_approval(1, 'job_title')"/></td>
+                        <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_approval(2, 'job_title')"/></td>
+                        <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_approval(3, 'job_title')"/></td>
+                    </tr>
+                </table>
+            </t>
+            <t t-else="">
+                <table style="width:100%; margin-top: 30px;">
+                    <thead>
+                        <tr>
+                            <td style="text-align: center; width: 33%;">Submitted by,</td>
+                            <td style="text-align: center; width: 34%;">Verified by,</td>
+                            <td style="text-align: center; width: 33%;">Approved by,</td>
+                            <!--<t t-if="o.is_internal_transfer">
+                                <td>Approval</td>
+                            </t>
+                            <t t-else="">
+                                <td>Received By</td>
+                            </t>-->
+                        </tr>
+                    </thead>
+                    <tr height="100px">
+                        <td style="text-align: center;"><span t-raw="o.create_uid.signature"/></td>
+                        <td style="text-align: center;"><span t-raw="o.get_approval(1, 'signature')"/></td>
+                        <td style="text-align: center;"><span t-raw="o.get_approval(2, 'signature')"/></td>
+                        <!--<t t-if="o.is_internal_transfer">
+                            <td/>
+                        </t>
+                        <t t-else="">
+                            <td/>
+                        </t>-->
+                    </tr>
+                    <tr height="25px">
+                        <td style="text-align: center;"><span t-esc="o.get_requestor('name')"/></td>
+                        <td style="text-align: center;"><span t-esc="o.get_approval(1, 'name')"/></td>
+                        <td style="text-align: center;"><span t-esc="o.get_approval(2, 'name')"/></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_requestor('job_title')"/></td>
+                        <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_approval(1, 'job_title')"/></td>
+                        <td style="text-align: center;"><span style="border-top: 1px solid black;" t-esc="o.get_approval(2, 'job_title')"/></td>
+                    </tr>
+                </table>
+            </t>
         </xpath>
     </template>
 </odoo>

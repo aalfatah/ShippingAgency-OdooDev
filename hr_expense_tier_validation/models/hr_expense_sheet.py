@@ -17,12 +17,17 @@ class HrExpenseSheet(models.Model):
         if not self.review_ids.filtered(lambda r: r.status != 'approved'):
             self.approve_expense_sheets()
 
+    def get_approval_level(self):
+        return len(self.review_ids)
+
     def get_approval(self, level, option):
         user_id = False
         if level == 1 and len(self.review_ids) >= 1:
             user_id = self.review_ids[0].done_by
         elif level == 2 and len(self.review_ids) >= 2:
             user_id = self.review_ids[1].done_by
+        elif level == 3 and len(self.review_ids) >= 3:
+            user_id = self.review_ids[2].done_by
         if user_id:
             employee_id = self.env['hr.employee'].sudo().search([('user_id', '=', user_id.id)])
             if option == 'name':

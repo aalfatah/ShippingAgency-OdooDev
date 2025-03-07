@@ -19,6 +19,9 @@ class ExpenseSheet(models.Model):
     #     # moves.move_type = 'in_invoice' # odoo 16, expense di perlakukan seperti vendor bill
     #     return moves
 
+    def get_approval_level(self):
+        return 2
+
     def get_approval(self, level, option):
         return False
 
