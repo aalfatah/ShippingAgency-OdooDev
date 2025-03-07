@@ -12,6 +12,7 @@
     ],
     "data": [
         "views/hr_expense_views.xml",
+        "reports/hr_expense_report.xml",
     ],
     "sequence": 100,
     "license": "LGPL-3",

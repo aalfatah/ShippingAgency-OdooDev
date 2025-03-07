@@ -13,7 +13,7 @@
         "security/security.xml",
         "views/expense_approval_views.xml",
         "views/expense_sheet_views.xml",
-        "reports/hr_expense_report.xml",
+        # "reports/hr_expense_report.xml",
     ],
     "license": "LGPL-3",
     "installable": True,

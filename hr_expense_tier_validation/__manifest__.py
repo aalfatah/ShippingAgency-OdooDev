@@ -8,7 +8,7 @@
     "author": "Ecosoft, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/hr-expense",
-    "depends": ["hr_expense", "base_tier_validation"],
+    "depends": ["hr_expense", "hr_expense_dev", "base_tier_validation"],
     "data": ["views/hr_expense_sheet_view.xml"],
     "installable": True,
     "maintainers": ["ps-tubtim"],

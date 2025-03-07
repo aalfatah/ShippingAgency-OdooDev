@@ -293,7 +293,7 @@ class TravelRequest(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('travel.request.seq')
         return super(TravelRequest, self).create(vals)
 
-    def get_approval(self, level):
+    def get_approval(self, level, option):
         return False
 
 

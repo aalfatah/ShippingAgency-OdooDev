@@ -21,7 +21,7 @@ class TravelRequest(models.Model):
         user_id = False
         if level == 1 and len(self.review_ids) >= 1:
             user_id = self.review_ids[0].done_by
-        if level == 2 and len(self.review_ids) >= 2:
+        elif level == 2 and len(self.review_ids) >= 2:
             user_id = self.review_ids[1].done_by
         if user_id:
             employee_id = self.env['hr.employee'].sudo().search([('user_id', '=', user_id.id)])
