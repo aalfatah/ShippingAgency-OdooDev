@@ -206,7 +206,7 @@ class AccountMove(models.Model):
 
     @api.depends(lambda self: [self._sequence_field])
     def _compute_split_sequence(self):
-        if self.move_type == 'out_invoice':
+        if self[0].move_type == 'out_invoice':
             for record in self:
                 sequence = record[record._sequence_field] or ''
                 if sequence != "/" and re.findall(r'(INV/|INVDP/)(\d{4})', sequence):
