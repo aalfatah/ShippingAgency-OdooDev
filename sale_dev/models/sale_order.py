@@ -14,3 +14,6 @@ class SaleOrder(models.Model):
     cargo = fields.Float(string="Cargo")
     grt = fields.Float(string="GRT")
     flag = fields.Char(string="Flag")
+    no_bl = fields.Char(string="No. B/L")
+    shipper = fields.Char(string="Shipper")
+    mv = fields.Char(string="MV")

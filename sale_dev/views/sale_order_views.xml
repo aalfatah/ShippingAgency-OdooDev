@@ -9,6 +9,9 @@
                 <field name="loading_date" widget="date" optional="hide"/>
                 <field name="commodity" optional="hide"/>
                 <field name="cargo" optional="hide"/>
+                <field name="no_bl" optional="hide"/>
+                <field name="shipper" optional="hide"/>
+                <field name="mv" optional="hide"/>
             </field>
         </field>
     </record>
@@ -22,6 +25,9 @@
                 <field name="loading_date" widget="date" optional="hide"/>
                 <field name="commodity" optional="hide"/>
                 <field name="cargo" optional="hide"/>
+                <field name="no_bl" optional="hide"/>
+                <field name="shipper" optional="hide"/>
+                <field name="mv" optional="hide"/>
             </field>
         </field>
     </record>
@@ -68,6 +74,9 @@
                     <field name="cargo"/>
                     <field name="grt"/>
                     <field name="flag"/>
+                    <field name="no_bl"/>
+                    <field name="shipper"/>
+                    <field name="mv"/>
                 </group>
             </group>
 
