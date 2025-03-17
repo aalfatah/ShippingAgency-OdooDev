@@ -5,7 +5,7 @@
     "author": "Dev Team,",
     "website": "https://dev.com",
     "license": "LGPL-3",
-    "depends": ["sale", "sale_management", "account_dev"],
+    "depends": ["sale", "sale_order_type", "sale_management", "account_dev"],
     "data": [
         "views/sale_order_views.xml",
         "reports/epda_report.xml"

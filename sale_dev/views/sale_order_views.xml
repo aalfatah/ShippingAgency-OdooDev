@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="sale.view_order_tree"/>
         <field name="arch" type="xml">
             <field name="commitment_date" position="before">
-                <field name="start_date" widget="date" optional="hide"/>
+                <field name="start_date" widget="date" optional="show"/>
                 <field name="loading_date" widget="date" optional="hide"/>
                 <field name="commodity" optional="hide"/>
                 <field name="cargo" optional="hide"/>
@@ -21,7 +21,7 @@
         <field name="inherit_id" ref="sale.view_quotation_tree"/>
         <field name="arch" type="xml">
             <field name="commitment_date" position="before">
-                <field name="start_date" widget="date" optional="hide"/>
+                <field name="start_date" widget="date" optional="show"/>
                 <field name="loading_date" widget="date" optional="hide"/>
                 <field name="commodity" optional="hide"/>
                 <field name="cargo" optional="hide"/>
@@ -54,13 +54,14 @@
             <group name="partner_details" position="inside">
                 <field name="customer_contact"/>
             </group>
-
-            <xpath expr="//group[@name='sale_shipping']/label" position="before">
+            <field name="validity_date" position="before">
                 <label for="start_date" string="Start Date"/>
                 <div name="start_date_div" class="o_row">
                     <field name="start_date"/>
                     <!--<span name="expected_date_span" class="text-muted">Expected: <field name="expected_date" class="oe_inline" widget="date"/></span>-->
                 </div>
+            </field>
+            <xpath expr="//group[@name='sale_shipping']/label" position="before">
                 <field name="loading_date"/>
             </xpath>
 
