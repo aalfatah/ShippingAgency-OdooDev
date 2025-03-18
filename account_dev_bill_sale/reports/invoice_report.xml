@@ -175,12 +175,22 @@
                                     </tr>
                                     <t t-set="header" t-value="line.header_id"/>
                                 </t>
-                                <t t-if="any(o.sale_order_id.order_line.filtered(lambda l: l.product_id and l.product_id.name != 'PORT AGENCY' and l.product_id.name != 'DOWN PAYMENT'))">
-                                    <t t-if="o.sale_type_id.name == 'Normal Order'">
+                                <t t-if="o.sale_type_id.name == 'Normal Order'">
+                                    <t t-if="any(o.sale_order_id.order_line.filtered(lambda l: l.product_id and l.product_id.name != 'PORT AGENCY' and l.product_id.name != 'DOWN PAYMENT'))">
                                         <tr><td colspan="3" style="height: 20px; vertical-align: bottom;"/><tr>
                                         </tr><td colspan="3" style="width: 100%;">Additional Cost</td></tr>
+
+                                        <t t-foreach="o.sale_order_id.order_line.filtered(lambda l: l.product_id and l.product_id.name != 'PORT AGENCY' and l.product_id.name != 'DOWN PAYMENT')" t-as="line">
+                                            <tr>
+                                                <td style="width: 65%; padding-left: 10px;"><span t-field='line.name'/></td>
+                                                <td style="width: 5%;">:</td>
+                                                <td style="width: 30%; text-align: right;"><span t-esc='line.price_subtotal' t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                            </tr>
+                                        </t>
                                     </t>
-                                    <t t-foreach="o.sale_order_id.order_line.filtered(lambda l: l.product_id and l.product_id.name != 'PORT AGENCY' and l.product_id.name != 'DOWN PAYMENT')" t-as="line">
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
                                         <tr>
                                             <td style="width: 65%; padding-left: 10px;"><span t-field='line.name'/></td>
                                             <td style="width: 5%;">:</td>
