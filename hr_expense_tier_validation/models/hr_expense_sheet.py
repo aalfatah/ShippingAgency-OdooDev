@@ -17,6 +17,9 @@ class HrExpenseSheet(models.Model):
         if not self.review_ids.filtered(lambda r: r.status != 'approved'):
             self.approve_expense_sheets()
 
+    def _get_tier_validation_readonly_domain(self):
+        return [] # [("review_ids", "!=", [])]
+
     def get_approval_level(self):
         return len(self.review_ids)
 
