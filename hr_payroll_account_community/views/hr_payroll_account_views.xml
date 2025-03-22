@@ -7,9 +7,35 @@
             <field name="arch" type="xml">
                 <field name="paid" position="after">
                     <field name="date"/>
-                    <field name="journal_id" required="1"/>
+                    <field name="journal_id" options="{'no_create': True}" required="1"/>
+                    <field name="salary_group_id" options="{'no_create': True}"/>
                     <field name="move_id" readonly="1"/>
                 </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_payslip_inherit_tree">
+            <field name="name">hr.payslip.inherit.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="salary_group_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_payslip_inherit_filter">
+            <field name="name">hr.payslip.inherit.filter</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="salary_group_id"/>
+                </field>
+                <filter name="payslip_run_id" position="after">
+                    <filter string="Salary Group" name="salary_group_id" context="{'group_by':'salary_group_id'}"/>
+                </filter>
             </field>
         </record>
 
@@ -23,10 +49,10 @@
               <xpath expr="/form/notebook/page[@name='rules']" position="after">
                     <page string="Accounting">
                         <group colspan="4">
-                            <field name="account_debit" />
-                            <field name="account_credit"/>
-                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
-                            <field name="account_tax_id"/>
+                            <field name="account_debit" options="{'no_create': True}"/>
+                            <field name="account_credit" options="{'no_create': True}"/>
+                            <field name="analytic_account_id" options="{'no_create': True}" groups="analytic.group_analytic_accounting"/>
+                            <field name="account_tax_id" options="{'no_create': True}"/>
                         </group>
                     </page>
                 </xpath>

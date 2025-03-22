@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_salary_group_user,hr salary group user,model_hr_salary_group,hr_payroll_community.group_hr_payroll_community_user,1,1,0,0
+access_hr_salary_group_manager,hr salary group manager,model_hr_salary_group,hr_payroll_community.group_hr_payroll_community_manager,1,1,1,1
+access_hr_salary_rule_ledger_user,hr salary_rule_ledger user,model_hr_salary_rule_ledger,hr_payroll_community.group_hr_payroll_community_user,1,1,0,0
+access_hr_salary_rule_ledger_manager,hr salary_rule_ledger manager,model_hr_salary_rule_ledger,hr_payroll_community.group_hr_payroll_community_manager,1,1,1,1

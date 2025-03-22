@@ -11,7 +11,7 @@ class HrPayslip(models.Model):
     def action_payslip_done(self):
         super(HrPayslip, self).action_payslip_done()
         for rec in self:
-            if rec.payslip_run_id:
+            if rec.payslip_run_id and not self._context.get('is_batch'):
                 raise UserError(_(
                     'Payslip for employee "%s" related to batch "%s". To '
                     'confirm it, Please confirm payslip batch')

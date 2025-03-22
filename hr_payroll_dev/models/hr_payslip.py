@@ -50,6 +50,8 @@ class HrPayslip(models.Model):
         })
 
     def compute_sheet(self):
+        if 'no_recompute' in self._context:
+            return True
         ret = super(HrPayslip,self).compute_sheet()
         self._get_gross_amount()
         return ret

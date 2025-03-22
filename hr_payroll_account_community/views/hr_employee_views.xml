@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_employee_form_payroll">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='hr_settings']/group/group" position="inside">
+                <field name="salary_group_id" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_filter_payroll" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <filter name="group_job" position="after">
+                <filter name="salary_group_id" domain="[]" context="{'group_by': 'salary_group_id'}"/>
+            </filter>
+         </field>
+    </record>
+</odoo>

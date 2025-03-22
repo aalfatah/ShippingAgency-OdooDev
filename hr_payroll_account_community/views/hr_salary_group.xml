@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_salary_group_tree">
+            <field name="name">hr.salary.group.tree</field>
+            <field name="model">hr.salary.group</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_salary_group_action">
+            <field name="name">Salary Group</field>
+            <field name="res_model">hr.salary.group</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem
+            id="hr_salary_group_menu"
+            name="Salary Group"
+            parent="hr_payroll_community.menu_hr_payroll_community_configuration"
+            action="hr_salary_group_action"
+            sequence="13"
+        />
+    </data>
+</odoo>

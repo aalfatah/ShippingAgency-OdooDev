@@ -60,7 +60,9 @@ class HrPayslipRunInherit(models.Model):
             'date': date,
         }
         for slip in payslips:
-            slip.write({'state': 'done'})
+            # slip.write({'state': 'done'})
+            slip.with_context(is_batch=True).action_payslip_done()
+
             # salary_group_id = slip.payslip_run_id.salary_group.id
             # if slip.payslip_run_id.salary_group.cost_center_id:
             #     cost_center_id = slip.payslip_run_id.salary_group.cost_center_id.id
@@ -77,14 +79,16 @@ class HrPayslipRunInherit(models.Model):
                     continue
 
                 ledger_mapping = line.salary_rule_id.ledger_ids.search([('salary_rule_id', '=', line.salary_rule_id.id),
-                                                                        # ('salary_group_id', '=', line.employee_id.salary_group_id.id)
-                                                                        ])
+                                                                        ('salary_group_id', '=', slip.salary_group_id.id)])
+                if not ledger_mapping:
+                    ledger_mapping = line.salary_rule_id.ledger_ids.search([('salary_rule_id', '=', line.salary_rule_id.id)])
                 if ledger_mapping:
                     debit_account_id = ledger_mapping.account_debit.id
                     credit_account_id = ledger_mapping.account_credit.id
                 else:
-                    debit_account_id = line.salary_rule_id.account_debit.id
-                    credit_account_id = line.salary_rule_id.account_credit.id
+                    # debit_account_id = line.salary_rule_id.account_debit.id
+                    # credit_account_id = line.salary_rule_id.account_credit.id
+                    continue
 
                 if debit_account_id:
                     debit_line = (0, 0, {
@@ -116,6 +120,7 @@ class HrPayslipRunInherit(models.Model):
                     line_ids_update(credit_line)
                     # line_ids.append(credit_line)
                     credit_sum += credit_line[2]['credit'] - credit_line[2]['debit']
+
         if currency.compare_amounts(credit_sum, debit_sum) == -1:
             acc_id = self.journal_id.default_account_id.id
             if not acc_id:
@@ -151,7 +156,7 @@ class HrPayslipRunInherit(models.Model):
         move_dict['line_ids'] = line_ids
         move = self.env['account.move'].create(move_dict)
         self.write({'batch_move_id': move.id, 'batch_date': date})
-        move.post()
+        # move.action_post()
 
     def _set_payslip_draft(self):
         for rec in self:

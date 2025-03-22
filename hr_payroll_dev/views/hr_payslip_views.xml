@@ -19,9 +19,9 @@
                             <field name="bpjsks_status"/>
                             <field name="bpjstk_status"/>
                             <!--<field name="pensiun"/>-->
-                            <field name="ptkp_id"/>
+                            <field name="ptkp_id" options="{'no_create': True}"/>
                             <field name="unit_kerja"/>
-                            <field name="bank_id"/>
+                            <field name="bank_id" options="{'no_create': True}"/>
                         </group>
                         <group>
                             <field name="first_contract_date"/>

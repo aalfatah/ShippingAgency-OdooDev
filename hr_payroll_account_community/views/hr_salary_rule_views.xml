@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_salary_rule_form_ykbut" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.ykbut</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll_community.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[2]" position="after">
+                    <page string="Ledger Mapping">
+                        <field name="ledger_ids" mode="tree">
+                            <tree string="Ledger Mapping" editable="bottom">
+                                <field name="salary_group_id"/>
+                                <field name="account_debit" />
+                                <field name="account_credit"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
