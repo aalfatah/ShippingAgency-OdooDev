@@ -7,17 +7,10 @@ from odoo import fields, models, api, _
 class ExpenseSheet(models.Model):
     _inherit = 'hr.expense.sheet'
 
-    # def _prepare_bill_vals(self):
-    #     self.ensure_one()
-    #     res = super(ExpenseSheet, self)._prepare_bill_vals()
-    #     # res["move_type"] = "entry"
-    #     return res
-    #
-    # def _do_create_moves(self):
-    #     moves = super(ExpenseSheet, self)._do_create_moves()
-    #     # moves.move_type = 'entry'
-    #     # moves.move_type = 'in_invoice' # odoo 16, expense di perlakukan seperti vendor bill
-    #     return moves
+    @api.onchange('employee_id')
+    def _set_employee_default_bank(self):
+        if self.employee_id:
+            self.bank_journal_id = self.employee_id.bank_journal_id.id
 
     def get_approval_level(self):
         return 2

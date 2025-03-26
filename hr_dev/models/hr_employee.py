@@ -6,12 +6,17 @@ class Employee(models.Model):
 
     nrp = fields.Char(string='NRP', groups='hr.group_hr_user')
     nrp_external = fields.Char(string='NRP External', groups='hr.group_hr_user')
-    religion = fields.Selection([('islam', 'Islam'),('kristen', 'Kristen'),('katholik', 'Katholik'),('hindu', 'Hindu'),('buddha', 'Buddha'),('konghucu', 'Konghucu')], groups='hr.group_hr_user')
+    religion = fields.Selection([('islam', 'Islam'),('kristen', 'Kristen'), ('katholik', 'Katholik'),
+                                 ('hindu', 'Hindu'), ('buddha', 'Buddha'), ('konghucu', 'Konghucu')],
+                                groups='hr.group_hr_user')
     area_id = fields.Many2one('res.area', string="Area Kerja", groups='hr.group_hr_user')
-    customer_id = fields.Many2one('res.partner', domain=[('customer_rank','>=',1), ('is_company','=',True)], string="Customer", groups='hr.group_hr_user')
+    customer_id = fields.Many2one('res.partner', domain=[('customer_rank','>=',1), ('is_company','=',True)],
+                                  string="Customer", groups='hr.group_hr_user')
     npwp = fields.Char(string="NPWP", related="address_home_id.vat", store=True, groups='hr.group_hr_user')
     identification_id = fields.Char(related="address_home_id.identification_id", store=True, groups='hr.group_hr_user')
     study_degree_id = fields.Many2one('hr.recruitment.degree', 'Degree', tracking=True, groups='hr.group_hr_user')
+    bank_journal_id = fields.Many2one('account.journal', string='Bank Journal',
+                                      domain="[('type', 'in', ['cash', 'bank'])]")
 
     def name_get(self):
         result = []

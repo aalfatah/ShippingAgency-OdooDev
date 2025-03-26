@@ -88,6 +88,11 @@
             <group name="identification_group" position="inside">
                 <field name="nrp_external"/>
             </group>
+            <div id="o_work_employee_main" position="inside">
+                <group string="Default Bank">
+                    <field name="bank_journal_id" options="{'no_create': True}"/>
+                </group>
+            </div>
         </field>
     </record>
 

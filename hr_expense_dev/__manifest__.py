@@ -8,7 +8,8 @@
     "maintainers": ["DEV"],
     "depends": [
         "hr_expense",
-        'hr_expense_advance_clearing'
+        'hr_expense_advance_clearing',
+        'hr_dev'
     ],
     "data": [
         "views/hr_expense_views.xml",
