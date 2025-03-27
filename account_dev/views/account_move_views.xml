@@ -39,6 +39,9 @@
                 <filter name="due_date" position="after">
                     <filter name="filter_first_payment_date" string="Payment Date" date="first_payment_date"/>
                 </filter>
+                <filter name="group_by_date" position="after">
+                    <filter string="Payment Date" name="group_by_first_payment_date" context="{'group_by': 'first_payment_date'}"/>
+                </filter>
             </field>
         </record>
 
