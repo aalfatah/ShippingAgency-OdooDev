@@ -36,6 +36,20 @@
                     <filter string="Down Payment" name="filter_down_payment" domain="[('down_payment', '=', True)]"/>
                     <separator/>
                 </filter>
+                <filter name="due_date" position="after">
+                    <filter name="filter_first_payment_date" string="Payment Date" date="first_payment_date"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_invoice_tree_dev" model="ir.ui.view">
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="payment_state" position="before">
+                    <field name="first_payment_journal" optional="hide"/>
+                    <field name="first_payment_date" optional="hide"/>
+                </field>
             </field>
         </record>
 

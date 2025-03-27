@@ -25,6 +25,18 @@ class AccountMove(models.Model):
 
     # _sequence_monthly_regex = r'$^(?P<prefix1>.*?)(?P<year>((?<=\D)|(?<=^))((19|20|21)\d{2}|(\d{2}(?=\D))))(?P<prefix2>\D*?)(?P<month>(0[1-9]|1[0-2]))(?P<prefix3>\D+?)(?P<seq>\d*)(?P<suffix>\D*?)'
     down_payment = fields.Boolean(string='Down Payment', tracking=True, default=False)
+    first_payment_journal = fields.Char(string="Payment Journal", compute='_get_first_payment', store=True)
+    first_payment_date = fields.Date('Payment Date', compute='_get_first_payment', store=True)
+
+    @api.depends('invoice_payments_widget')
+    def _get_first_payment(self):
+        for move in self:
+            if move.invoice_payments_widget:
+                move.first_payment_date = move.invoice_payments_widget['content'][0]['date']
+                move.first_payment_journal = move.invoice_payments_widget['content'][0]['journal_name']
+            else:
+                move.first_payment_date = False
+                move.first_payment_journal = False
 
     @api.onchange('move_type')
     def _onchange_move_type(self):
