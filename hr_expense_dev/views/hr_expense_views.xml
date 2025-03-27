@@ -116,7 +116,6 @@
 				<filter string="Payment Mode" domain="[]" context="{'group_by': 'payment_mode'}" name="group_by_payment_mode"/>
 				<filter string="Expense Journal" domain="[]" context="{'group_by': 'journal_id'}" name="group_by_journal_id"/>
 				<filter string="Bank Journal" domain="[]" context="{'group_by': 'bank_journal_id'}" name="group_by_bank_journal_id"/>
-				<filter string="Journal" domain="[]" context="{'group_by': 'journal_displayed_id'}" name="group_by_journal_displayed_id"/>
 			</filter>
 		</field>
 	</record>
