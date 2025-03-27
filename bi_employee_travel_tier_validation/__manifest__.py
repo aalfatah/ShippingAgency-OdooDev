@@ -8,7 +8,7 @@
     "author": "Dev, Smits",
     "license": "LGPL-3",
     "website": "https://github.com/OCA/hr-expense",
-    "depends": ["bi_employee_travel", "base_tier_validation"],
+    "depends": ["bi_employee_travel", "bi_employee_travel_dev", "base_tier_validation"],
     "data": ["views/hr_expense_sheet_view.xml"],
     "installable": True,
     "maintainers": ["Dev Smits"],
