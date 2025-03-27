@@ -7,6 +7,8 @@ from odoo import fields, models, api, _
 class ExpenseSheet(models.Model):
     _inherit = 'hr.expense.sheet'
 
+    payment_mode = fields.Selection(store=True)
+
     @api.onchange('employee_id')
     def _set_employee_default_bank(self):
         if self.employee_id:
