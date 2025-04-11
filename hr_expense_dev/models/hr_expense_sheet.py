@@ -8,6 +8,7 @@ class ExpenseSheet(models.Model):
     _inherit = 'hr.expense.sheet'
 
     payment_mode = fields.Selection(store=True)
+    bank_journal_id = fields.Many2one(tracking=True)
 
     @api.onchange('employee_id')
     def _set_employee_default_bank(self):
