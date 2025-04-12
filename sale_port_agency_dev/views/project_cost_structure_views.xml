@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_project_cost_structure_tree" model="ir.ui.view">
+            <field name="name">project.cost.structure.tree</field>
+            <field name="model">sale.cost.structure.line</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Cost Structure" create="1" editable="bottom" delete="0"> <!--js_class="cost_structure_list_controller">-->
+                    <field name="sequence" widget="handle" invisible="1"/>
+                    <field name="sequence" invisible="0" optional="hide"/>
+                    <field name="display_type" invisible="1"/>
+                    <field name="sale_order_id" options="{'no_create': True}" invisible="1"/>
+                    <field name="sale_order_line_id" options="{'no_create': True}" invisible="1"/>
+                    <field name="cost_structure_id" options="{'no_create': True}" invisible="1"/>
+                    <field name="package_id" options="{'no_create': True}" readonly="1"/>
+                    <field name="header_id" options="{'no_create': True}" readonly="1"/>
+                    <field name="item_id" options="{'no_create': True}" readonly="1"/>
+                    <field name="code" readonly="1" optional="hide"/>
+                    <field name="name" readonly="1" optional="show"/>
+                    <field name="attachment_url" widget="url" optional="hide"/>
+                    <field name="product_id" readonly="1" optional="hide"/>
+                    <!--<field name="standard_cost" readonly="1"/> &lt;!&ndash;groups='sale_port_agency_dev.group_structure_cost'/>&ndash;&gt;
+                    <field name="quantity" attrs="{'readonly': [('expense_id', '!=', False)]}"/> &lt;!&ndash;groups='sale_port_agency_dev.group_structure_cost'/>&ndash;&gt;
+                    <field name="estimated_cost"/>--> <!--groups='sale_port_agency_dev.group_structure_cost'/>-->
+                    <field name="expense_cost" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
+                    <field name="expense_date" attrs="{'readonly': [('expense_id', '!=', False)]}"/>
+                    <field name="allow_expense" widget="boolean_toggle"/>
+                    <field name="expense_id" options="{'no_create': True}" optional="show"/>
+                    <button name="create_expense" class="oe_stat_button" type="object" icon="fa-money" title="expense"
+                            attrs="{'invisible': ['|', '|', ('allow_expense', '!=', True), ('expense_id', '!=', False), ('expense_cost', '&lt;=', 1)]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_project_cost_structure_search" model="ir.ui.view">
+            <field name="name">project.cost.structure.search</field>
+            <field name="model">sale.cost.structure.line</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Cost Structure">
+                    <field name="name"/>
+                    <field name="sale_order_id"/>
+                    <field name="package_id"/>
+                    <field name="header_id"/>
+                    <field name="item_id"/>
+                    <field name="product_id"/>
+                    <filter string="Hide Empty Line" name="empty_line" domain="[('item_id','!=',False)]"/>
+                    <group name="group_by">
+                        <filter name="group_sale" string="Sales Order" context="{'group_by': 'sale_order_id'}"/>
+                        <filter name="group_package" string="Package" context="{'group_by': 'package_id'}"/>
+                        <filter name="group_header" string="Header" context="{'group_by': 'header_id'}"/>
+                        <filter name="group_item" string="Item" context="{'group_by': 'item_id'}"/>
+                        <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_project_open_cost_structure_view">
+            <field name="name">Cost Structure</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.cost.structure.line</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_project_cost_structure_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="action_multiple_create_expense" model="ir.actions.server">
+            <field name="name">Create Expense</field>
+            <field name="model_id" ref="model_sale_cost_structure_line"/>
+            <field name="binding_model_id" ref="model_sale_cost_structure_line"/>
+            <field name="binding_view_types">list</field>
+            <!--<field name="groups_id"
+                   eval="[(4, ref('account_move_multi_cancel.account_move_multi_cancel_group_user'))]"/>-->
+            <field name="state">code</field>
+            <field name="code">
+                for r in records:
+                    if r.allow_expense and   not r.expense_id and r.expense_cost > 0:
+                        r.create_expense()
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -4,7 +4,7 @@
     "category": "Sales Management",
     "author": "Dev Team,",
     "license": "LGPL-3",
-    "depends": ["sale", "sale_management", "sale_dev", "port_agency_dev", "hr_expense"],
+    "depends": ["sale", "sale_management", "sale_dev", "port_agency_dev", "hr_expense", "sale_project"],
     "data": [
         "security/ir.model.access.csv",
         "security/port_agency_security.xml",
@@ -12,6 +12,8 @@
         "views/sale_cost_structure_views.xml",
         "views/hr_expense_view.xml",
         "views/account_move_views.xml",
+        "views/project_views.xml",
+        "views/project_cost_structure_views.xml",
         "wizard/sync_rate_card_wizard_view.xml",
         # "reports/sale_order_quotation.xml",
         # "reports/sale_order_bast.xml",
