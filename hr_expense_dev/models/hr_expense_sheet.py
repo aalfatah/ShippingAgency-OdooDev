@@ -29,3 +29,12 @@ class ExpenseSheet(models.Model):
             return employee_id.job_title
         elif option == 'signature':
             return self.create_uid.signature
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'bank_journal_id' not in vals and 'employee_id' in vals:
+                employee_id = self.env['hr.employee'].sudo().browse(vals.get('employee_id'))
+                vals.update({'bank_journal_id': employee_id.bank_journal_id.id})
+        sheets = super(ExpenseSheet, self).create(vals_list)
+        return sheets
