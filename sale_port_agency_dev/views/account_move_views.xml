@@ -22,6 +22,7 @@
                 <field name="sale_order_id" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
                 <field name="po_no" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
                 <field name="vo_no" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
+                <field name="no_bl" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
                 <field name="vessel_ids" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" widget="many2many_tags" optional="hide"/>
                 <field name="last_port_id" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" optional="hide"/>
                 <field name="load_port_ids" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}" widget="many2many_tags" optional="hide"/>
@@ -39,6 +40,7 @@
                     <field name="sale_order_id"/>
                     <field name="po_no"/>
                     <field name="vo_no"/>
+                    <field name="no_bl"/>
                     <field name="vessel_ids" widget="many2many_tags"/>
                     <field name="last_port_id"/>
                     <field name="load_port_ids" widget="many2many_tags"/>
