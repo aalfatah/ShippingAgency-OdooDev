@@ -12,6 +12,7 @@ from odoo.exceptions import UserError, ValidationError
 class HrOverTime(models.Model):
     _inherit = 'hr.overtime'
     _rec_name = "employee_name"
+    _order = 'name desc'
 
     def _get_leave_ids(self):
         for overtime in self:
@@ -147,7 +148,7 @@ class HrOverTime(models.Model):
     def _get_rate_hours(self):
         for row in self:
             rate = 0.00
-            hours = row.days_no_tmp
+            hours = row.days_no_tmp_period if row.duration_type == 'period' else row.days_no_tmp
             for line in row.overtime_type_id.rule_line_ids.filtered(lambda l: l.from_hrs <= hours):
                 if line.to_hrs <= hours:
                     rate += line.hrs_amount * (line.to_hrs - (0 if rate == 0 else line.from_hrs))
@@ -240,7 +241,11 @@ class HrOverTime(models.Model):
                             if int(work_schedule.dayofweek) == over_time.dayofweek:
                                 day_type = 'working_day'
                                 break
-                overtime_type = self.env['overtime.type'].search([('day_type','=',day_type)],limit=1).id
+                if self.duration_type == 'period':
+                    overtime_type = self.env['overtime.type'].search([('duration_type','=',self.duration_type)],limit=1).id
+                else:
+                    overtime_type = self.env['overtime.type'].search([('day_type','=',day_type),('duration_type','=',self.duration_type)],limit=1).id
+                # overtime_type = self.env['overtime.type'].search([('day_type','=',day_type)],limit=1).id
             else:
                 overtime_type = self.overtime_type_id.id
             cash_amount = 0
