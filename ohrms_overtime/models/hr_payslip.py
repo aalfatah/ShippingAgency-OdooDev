@@ -40,7 +40,7 @@ class PayslipOverTime(models.Model):
         contract_id = contracts[0] or self.contract_id
         employee_id = contract_id.employee_id or self.employee_id
         overtime_id = self.env['hr.overtime'].search([('employee_id', '=', employee_id.id),
-                                                      ('contract_id', '=', contract_id.id),
+                                                      # ('contract_id', '=', contract_id.id),
                                                       ('state', '=', 'approved'),
                                                       ('payslip_period', '=', False)])
                                                       # ('payslip_paid', '=', False)])
