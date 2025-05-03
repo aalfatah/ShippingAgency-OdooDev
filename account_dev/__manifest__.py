@@ -14,6 +14,7 @@ Modify journal view show secure_sequence_id field
     'depends': ['account', 'account_menu_invoice_refund', 'partner_manual_rank'],
     'data': [
         'views/account_move_views.xml',
+        'views/account_payment_view.xml',
         'reports/print_payment_voucher.xml',
         'reports/report_account_move.xml',
         'reports/report_invoice.xml',
