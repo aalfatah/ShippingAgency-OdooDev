@@ -27,10 +27,13 @@ class HrExpenseSheet(models.Model):
         user_id = False
         if level == 1 and len(self.review_ids) >= 1:
             user_id = self.review_ids[0].done_by
+            todo_by = self.review_ids[0].todo_by
         elif level == 2 and len(self.review_ids) >= 2:
             user_id = self.review_ids[1].done_by
+            todo_by = self.review_ids[1].todo_by
         elif level == 3 and len(self.review_ids) >= 3:
             user_id = self.review_ids[2].done_by
+            todo_by = self.review_ids[2].todo_by
         if user_id:
             employee_id = self.env['hr.employee'].sudo().search([('user_id', '=', user_id.id)])
             if option == 'name':
@@ -39,4 +42,7 @@ class HrExpenseSheet(models.Model):
                 return employee_id.job_title
             elif option == 'signature':
                 return user_id.signature
+        else:
+            if option == 'name':
+                return todo_by
         return False
