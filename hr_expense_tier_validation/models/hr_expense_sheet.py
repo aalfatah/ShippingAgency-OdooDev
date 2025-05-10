@@ -25,6 +25,7 @@ class HrExpenseSheet(models.Model):
 
     def get_approval(self, level, option):
         user_id = False
+        todo_by = False
         if level == 1 and len(self.review_ids) >= 1:
             user_id = self.review_ids[0].done_by
             todo_by = self.review_ids[0].todo_by
