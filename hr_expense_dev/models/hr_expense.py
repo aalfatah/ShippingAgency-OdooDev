@@ -225,3 +225,33 @@ class Expense(models.Model):
             'partner_id': False if self.payment_mode == 'company_account' else self.employee_id.sudo().address_home_id.commercial_partner_id.id,
             'tax_ids': [Command.set(self.tax_ids.ids)],
         }
+
+    @api.depends('employee_id', 'product_id', 'total_amount')
+    def _compute_duplicate_expense_ids(self):
+        self.duplicate_expense_ids = [(5, 0, 0)]
+
+        expenses = self.filtered(lambda e: e.employee_id and e.product_id and e.total_amount)
+        if expenses.ids:
+            duplicates_query = """
+              SELECT ARRAY_AGG(DISTINCT he.id)
+                FROM hr_expense AS he
+                JOIN hr_expense AS ex ON he.employee_id = ex.employee_id
+                                     AND he.product_id = ex.product_id
+                                     AND he.date = ex.date
+                                     AND he.total_amount = ex.total_amount
+                                     AND he.company_id = ex.company_id
+                                     AND he.currency_id = ex.currency_id
+                                     AND he.analytic_distribution = ex.analytic_distribution
+               WHERE ex.id in %(expense_ids)s
+               GROUP BY he.employee_id, he.product_id, he.date, he.total_amount, he.company_id, he.currency_id, he.analytic_distribution
+              HAVING COUNT(he.id) > 1
+            """
+            self.env.cr.execute(duplicates_query, {
+                'expense_ids': tuple(expenses.ids),
+            })
+            duplicates = [x[0] for x in self.env.cr.fetchall()]
+
+            for ids in duplicates:
+                exp = expenses.filtered(lambda e: e.id in ids)
+                exp.duplicate_expense_ids = [(6, 0, ids)]
+                expenses = expenses - exp

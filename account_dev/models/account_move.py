@@ -28,6 +28,13 @@ class AccountMove(models.Model):
     first_payment_journal = fields.Char(string="Payment Journal", compute='_get_first_payment', store=True)
     first_payment_date = fields.Date('Payment Date', compute='_get_first_payment', store=True)
 
+    def action_view_invoice_line(self):
+        self.ensure_one()
+        result = self.env['ir.actions.act_window']._for_xml_id('account_dev.action_moves_line_dev')
+        # result['domain'] = [('display_type', 'not in', ('line_section', 'line_note')), ('move_id', '=', self.id)]
+        result['domain'] = [('move_id', '=', self.id), ('display_type', '=', 'product')]
+        return result
+
     @api.depends('invoice_payments_widget')
     def _get_first_payment(self):
         for move in self:
