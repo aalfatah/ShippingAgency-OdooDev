@@ -34,9 +34,16 @@ class PayslipOverTime(models.Model):
         return result
 
     def unlink(self):
-        for recd in self.overtime_ids:
-            if recd.type == 'cash':
-                recd.payslip_period = False
+        for payslip in self:
+            overtime_ids = self.env['hr.overtime'].search([('employee_id', '=', payslip.employee_id.id),
+                                                           ('type', '=', 'cash'),
+                                                           ('state', '=', 'approved'),
+                                                           ('payslip_period', '=', payslip.date_to)])
+            if overtime_ids:
+                overtime_ids.update({'payslip_period': False})
+        # for recd in self.overtime_ids:
+        #     if recd.type == 'cash':
+        #         recd.payslip_period = False
         return super(PayslipOverTime, self).unlink()
 
 

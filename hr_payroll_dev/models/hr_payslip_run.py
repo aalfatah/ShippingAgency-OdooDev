@@ -81,7 +81,7 @@ class HrPayslipRunInherit(models.Model):
                 ledger_mapping = line.salary_rule_id.ledger_ids.search([('salary_rule_id', '=', line.salary_rule_id.id),
                                                                         ('salary_group_id', '=', slip.salary_group_id.id)])
                 if not ledger_mapping:
-                    ledger_mapping = line.salary_rule_id.ledger_ids.search([('salary_rule_id', '=', line.salary_rule_id.id)])
+                    ledger_mapping = line.salary_rule_id.ledger_ids.search([('salary_rule_id', '=', line.salary_rule_id.id)], limit=1)
                 if ledger_mapping:
                     debit_account_id = ledger_mapping.account_debit.id
                     credit_account_id = ledger_mapping.account_credit.id

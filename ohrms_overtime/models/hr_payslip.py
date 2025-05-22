@@ -42,12 +42,13 @@ class PayslipOverTime(models.Model):
         overtime_id = self.env['hr.overtime'].search([('employee_id', '=', employee_id.id),
                                                       # ('contract_id', '=', contract_id.id),
                                                       ('state', '=', 'approved'),
-                                                      ('payslip_period', '=', False)])
+                                                      '|', ('payslip_period', '=', False), ('payslip_period', '=', date_to)])
                                                       # ('payslip_paid', '=', False)])
         hrs_amount = overtime_id.mapped('cash_hrs_amount')
         day_amount = overtime_id.mapped('cash_day_amount')
         cash_amount = sum(hrs_amount) + sum(day_amount)
         if overtime_id:
+            overtime_id.update({'payslip_period': date_to})
             self.overtime_ids = overtime_id
             input_data = {
                 'name': overtime_type.name,
