@@ -81,6 +81,12 @@
 	    <field name="model">hr.expense</field>
 	    <field name="inherit_id" ref="hr_expense.view_my_expenses_tree"/>
 	    <field name="arch" type="xml">
+			<field name="analytic_distribution" position="after">
+				<field name="analytic_account_ids" widget="many2many_tags" optional="show"/>
+			</field>
+			<field name="analytic_distribution" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</field>
 			<field name="account_id" position="after">
 				<field name="av_line_id" optional="hide"/>
 			</field>

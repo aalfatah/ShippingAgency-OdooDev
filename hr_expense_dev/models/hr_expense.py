@@ -4,6 +4,7 @@ from odoo import fields, models, Command, api, _
 from odoo.tools.misc import clean_context, format_date
 from odoo.tools import email_split, float_is_zero, float_repr, float_compare, is_html_empty
 from odoo.exceptions import UserError, ValidationError
+from collections import defaultdict
 
 
 class Expense(models.Model):
@@ -81,6 +82,29 @@ class Expense(models.Model):
                                           related='sheet_id.currency_id', store=True, readonly=False)
     total_amount_company = fields.Monetary("Total (Company Currency)", compute='_compute_total_amount_company',
                                            store=True, currency_field='company_currency_id')
+    analytic_account_ids = fields.Many2many("account.analytic.account", compute="_compute_analytic_account_ids")
+
+    def _compute_analytic_account_ids(self):
+        # Prefetch all involved analytic accounts
+        with_distribution = self.filtered("analytic_distribution")
+        batch_by_analytic_account = defaultdict(list)
+        for record in with_distribution:
+            for account_id in map(int, record.analytic_distribution):
+                batch_by_analytic_account[account_id].append(record.id)
+        existing_account_ids = set(
+            self.env["account.analytic.account"]
+            .browse(map(int, batch_by_analytic_account))
+            .exists()
+            .ids
+        )
+        # Store them
+        self.analytic_account_ids = False
+        for account_id, record_ids in batch_by_analytic_account.items():
+            if account_id not in existing_account_ids:
+                continue
+            self.browse(record_ids).analytic_account_ids = [
+                fields.Command.link(account_id)
+            ]
 
     @api.depends('quantity', 'unit_amount', 'tax_ids', 'currency_id')
     def _compute_amount(self):
