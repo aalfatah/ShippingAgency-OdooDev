@@ -104,6 +104,10 @@
                 <field name="load_port_ids"/>
                 <field name="discharge_port_ids"/>
                 <field name="client_order_ref"/>
+                <group expand="0" string="Group By">
+                    <!-- Tambahkan filter baru untuk Start Date -->
+                    <filter string="Start Date" name="start_date" domain="[]" context="{'group_by': 'start_date'}"/>    
+                </group>
             </field>
         </field>
     </record>
