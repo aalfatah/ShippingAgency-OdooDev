@@ -82,7 +82,7 @@ class Expense(models.Model):
                                           related='sheet_id.currency_id', store=True, readonly=False)
     total_amount_company = fields.Monetary("Total (Company Currency)", compute='_compute_total_amount_company',
                                            store=True, currency_field='company_currency_id')
-    analytic_account_ids = fields.Many2many("account.analytic.account", compute="_compute_analytic_account_ids")
+    analytic_account_ids = fields.Many2many("account.analytic.account", compute="_compute_analytic_account_ids", store=True)
 
     def _compute_analytic_account_ids(self):
         # Prefetch all involved analytic accounts
