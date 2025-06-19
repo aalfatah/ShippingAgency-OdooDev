@@ -125,4 +125,17 @@
 			</filter>
 		</field>
 	</record>
+
+	<!-- Tambahkan Search by Analytic Account -->
+
+	<record id="hr_expense_view_search_dev" model="ir.ui.view">
+		<field name="model">hr.expense</field>
+		<field name="inherit_id" ref="hr_expense.hr_expense_view_search"/>
+		<field name="arch" type="xml">
+			<search string="Expense">
+				<field name="analytic_account_ids" string="Analytic Account"/>
+			</search>
+		</field>
+    </record>
+
 </odoo>
