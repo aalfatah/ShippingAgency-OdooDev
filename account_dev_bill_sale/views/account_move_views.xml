@@ -16,5 +16,15 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="view_account_move_line_filter_dev" model="ir.ui.view">
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+                <search string="Search Journal Items">
+                    <field name="analytic_account_ids" string="Analytic Account"></field>
+                </search>
+            </field>
+        </record>
     </data>
 </odoo>
