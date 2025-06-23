@@ -115,5 +115,15 @@
         <record id="account_menu_invoice_refund.action_invoice_in_tree" model="ir.actions.act_window">
             <field name="domain">[('move_type', 'in', ('in_invoice', 'in_refund')), ('journal_id', '!=', 12)]</field>
         </record>
+
+        <record id="view_account_move_line_filter_dev" model="ir.ui.view">
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="analytic_account_ids"/>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>
