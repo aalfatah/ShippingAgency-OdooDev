@@ -82,7 +82,23 @@ class Expense(models.Model):
                                           related='sheet_id.currency_id', store=True, readonly=False)
     total_amount_company = fields.Monetary("Total (Company Currency)", compute='_compute_total_amount_company',
                                            store=True, currency_field='company_currency_id')
-    analytic_account_ids = fields.Many2many("account.analytic.account", compute="_compute_analytic_account_ids", store=True)
+    analytic_account_ids = fields.Many2many("account.analytic.account", compute="_compute_analytic_account_ids",
+                                            search="_search_analytic_account")
+
+    @api.model
+    def _search_analytic_account(self, operator, value):
+        self.env.cr.execute("""
+                    SELECT string_agg(concat('key = ''', id, ''''), ' OR ') as filter
+                    FROM account_analytic_account, jsonb_each_text(name) analytic
+                    WHERE analytic.value ILIKE '%s'
+                """ % ('%' + value + '%'))
+        analytics = self.env.cr.fetchall()
+        self.env.cr.execute("""
+                    SELECT id 
+                    FROM hr_expense, jsonb_object_keys(analytic_distribution) key
+                    WHERE %s
+                """ % analytics[0][0])
+        return [("id", "in", [id[0] for id in self.env.cr.fetchall()])]
 
     def _compute_analytic_account_ids(self):
         # Prefetch all involved analytic accounts
