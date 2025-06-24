@@ -133,7 +133,7 @@
 		<field name="inherit_id" ref="hr_expense.hr_expense_view_search"/>
 		<field name="arch" type="xml">
 			<search string="Expense">
-				<field name="analytic_account_ids" string="Analytic Account"/>
+				<field name="analytic_account_ids" string="Analytic Account" domain="[('active', '=', True)]/>
 			</search>
 		</field>
     </record>
