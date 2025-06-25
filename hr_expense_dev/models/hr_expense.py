@@ -88,17 +88,22 @@ class Expense(models.Model):
     @api.model
     def _search_analytic_account(self, operator, value):
         self.env.cr.execute("""
-                    SELECT string_agg(concat('key = ''', id, ''''), ' OR ') as filter
-                    FROM account_analytic_account, jsonb_each_text(name) analytic
-                    WHERE analytic.value ILIKE '%s'
-                """ % ('%' + value + '%'))
+            SELECT string_agg(concat('key = ''', id, ''''), ' OR ') as filter
+            FROM account_analytic_account, jsonb_each_text(name) analytic
+            WHERE analytic.value ILIKE '%s'
+        """ % ('%' + value + '%'))
         analytics = self.env.cr.fetchall()
+        if not analytics or not analytics[0][0]:
+            return [("id", "in", [])]
         self.env.cr.execute("""
-                    SELECT id 
-                    FROM hr_expense, jsonb_object_keys(analytic_distribution) key
-                    WHERE %s
-                """ % analytics[0][0])
-        return [("id", "in", [id[0] for id in self.env.cr.fetchall()])]
+            SELECT id 
+            FROM hr_expense, jsonb_object_keys(analytic_distribution) key
+            WHERE %s
+        """ % analytics[0][0])
+        ids = [id[0] for id in self.env.cr.fetchall()]
+        if not ids:
+            return [("id", "in", [])]
+        return [("id", "in", ids)]
 
     def _compute_analytic_account_ids(self):
         # Prefetch all involved analytic accounts
