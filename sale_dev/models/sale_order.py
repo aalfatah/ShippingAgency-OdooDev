@@ -2,21 +2,23 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+from datetime import datetime
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    customer_contact = fields.Char("Contact")
-    start_date = fields.Date(string="Start Date", copy=False, required=True)
-    loading_date = fields.Date(string="Loading Date", copy=False)
-    commodity = fields.Char(string="Commodity")
-    cargo = fields.Float(string="Cargo")
-    grt = fields.Float(string="GRT")
-    flag = fields.Char(string="Flag")
-    no_bl = fields.Char(string="No. B/L")
-    shipper = fields.Char(string="Shipper")
-    mv = fields.Char(string="MV")
+    customer_contact = fields.Char("Contact", tracking=True)
+    start_date = fields.Date(string="Start Date", copy=False, required=True, tracking=True)
+    loading_date = fields.Date(string="Loading Date", copy=False, tracking=True)
+    commodity = fields.Char(string="Commodity", tracking=True)
+    cargo = fields.Float(string="Cargo", tracking=True)
+    grt = fields.Float(string="GRT",  tracking=True)
+    flag = fields.Char(string="Flag", tracking=True)
+    no_bl = fields.Char(string="No. B/L", tracking=True)
+    shipper = fields.Char(string="Shipper", tracking=True)
+    mv = fields.Char(string="MV", tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -29,3 +31,9 @@ class SaleOrder(models.Model):
                     )
 
         return super().create(vals_list)
+
+    def write(self, vals):
+        if 'start_date' in vals:
+            if datetime.strptime(vals.get('start_date'), "%Y-%m-%d").month != self.start_date.month:
+                raise UserError(_("Start date changes cannot be different months!"))
+        return super().write(vals)        
