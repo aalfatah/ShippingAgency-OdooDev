@@ -29,11 +29,10 @@ class SaleOrder(models.Model):
                     vals["name"] = sale_type.sequence_id.with_context(ir_sequence_date=vals.get("start_date")).next_by_id(
                         sequence_date=vals.get("start_date")
                     )
-
         return super().create(vals_list)
-
+    
     def write(self, vals):
         if 'start_date' in vals:
             if datetime.strptime(vals.get('start_date'), "%Y-%m-%d").month != self.start_date.month:
                 raise UserError(_("Start date changes cannot be different months!"))
-        return super().write(vals)        
+        return super(SaleOrder, self).write(vals)
