@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="hr_expense_sheet_view_search" model="ir.ui.view">
-        <field
-            name="name"
-        >hr.expense.sheet.view.search - hr_expense_tier_validation</field>
-        <field name="model">hr.expense.sheet</field>
-        <field name="inherit_id" ref="hr_expense.hr_expense_sheet_view_search" />
+    <record id="search_travel_req_tier" model="ir.ui.view">
+        <field name="model">travel.request</field>
+        <field name="inherit_id" ref="bi_employee_travel_dev.search_travel_req"/>
         <field name="arch" type="xml">
-            <filter name="my_team_reports" position="after">
+            <filter name="active" position="after">
                 <separator />
                 <filter
                     name="needs_review"
                     string="Needs my Review"
                     domain="[('reviewer_ids','in',uid), ('state', 'not in', ['approve', 'post', 'done', 'cancel'])]"
-                    help="My Expense report to review"
+                    help="My travel report to review"
                 />
                 <filter
                     name="tier_validated"
                     string="Validated"
                     domain="[('validated', '=', True)]"
-                    help="Expense report validated and ready to be approved"
+                    help="Travel request validated and ready to be approved"
                 />
             </filter>
         </field>
