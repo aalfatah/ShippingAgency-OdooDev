@@ -135,27 +135,27 @@
                                         <td/>
                                         <td style="text-align: center; vertical-align: middle;" height="100"><span t-raw="o.requested_by.signature"/></td>
                                         <td/>
-                                        <td style="text-align: center; vertical-align: middle;" height="100"><span t-raw="o.approval_by('signature')"/></td>
+                                        <td style="text-align: center; vertical-align: middle;" height="100"><span t-raw="o.approval_by('signature', level=1)"/></td>
                                         <td/>
-                                        <td style="text-align: center; vertical-align: middle;" height="100"><span t-raw="o.approval_by('signature')"/></td>
+                                        <td style="text-align: center; vertical-align: middle;" height="100"><span t-raw="o.approval_by('signature', level=2)"/></td>
                                         <td/>
                                     </tr>
                                     <tr>
                                         <td/>
                                         <td class="text-center" style="border-bottom: solid 1px;"><span t-field="o.requested_by"/></td>
                                         <td/>
-                                        <td class="text-center" style="border-bottom: solid 1px;"><span t-esc="o.approval_by('name')"/></td>
+                                        <td class="text-center" style="border-bottom: solid 1px;"><span t-esc="o.approval_by('name', level=1)"/></td>
                                         <td/>
-                                        <td class="text-center" style="border-bottom: solid 1px;"><span t-esc="o.approval_by('name')"/></td>
+                                        <td class="text-center" style="border-bottom: solid 1px;"><span t-esc="o.approval_by('name', level=2)"/></td>
                                         <td/>
                                     </tr>
                                     <tr>
                                         <td/>
                                         <td class="text-center"><span t-field="o.requested_by.employee_id.job_title"/></td>
                                         <td/>
-                                        <td class="text-center"><span t-esc="o.approval_by('job_title')"/></td>
+                                        <td class="text-center"><span t-esc="o.approval_by('job_title', level=1)"/></td>
                                         <td/>
-                                        <td class="text-center"><span t-esc="o.approval_by('job_title')"/></td>
+                                        <td class="text-center"><span t-esc="o.approval_by('job_title', level=2)"/></td>
                                         <td/>
                                     </tr>
                                 </tbody>
