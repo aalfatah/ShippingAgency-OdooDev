@@ -41,7 +41,7 @@
                                 <span t-field="o.origin" />
                             </div>-->
                             <div class="col-3 bm-2">
-                                <strong>Description:</strong>
+                                <strong>PR Description:</strong>
                                 <br />
                                 <span t-field="o.description" class="m-0"/>
                             </div>
@@ -66,22 +66,22 @@
                             <table class="table table-condensed">
                                 <thead>
                                     <tr>
-                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 60%;">
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 55%;">
                                             <strong>Description</strong>
                                         </th>
                                         <!--<th groups="analytic.group_analytic_accounting" style="padding-top: 7px; padding-bottom: 7px;">
                                             <strong>Analytic Account</strong>
                                         </th>-->
                                         <th style="padding-top: 7px; padding-bottom: 7px; width: 15%;">
-                                            <strong>Quantity</strong>
+                                            <strong>Qty</strong>
                                         </th>
-                                        <!--<th class="text-center" groups="uom.group_uom" style="padding-top: 7px; padding-bottom: 7px;">
+                                        <!-- <th class="text-center" groups="uom.group_uom" style="padding-top: 7px; padding-bottom: 7px;">
                                             <strong>Product UoM</strong>
-                                        </th>-->
-                                        <!--<th>
+                                        </th> -->
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 20%;">
                                             <strong>Estimated Cost</strong>
-                                        </th>-->
-                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 25%;">
+                                        </th>
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 20%;">
                                             <strong>Requested Date</strong>
                                         </th>
                                         <!--<th>
@@ -107,9 +107,9 @@
                                                 />
                                             </td>
                                         </t>-->
-                                        <!--<td>
+                                        <td style="padding-top: 3px; padding-bottom: 3px; text-align: center;">
                                             <span t-field="line_ids.estimated_cost" />
-                                        </td>-->
+                                        </td>
                                         <td class="text-center" style="padding-top: 3px; padding-bottom: 3px;">
                                             <span t-field="line_ids.date_required"/>
                                         </td>
