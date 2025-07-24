@@ -5,13 +5,7 @@ class PurchaseRequest(models.Model):
     _inherit = "purchase.request"
 
     def approval_by(self, title, level=1):
-        """
-        Get approval info (name, job title, or signature) from the employee's hierarchy.
         
-        :param str title: 'name', 'job_title', or 'signature'
-        :param int level: 1 for parent (direct manager), 2 for grandparent (manager's manager)
-        :return: Requested information or False if not found
-        """
         self.ensure_one()
         
         if not self.requested_by.employee_id:
@@ -22,7 +16,7 @@ class PurchaseRequest(models.Model):
         # hierarki berdasarkan level
         for _ in range(level):
             if not employee.parent_id:
-                return False  # jika tidak ada parent high-level
+                return False
             employee = employee.parent_id
         
         if title == 'name':
@@ -32,3 +26,14 @@ class PurchaseRequest(models.Model):
         elif title == 'signature':
             return employee.user_id.signature if employee.user_id else False
         return False
+
+    # def approval_by(self, title):
+    #     for request in self:
+    #         employee = self.env['hr.employee'].sudo().search([('id', '=', request.requested_by.employee_id.parent_id.id)])
+    #         if title == 'name':
+    #             return employee.user_id.name
+    #         elif title == 'job_title':
+    #             return employee.job_id.name
+    #         elif title == 'signature':
+    #             return employee.user_id.signature
+    
