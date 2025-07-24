@@ -13,8 +13,11 @@
                 <xpath expr="//tree/field[@name='name']" position="after">
                     <field name="work_period" optional="hide"
                            attrs="{'column_invisible': [('parent.move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
-                    <!-- Tambahkan kolom aktivitas kegiatan -->       
-                    <field name="activity_period" string="Activitas Kegiatan" optional="hide"/>
+                    <!-- Tambahkan kolom tgl Perioda kegiatan -->
+                    <field name="activity_period_from" widget="date"/>
+                    <field name="activity_period_to" widget="date"/>      
+                    <field name="activity_period" optional="hide" 
+                           attrs="{'column_invisible': [('parent.move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
                 </xpath>
             </field>
         </record>
