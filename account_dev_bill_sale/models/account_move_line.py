@@ -27,11 +27,21 @@ class AccountMoveLine(models.Model):
                 'analytic_distribution': {self.sale_id.analytic_account_id.id: 100}
             })
 
+    # @api.depends('activity_period_from', 'activity_period_to')
+    # def _compute_activity_period(self):
+    #     for record in self:
+    #         if record.activity_period_from and record.activity_period_to:
+    #             record.activity_period = f"{record.activity_period_from.strftime('%d-%m-%Y')} - {record.activity_period_to.strftime('%d-%m-%Y')}"
+    #         else:
+    #             record.activity_period = False
+
     @api.depends('activity_period_from', 'activity_period_to')
     def _compute_activity_period(self):
         for record in self:
-            if record.activity_period_from and record.activity_period_to:
-                record.activity_period = f"{record.activity_period_from.strftime('%d-%m-%Y')} - {record.activity_period_to.strftime('%d-%m-%Y')}"
+            if record.activity_period_from or record.activity_period_to:
+                date_from = record.activity_period_from.strftime('%d-%m-%Y') if record.activity_period_from else ''
+                date_to = record.activity_period_to.strftime('%d-%m-%Y') if record.activity_period_to else ''
+                record.activity_period = f"{date_from} - {date_to}"
             else:
-                record.activity_period = False
+                record.activity_period = False            
     
