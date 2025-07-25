@@ -6,7 +6,7 @@ class AccountMoveLine(models.Model):
 
     sale_id = fields.Many2one('sale.order', 'Sales Order', tracking=True, ondelete='restrict')
     work_period = fields.Char('Perioda Kerja', compute='_work_period')
-    # activity_period = fields.Char('Periode Aktivitas')
+    activity_period = fields.Char('Perioda Kegiatan', compute='_compute_activity_period')
     activity_period_from = fields.Date('Activity From')
     activity_period_to = fields.Date('Activity To')
 
@@ -31,11 +31,7 @@ class AccountMoveLine(models.Model):
     def _compute_activity_period(self):
         for record in self:
             if record.activity_period_from and record.activity_period_to:
-                record.activity_period = f"{record.activity_period_from.strftime('%d/%m/%Y')} - {record.activity_period_to.strftime('%d/%m/%Y')}"
+                record.activity_period = f"{record.activity_period_from.strftime('%d-%m-%Y')} - {record.activity_period_to.strftime('%d-%m-%Y')}"
             else:
                 record.activity_period = False
     
-    activity_period = fields.Char(
-        'Perioda Kegiatan', 
-        compute='_compute_activity_period'
-    )
