@@ -14,8 +14,8 @@
                     <field name="work_period" optional="hide"
                            attrs="{'column_invisible': [('parent.move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
                     <!-- Tambahkan kolom tgl Perioda kegiatan -->
-                    <field name="activity_period_from" widget="date"/>
-                    <field name="activity_period_to" widget="date"/>      
+                    <field name="activity_period_from" widget="date" optional="show"/>
+                    <field name="activity_period_to" widget="date" optional="show"/>      
                     <field name="activity_period" optional="hide" 
                            attrs="{'column_invisible': [('parent.move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
                 </xpath>
