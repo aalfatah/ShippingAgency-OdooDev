@@ -7,8 +7,8 @@ class AccountMoveLine(models.Model):
     sale_id = fields.Many2one('sale.order', 'Sales Order', tracking=True, ondelete='restrict')
     work_period = fields.Char('Perioda Kerja', compute='_work_period')
     activity_period = fields.Char('Perioda Kegiatan', compute='_compute_activity_period')
-    activity_period_from = fields.Date('Activity From')
-    activity_period_to = fields.Date('Activity To')
+    activity_period_from = fields.Date('Date From')
+    activity_period_to = fields.Date('Date To')
 
     @api.onchange('sale_id')
     def _work_period(self):
