@@ -44,7 +44,7 @@ Repositori ini berisi lingkungan pengembangan untuk Odoo beserta dependensi terk
 ```sh
 python server/odoo-bin -c server/odoo.conf
 ```
-  - Rename `python` menjadi `pyodoo16` yang tersedia di folder `python/`.
+Rename `python` menjadi `pyodoo16` yang tersedia di folder `python/`.
 
 1.  **Update Modul via Terminal**
 - Perbarui modul tertentu *(misal: nama_modul)* dengan menjalankan perintah berikut : 
