@@ -53,7 +53,7 @@ python server/odoo-bin -c server/odoo.conf
     ```
     Opsi `-u` (atau `--update`) digunakan untuk meng-update modul yang disebutkan.
 
-3. **Update Modul via UI**
+2. **Update Modul via UI**
    - Masuk ke odoo dengan akun admin
    - Buka menu **Apps**
    - Cari modul yang ingin di-update
@@ -62,6 +62,7 @@ python server/odoo-bin -c server/odoo.conf
 ## Tips
 
 - Untuk development, aktifkan mode developer di Odoo UI agar menu update modul muncul `/web?debug=1`.
+- Selalu lakukan backup database sebelum deployment. master password db:`Bss_1`
 - Jika ada error, cek log Odoo di terminal untuk troubleshooting.
 
 ## Kontribusi
