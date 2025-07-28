@@ -66,7 +66,7 @@
                             <table class="table table-condensed">
                                 <thead>
                                     <tr>
-                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 55%;">
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 50%;">
                                             <strong>Description</strong>
                                         </th>
                                         <!--<th groups="analytic.group_analytic_accounting" style="padding-top: 7px; padding-bottom: 7px;">
@@ -81,7 +81,7 @@
                                         <th style="padding-top: 7px; padding-bottom: 7px; width: 20%;">
                                             <strong>Estimated Cost</strong>
                                         </th>
-                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 20%;">
+                                        <th style="padding-top: 7px; padding-bottom: 7px; width: 25%;">
                                             <strong>Requested Date</strong>
                                         </th>
                                         <!--<th>
@@ -110,7 +110,7 @@
                                         <td style="padding-top: 3px; padding-bottom: 3px; text-align: center;">
                                             <span t-field="line_ids.estimated_cost" />
                                         </td>
-                                        <td class="text-center" style="padding-top: 3px; padding-bottom: 3px;">
+                                        <td style="padding-top: 3px; padding-bottom: 3px; text-align: center;">
                                             <span t-field="line_ids.date_required"/>
                                         </td>
                                         <!--<td>
