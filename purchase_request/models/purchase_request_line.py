@@ -163,6 +163,11 @@ class PurchaseRequestLine(models.Model):
         default=0.0,
         help="Estimated cost of Purchase Request Line, not propagated to PO.",
     )
+    subtotal = fields.Monetary(
+        compute="_compute_subtotal",
+        string="Subtotal",
+        store=True,
+    )
     currency_id = fields.Many2one(related="company_id.currency_id", readonly=True)
     product_id = fields.Many2one(
         comodel_name="product.product",
@@ -170,6 +175,14 @@ class PurchaseRequestLine(models.Model):
         domain=[("purchase_ok", "=", True)],
         tracking=True,
     )
+
+    @api.depends("product_qty", "estimated_cost")
+    def _compute_subtotal(self):
+        for rec in self:
+            if rec.product_qty and rec.estimated_cost:
+                rec.subtotal = rec.product_qty * rec.estimated_cost
+            else:
+                rec.subtotal = 0.0
 
     @api.depends(
         "purchase_request_allocation_ids",
