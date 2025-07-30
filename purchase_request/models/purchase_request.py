@@ -159,6 +159,17 @@ class PurchaseRequest(models.Model):
         string="Total Estimated Cost",
         store=True,
     )
+    total_amount = fields.Monetary(
+        string='Total Amount',
+        compute='_compute_total_amount',
+        currency_field='currency_id',
+        store=True,
+    )
+
+    @api.depends('line_ids.subtotal')
+    def _compute_total_amount(self):
+        for request in self:
+            request.total_amount = sum(line.subtotal for line in request.line_ids)
 
     @api.depends("line_ids", "line_ids.estimated_cost")
     def _compute_estimated_cost(self):

@@ -196,12 +196,6 @@
                                     />
                                     <field name="date_required" />
                                     <field name="estimated_cost" widget="monetary" optional="1"/>
-                                    <field
-                                        name="subtotal"
-                                        widget="monetary"
-                                        options="{'currency_field': 'currency_id'}"
-                                        optional="1"
-                                    />
                                     <field name="currency_id" invisible="1" />
                                     <field
                                         name="company_id"
@@ -212,6 +206,11 @@
                                     <field name="is_editable" invisible="1" />
                                     <field name="purchased_qty" />
                                     <field
+                                        name="subtotal"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                    />
+                                    <field
                                         name="purchase_state"
                                         widget="badge"
                                         decoration-success="purchase_state == ('done')"
@@ -219,6 +218,7 @@
                                         decoration-info="purchase_state in ('sent', 'purchase')"
                                         decoration-warning="purchase_state == ('to_approve')"
                                         decoration-danger="purchase_state == 'cancelled'"
+                                        optional="1"
                                     />
                                     <button
                                         name="action_show_details"
@@ -243,7 +243,15 @@
                                     options="{'currency_field': 'currency_id'}"
                                 />
                             </group>
-
+                            <group class="oe_subtotal_footer oe_right">
+                                <label for="total_amount" class="oe_inline" />
+                                <field
+                                    name="total_amount"
+                                    nolabel="1"
+                                    class="oe_subtotal_footer_separator"
+                                    options="{'currency_field': 'currency_id'}"
+                                />
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
@@ -278,6 +286,7 @@
                 <field name="origin" />
                 <field name="currency_id" invisible="1" />
                 <field name="estimated_cost" optional="hide" />
+                <field name="total_amount" optional="hide" />
                 <field
                     name="state"
                     widget="badge"
