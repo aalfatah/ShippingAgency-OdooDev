@@ -195,7 +195,7 @@
                                         optional="1"
                                     />
                                     <field name="date_required" />
-                                    <field name="estimated_cost" widget="monetary" optional="1"/>
+                                    <field name="estimated_cost" widget="monetary"/>
                                     <field name="currency_id" invisible="1" />
                                     <field
                                         name="company_id"
