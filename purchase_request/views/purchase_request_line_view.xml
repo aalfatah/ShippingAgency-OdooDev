@@ -12,7 +12,6 @@
                 decoration-muted="cancelled == True"
                 decoration-info="request_state in ('draft', 'to_approve')"
             >
-                <field name="request_id" />
                 <field
                     name="request_state"
                     widget="badge"
@@ -21,12 +20,16 @@
                     decoration-danger="request_state == 'rejected'"
                 />
                 <field name="requested_by" widget="many2one_avatar_user" />
-                <field name="assigned_to" widget="many2one_avatar_user" />
+                <field name="assigned_to" widget="many2one_avatar_user" optional="hide" />
+                <field name="request_id" />
                 <field name="date_required" />
-                <field name="estimated_cost" widget="monetary" />
-                <field name="subtotal" widget="monetary" />
+                <field name="name" />
+                <field name="product_id" optional="hide" />
+                <field name="product_qty" />
+                <field name="purchased_qty" optional="hide" />
+                <field name="estimated_cost" widget="monetary" />   
+                <field name="subtotal" widget="monetary" optional="hide" />
                 <field name="currency_id" invisible="1" />
-                <field name="purchased_qty" />
                 <field
                     name="purchase_state"
                     widget="badge"
@@ -36,9 +39,6 @@
                     decoration-warning="purchase_state == 'to_approve'"
                     decoration-danger="purchase_state == 'cancelled'"
                 />
-                <field name="product_id" />
-                <field name="name" />
-                <field name="product_qty" />
                 <field name="product_uom_category_id" invisible="1" />
                 <field name="product_uom_id" groups="uom.group_uom" />
                 <field
@@ -48,7 +48,7 @@
                     groups="analytic.group_analytic_accounting"
                     options="{'product_field': 'product_id', 'business_domain': 'purchase_order'}"
                 />
-                <field name="supplier_id" />
+                <field name="supplier_id" optional="hide" />
                 <field
                     name="company_id"
                     groups="base.group_multi_company"

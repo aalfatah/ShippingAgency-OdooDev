@@ -173,7 +173,6 @@
                                 >
                                     <field name="product_id" />
                                     <field name="name" />
-                                    <field name="product_qty" />
                                     <field
                                         name="product_uom_category_id"
                                         invisible="1"
@@ -194,6 +193,8 @@
                                         options="{'product_field': 'product_id', 'business_domain': 'purchase_order'}"
                                         optional="1"
                                     />
+                                    <field name="product_qty" />
+                                    <field name="purchased_qty" />
                                     <field name="date_required" />
                                     <field name="estimated_cost" widget="monetary"/>
                                     <field name="currency_id" invisible="1" />
@@ -204,7 +205,6 @@
                                     />
                                     <field name="cancelled" invisible="1" />
                                     <field name="is_editable" invisible="1" />
-                                    <field name="purchased_qty" />
                                     <field
                                         name="subtotal"
                                         widget="monetary"
