@@ -27,6 +27,7 @@ class AccountMove(models.Model):
     down_payment = fields.Boolean(string='Down Payment', tracking=True, default=False)
     first_payment_journal = fields.Char(string="Payment Journal", compute='_get_first_payment', store=True)
     first_payment_date = fields.Date('Payment Date', compute='_get_first_payment', store=True)
+    attachment_number = fields.Integer('Attachments', compute='_compute_attachment_number')
 
     def action_view_invoice_line(self):
         self.ensure_one()
@@ -34,6 +35,11 @@ class AccountMove(models.Model):
         # result['domain'] = [('display_type', 'not in', ('line_section', 'line_note')), ('move_id', '=', self.id)]
         result['domain'] = [('move_id', '=', self.id), ('display_type', '=', 'product')]
         return result
+
+    @api.depends('attachment_ids')
+    def _compute_attachment_number(self):
+        for move in self:
+            move.attachment_number = len(move.attachment_ids)
 
     @api.depends('invoice_payments_widget')
     def _get_first_payment(self):

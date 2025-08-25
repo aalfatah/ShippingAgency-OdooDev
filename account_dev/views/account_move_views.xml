@@ -101,6 +101,9 @@
                     <field name="first_payment_journal" optional="hide"/>
                     <field name="first_payment_date" optional="hide"/>
                 </field>
+                <field name="amount_untaxed_signed" position="before">
+                    <field name="attachment_number" class="fa fa-paperclip pe-0" attrs="{'invisible': [('attachment_number', '=', 0)]}" optional="hide"/>
+                </field>
             </field>
         </record>
 
