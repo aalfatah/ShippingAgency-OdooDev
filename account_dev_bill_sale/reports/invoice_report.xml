@@ -140,7 +140,7 @@
                                     <td style="background-color: #102cb0; color: white;"><span t-esc='o.sale_order_id.loading_date' t-options='{"widget": "date"}'/></td>
                                     <td style="background-color: #102cb0; color: white;">NO. PO</td>
                                     <td style="background-color: #102cb0; color: white;">:</td>
-                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.sale_order_id.client_order_ref"/></td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.po_no"/></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: #102cb0; color: white;">END DATE</td>
@@ -148,7 +148,7 @@
                                     <td style="background-color: #102cb0; color: white;"><span t-esc='o.sale_order_id.commitment_date' t-options='{"widget": "date"}'/></td>
                                     <td style="background-color: #102cb0; color: white;">NO. VO</td>
                                     <td style="background-color: #102cb0; color: white;">:</td>
-                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.sale_order_id.vo_no"/></td>
+                                    <td style="background-color: #102cb0; color: white;"><span t-esc="o.vo_no"/></td>
                                 </tr>
                             </table>
                         </div>
