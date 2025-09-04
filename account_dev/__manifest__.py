@@ -18,6 +18,7 @@ Modify journal view show secure_sequence_id field
         'reports/print_payment_voucher.xml',
         'reports/report_account_move.xml',
         'reports/report_invoice.xml',
+        'reports/account_report.xml',
     ],
     'demo': [
     ],
