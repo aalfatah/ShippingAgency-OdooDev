@@ -20,6 +20,7 @@ class AccountMove(models.Model):
                                           compute='_get_sale_order')
     po_no = fields.Char(
         string='No. PO',
+        store=True,
         readonly=True,
         states={
             'draft': [('readonly', False)]
@@ -28,6 +29,7 @@ class AccountMove(models.Model):
 
     vo_no = fields.Char(
         string='No. VO',
+        store=True,
         readonly=True,
         states={
             'draft': [('readonly', False)]
@@ -54,10 +56,9 @@ class AccountMove(models.Model):
                 load_port_ids = sale.load_port_ids
                 discharge_port_ids = sale.discharge_port_ids
 
-                # Hanya set po_no dan vo_no jika belum ada nilai (saat draft)
-                if move.state == 'draft' and not move.po_no:
+                if not move.po_no and sale.client_order_ref:
                     move.po_no = sale.client_order_ref
-                if move.state == 'draft' and not move.vo_no:
+                if not move.vo_no and sale.vo_no:
                     move.vo_no = sale.vo_no
 
             move.sale_id = sale_id
