@@ -111,6 +111,9 @@
 				<field name="journal_id" optional="hide"/>
 				<field name="bank_journal_id" optional="hide"/>
 			</field>
+			<field name="create_date" position="after">
+				<field name="date" optional="hide"/>
+			</field>
 		</field>
 	</record>
 

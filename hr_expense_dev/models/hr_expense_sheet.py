@@ -10,6 +10,13 @@ class ExpenseSheet(models.Model):
     payment_mode = fields.Selection(store=True)
     bank_journal_id = fields.Many2one(tracking=True)
 
+    date = fields.Date(
+        string='Expense Date', 
+        related='expense_line_ids.date', 
+        readonly=True,
+        store=True
+        )
+
     @api.onchange('employee_id')
     def _set_employee_default_bank(self):
         if self.employee_id:
