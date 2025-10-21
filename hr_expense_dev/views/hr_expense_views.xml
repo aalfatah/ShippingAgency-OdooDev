@@ -126,6 +126,15 @@
 				<filter string="Expense Journal" domain="[]" context="{'group_by': 'journal_id'}" name="group_by_journal_id"/>
 				<filter string="Bank Journal" domain="[]" context="{'group_by': 'bank_journal_id'}" name="group_by_bank_journal_id"/>
 			</filter>
+			<filter name="filter_accounting_date" position="after">
+				<filter string="Expense Date" name="date" date="date"/>
+			</filter>
+			<group position="before">
+				<filter string="Expense Date" domain="[]" context="{'group_by': 'date'}" name="group_by_expense_date"/>
+			</group>
+			<field name="accounting_date" position="after">
+				<field name="date"/>
+			</field>
 		</field>
 	</record>
 
