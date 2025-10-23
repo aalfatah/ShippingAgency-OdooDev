@@ -18,19 +18,19 @@ class AccountMove(models.Model):
                                      compute='_get_sale_order')
     discharge_port_ids = fields.Many2many('agency.port', 'sale_order_discharge_port_rel', string='Discharge Port',
                                           compute='_get_sale_order')
-    po_no = fields.Char(
-        string='No. PO',
-        store=True,
-        readonly=True,
+    po_no = fields.Char(string='No. PO', store=True, readonly=True,
         states={
             'draft': [('readonly', False)]
         }
     )
 
-    vo_no = fields.Char(
-        string='No. VO',
-        store=True,
-        readonly=True,
+    vo_no = fields.Char(string='No. VO', store=True, readonly=True,
+        states={
+            'draft': [('readonly', False)]
+        }
+    )
+
+    po_date = fields.Date(string='Tanggal PO', store=True, readonly=True,
         states={
             'draft': [('readonly', False)]
         }
@@ -41,6 +41,7 @@ class AccountMove(models.Model):
             sale_id = False
             po_no = False
             vo_no = False
+            po_date = False
             no_bl = False
             vessel_ids = False
             last_port_id = False
@@ -60,6 +61,8 @@ class AccountMove(models.Model):
                     move.po_no = sale.client_order_ref
                 if not move.vo_no and sale.vo_no:
                     move.vo_no = sale.vo_no
+                if not move.po_date and sale.po_date:
+                    move.po_date = sale.po_date
 
             move.sale_id = sale_id
             move.no_bl = no_bl
