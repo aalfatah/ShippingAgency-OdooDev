@@ -200,12 +200,14 @@
                                     </t>
                                 </t>
                                 <t t-else="">
-                                    <t t-foreach="o.sale_order_id.order_line.filtered(lambda l: l.product_id and l.product_uom_qty > 0)" t-as="line">
-                                        <tr>
-                                            <td style="width: 65%; padding-left: 10px;"><span t-field="line.product_id.display_name"/></td>
-                                            <td style="width: 5%;">:</td>
-                                            <td style="width: 30%; text-align: right;"><span t-esc="line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
-                                        </tr>
+                                    <t t-if="o.sale_type_id.name != 'Talangan'">
+                                        <t t-foreach="o.sale_order_id.order_line.filtered(lambda l: l.product_id and l.product_uom_qty > 0)" t-as="line">
+                                            <tr>
+                                                <td style="width: 65%; padding-left: 10px;"><span t-field="line.name"/></td>
+                                                <td style="width: 5%;">:</td>
+                                                <td style="width: 30%; text-align: right;"><span t-esc="line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
                                     </t>
                                 </t>
                                 <t t-if="o.sale_type_id.name == 'Normal Order'">
