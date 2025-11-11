@@ -146,6 +146,7 @@
 		<field name="arch" type="xml">
 			<search string="Expense">
 				<field name="analytic_account_ids" string="Analytic Account" domain="[('active', '=', True)]"/>
+				<field name="reference" string="Reference"/>
 			</search>
 		</field>
     </record>
