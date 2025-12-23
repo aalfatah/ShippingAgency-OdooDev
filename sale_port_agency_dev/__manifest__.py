@@ -4,7 +4,7 @@
     "category": "Sales Management",
     "author": "Dev Team,",
     "license": "LGPL-3",
-    "depends": ["sale", "sale_management", "sale_dev", "port_agency_dev", "hr_expense", "sale_project"],
+    "depends": ["account", "sale", "sale_management", "sale_dev", "port_agency_dev", "hr_expense", "sale_project"],
     "data": [
         "security/ir.model.access.csv",
         "security/port_agency_security.xml",
