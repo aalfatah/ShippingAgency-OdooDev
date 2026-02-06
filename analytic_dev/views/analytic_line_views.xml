@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_line_tree_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="activity_period_from" optional="hide"/>
+                <field name="activity_period_to" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_form_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.line.form.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="activity_period_from"/>
+                <field name="activity_period_to"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_filter_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.line.search.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="activity_period_from"/>
+                <field name="activity_period_to"/>
+                
+                <filter string="Period From" name="filter_period_from" date="activity_period_from"/>
+                <filter string="Period To" name="filter_period_to" date="activity_period_to"/>
+                
+                <group expand="0" string="Group By">
+                    <filter string="Activity Period From" name="group_activity_from" context="{'group_by': 'activity_period_from'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
