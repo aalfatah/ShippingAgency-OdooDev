@@ -277,6 +277,7 @@
             <tree>
                 <field name="name" />
                 <field name="code" optional="show" />
+                <field name="note" optional="hide" />
                 <field name="depreciation_base" optional="show" />
                 <field name="value_depreciated" optional="show" />
                 <field name="value_residual" optional="show" />
@@ -337,6 +338,7 @@
                 <separator />
                 <field name="name" />
                 <field name="code" />
+                <field name="note" />
                 <field name="date_start" />
                 <field name="profile_id" />
                 <field name="group_ids" />

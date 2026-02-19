@@ -32,6 +32,7 @@
             <xpath expr="//search" position="inside">
                 <field name="activity_period_from"/>
                 <field name="activity_period_to"/>
+                <field name="move_line_id"/>
                 
                 <filter string="Period From" name="filter_period_from" date="activity_period_from"/>
                 <filter string="Period To" name="filter_period_to" date="activity_period_to"/>
